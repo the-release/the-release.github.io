@@ -2,6 +2,8 @@
 
 **WeWork explores a nostalgic niche to leave their recent IPO disaster behind.**
 
+<img alt="garage" src="https://unsplash.com/photos/MJeyFglfq9E/download?force=true&w=640" />
+
 Following their [2019 IPO fiasco](https://www.forbes.com/sites/greatspeculations/2019/08/27/wework-is-the-most-ridiculous-ipo-of-2019/#646b9ccb1ad6), commercial real estate giant WeWork faces an urgent need to pivot. Our reporters have uncovered that The We company subdivision has been purchasing a very targeted type of space: home garages. Their property research and offer efforts target the Palo Alto area and can be traced back to as early as fall 2019. 
 
 This new project can be linked to Sandeep Mathrani, CEO since February. With his real-estate background, it's no surprise that Mathrani would have quickly pitched new property categories to tap into in early conversations as part of his hiring process. 
