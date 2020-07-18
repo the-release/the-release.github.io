@@ -2,6 +2,7 @@ import { promises as fs } from "fs";
 import path from "path";
 import { GetStaticProps } from "next";
 import glob from "glob";
+import jimp from "jimp";
 
 import { PagePost } from "../../modules/page-article/page-article.component";
 import {
@@ -42,6 +43,17 @@ const toAbsolutePaths = (html: string, basePath: string) => {
   return $.html();
 };
 
+const optimizeImage = async (imagePath: string) => {
+  const image = await jimp.read(imagePath);
+
+  if (image.getWidth() > 960) {
+    await image.resize(960, jimp.AUTO);
+  }
+
+  await image.quality(50);
+  await image.writeAsync(imagePath);
+};
+
 export const getStaticProps: GetStaticProps<PageArticleProps> = async ({
   params
 }: any) => {
@@ -63,14 +75,12 @@ export const getStaticProps: GetStaticProps<PageArticleProps> = async ({
       const fileName = file.replace(articlesDir, "");
       const dest = path.join(publicDir, "article", fileName);
 
-      console.log(file);
-      console.log(path.parse(dest).dir);
-
       await fs.mkdir(path.parse(dest).dir, {
         recursive: true
       });
 
       await fs.copyFile(file, dest);
+      await optimizeImage(dest);
     }
   });
 

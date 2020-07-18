@@ -12,6 +12,7 @@
   "dependencies": {
     "cheerio": "^1.0.0-rc.3",
     "glob": "^7.1.6",
+    "jimp": "^0.14.0",
     "marked": "^1.1.1",
     "next": "^9.4.0",
     "react": "^16.12.0",
