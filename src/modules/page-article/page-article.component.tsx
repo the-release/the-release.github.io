@@ -11,7 +11,14 @@ export interface PageArticleProps {
 }
 
 export const PagePost: FC<PageArticleProps> = ({
-  article: { title, description, coverImageUrl, creationDate, htmlContent }
+  article: {
+    title,
+    description,
+    coverImageUrl,
+    creationDate,
+    category,
+    htmlContent
+  }
 }) => {
   return (
     <>
@@ -32,7 +39,7 @@ export const PagePost: FC<PageArticleProps> = ({
         />
       </Head>
       <Layout>
-        <ArticleMeta>{creationDate}</ArticleMeta>
+        <ArticleMeta creationDate={creationDate} category={category} />
         <Markdown>{htmlContent}</Markdown>
       </Layout>
     </>

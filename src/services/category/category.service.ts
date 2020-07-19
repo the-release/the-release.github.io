@@ -9,7 +9,7 @@ export const getCategories = async (): Promise<Category[]> => {
 
   return categories.split("\n").map(category => {
     return {
-      name: category
+      name: category.trim()
     };
   });
 };

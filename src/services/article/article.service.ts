@@ -30,6 +30,9 @@ export const getArticleBySlug = async (slug: string): Promise<Article> => {
   const htmlContent = toTitleCase(
     toAbsolutePaths(htmlContentSelector(articleFilePath), basePath)
   );
+  const categoryFilePath = path.join(articleDir, "/category.txt");
+  const category = (await fs.readFile(categoryFilePath, "utf8")).trim();
+
   const $ = cheerio.load(htmlContent);
   const images = imagesSelector($);
   let thumbnailPath: string | null = null;
@@ -60,8 +63,19 @@ export const getArticleBySlug = async (slug: string): Promise<Article> => {
     title: titleSelector($),
     description: descriptionSelector($),
     coverImageUrl: coverImageUrlSelector($),
-    thumbnail: thumbnailPath
+    thumbnail: thumbnailPath,
+    category
   };
+};
+
+export const getArticlesByCategory = async (
+  category: string
+): Promise<Article[]> => {
+  const articles = await getArticles();
+
+  return articles.filter(article => {
+    return article.category === category;
+  });
 };
 
 export const getArticles = async (): Promise<Article[]> => {

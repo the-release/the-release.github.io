@@ -7,4 +7,5 @@ export interface Article {
   thumbnail: string | null;
   creationDate: string;
   timestamp: number;
+  category: string;
 }
