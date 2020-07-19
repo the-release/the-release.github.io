@@ -1,10 +1,11 @@
 import React, { FC, useEffect, useState } from "react";
+import Head from "next/head";
+
 import { Layout } from "../layout/layout.component";
 import { Heading } from "../../catalog/heading/heading.component";
-import Head from "next/head";
-import { Article } from "../../services/articles/article.entity";
+import { Article } from "../../services/article/article.entity";
 
-interface PageHomeProps {
+export interface PageHomeProps {
   articles: Article[];
 }
 
@@ -33,9 +34,10 @@ export const PageHome: FC<PageHomeProps> = ({ articles }) => {
           <br />
           go brrrrrr{shouldShowUnderscore && "_"}
         </Heading>
-        {articles.map(({ slug }, index) => (
+        {articles.map(({ slug, metadata }, index) => (
           <React.Fragment key={index}>
             <a href={`/article/${slug}`}>{slug}</a>
+            <img src={metadata.coverImageUrl} />
             <br />
           </React.Fragment>
         ))}

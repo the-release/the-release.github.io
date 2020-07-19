@@ -2,7 +2,10 @@ import cheerio from "cheerio";
 import fs from "fs";
 import marked from "marked";
 import { format } from "date-fns";
-import { ArticleMetadata } from "./page-article";
+import url from "url";
+
+import { ArticleMetadata } from "../../services/article/article.entity";
+import { HOST } from "../../config";
 
 export const metadataSelector = (
   html: string,
@@ -35,7 +38,7 @@ const coverImageUrlSelector = ($: CheerioStatic) => {
     .first()
     .attr("src");
 
-  return `https://google.com${src}`;
+  return url.resolve(HOST, src || "");
 };
 
 const creationDateSelector = (filePath: string) => {

@@ -1,8 +1,13 @@
-import { PageHome } from "../modules/page-home/page-home.component";
-import { getArticles } from "../services/articles/articles.service";
+import { GetStaticProps } from "next";
 
-export const getStaticProps = () => {
-  const articles = getArticles();
+import {
+  PageHome,
+  PageHomeProps
+} from "../modules/page-home/page-home.component";
+import { getArticles } from "../services/article/article.service";
+
+export const getStaticProps: GetStaticProps<PageHomeProps> = async () => {
+  const articles = await getArticles();
 
   return {
     props: {

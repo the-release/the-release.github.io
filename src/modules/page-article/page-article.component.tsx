@@ -3,10 +3,16 @@ import Head from "next/head";
 
 import { Layout } from "../layout/layout.component";
 import { Markdown } from "../../catalog/markdown/markdown.component";
-import { PageArticleProps } from "./page-article";
 import { ArticleMeta } from "../../catalog/article-meta/article-meta.component";
+import { Article } from "../../services/article/article.entity";
 
-export const PagePost: FC<PageArticleProps> = ({ htmlContent, metadata }) => {
+export interface PageArticleProps {
+  article: Article;
+}
+
+export const PagePost: FC<PageArticleProps> = ({
+  article: { metadata, htmlContent }
+}) => {
   return (
     <>
       <Head>
