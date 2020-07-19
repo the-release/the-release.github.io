@@ -30,6 +30,7 @@ const MarkdownContainer = styled.div(
 
     h1:first-child {
       font-size: 56px;
+      line-height: 1em;
       margin-bottom: 0.3em;
       max-width: 960px;
     }
