@@ -2,12 +2,13 @@ import React, { FC, useEffect, useState } from "react";
 import { Layout } from "../layout/layout.component";
 import { Heading } from "../../catalog/heading/heading.component";
 import Head from "next/head";
+import { Article } from "../../services/articles/article.entity";
 
 interface PageHomeProps {
-  slugs: string[];
+  articles: Article[];
 }
 
-export const PageHome: FC<PageHomeProps> = ({ slugs }) => {
+export const PageHome: FC<PageHomeProps> = ({ articles }) => {
   const [shouldShowUnderscore, setShouldShowUnderscore] = useState(true);
 
   useEffect(() => {
@@ -32,7 +33,7 @@ export const PageHome: FC<PageHomeProps> = ({ slugs }) => {
           <br />
           go brrrrrr{shouldShowUnderscore && "_"}
         </Heading>
-        {slugs.map((slug, index) => (
+        {articles.map(({ slug }, index) => (
           <React.Fragment key={index}>
             <a href={`/article/${slug}`}>{slug}</a>
             <br />

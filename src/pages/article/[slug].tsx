@@ -12,15 +12,14 @@ import {
   metadataSelector
 } from "../../modules/page-article/page-article.selector";
 import { PageArticleProps } from "../../modules/page-article/page-article";
+import { getArticles } from "../../services/articles/articles.service";
 
 const articlesDir = path.join(process.cwd(), "articles");
 const publicDir = path.join(process.cwd(), "public");
 
 export const getStaticPaths = async () => {
-  const filenames = await fs.readdir(articlesDir);
-  const paths = filenames.map(filename => {
-    const slug = path.parse(filename).name;
-
+  const articles = getArticles();
+  const paths = articles.map(({ slug }) => {
     return {
       params: { slug }
     };

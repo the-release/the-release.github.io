@@ -1,17 +1,12 @@
 import { PageHome } from "../modules/page-home/page-home.component";
-import path from "path";
-import fs from "fs";
+import { getArticles } from "../services/articles/articles.service";
 
 export const getStaticProps = () => {
-  const postsDirectory = path.join(process.cwd(), "articles");
-  const filenames = fs.readdirSync(postsDirectory);
-  const slugs = filenames.map(filename => {
-    return path.parse(filename).name;
-  });
+  const articles = getArticles();
 
   return {
     props: {
-      slugs
+      articles
     }
   };
 };
