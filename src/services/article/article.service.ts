@@ -1,48 +1,65 @@
 import path from "path";
 import { promises as fs } from "fs";
-import glob from "glob";
+import cheerio from "cheerio";
 
 import {
+  coverImageUrlSelector,
+  creationDateSelector,
+  descriptionSelector,
   htmlContentSelector,
-  metadataSelector
-} from "../../modules/page-article/page-article.selector";
+  imagesSelector,
+  titleSelector
+} from "./article.selector";
 import { Article } from "./article.entity";
-import { optimizeImage, toAbsolutePaths, toTitleCase } from "./article.util";
+import {
+  generateThumbnail,
+  isAbsoluteUrl,
+  optimizeImage,
+  toAbsolutePaths,
+  toTitleCase
+} from "./article.util";
 
 const articlesDir = path.join(process.cwd(), "articles");
 const publicDir = path.join(process.cwd(), "public");
 
-export const getArticleBySlug = (slug: string): Article => {
+export const getArticleBySlug = async (slug: string): Promise<Article> => {
   const articleDir = path.join(articlesDir, slug);
   const articleFilePath = path.join(articleDir, "/article.md");
-  const articleImagesGlob = path.join(articleDir, "**/*.{jpeg,jpg,png,gif}");
   const basePath = path.join("/article", slug);
   const htmlContent = toTitleCase(
     toAbsolutePaths(htmlContentSelector(articleFilePath), basePath)
   );
-  const metadata = metadataSelector(htmlContent, articleFilePath);
+  const $ = cheerio.load(htmlContent);
+  const images = imagesSelector($);
+  let thumbnailPath: string | null = null;
 
-  // TODO: await file copy
-  glob(articleImagesGlob, async (err, files) => {
-    if (err) return;
+  for (const [index, image] of images.entries()) {
+    if (isAbsoluteUrl(image)) continue;
 
-    for (const file of files) {
-      const fileName = file.replace(articlesDir, "");
-      const dest = path.join(publicDir, "article", fileName);
+    const src = path.join(articlesDir, image.replace(/^\/article/, ""));
+    const dest = path.join(publicDir, image);
+    const { dir, name, ext } = path.parse(image);
 
-      await fs.mkdir(path.parse(dest).dir, {
-        recursive: true
-      });
+    await optimizeImage(src, dest);
 
-      await fs.copyFile(file, dest);
-      await optimizeImage(dest);
+    if (index === 0) {
+      thumbnailPath = `${dir}/${name}.thumb${ext}`;
+
+      const thumbDest = path.join(publicDir, thumbnailPath);
+
+      await generateThumbnail(src, thumbDest);
     }
-  });
+  }
 
   return {
     slug,
     htmlContent,
-    metadata
+    creationDate: creationDateSelector(articleFilePath),
+    title: titleSelector($),
+    description: descriptionSelector($),
+    coverImageUrl: coverImageUrlSelector($),
+    images,
+    thumbnail: thumbnailPath
   };
 };
 
@@ -50,9 +67,11 @@ export const getArticles = async (): Promise<Article[]> => {
   const items = await fs.readdir(articlesDir, { withFileTypes: true });
   const folders = items.filter(item => item.isDirectory());
 
-  return folders.map(({ name }) => {
-    const slug = path.parse(name).name;
+  return await Promise.all(
+    folders.map(async ({ name }) => {
+      const slug = path.parse(name).name;
 
-    return getArticleBySlug(slug);
-  });
+      return await getArticleBySlug(slug);
+    })
+  );
 };

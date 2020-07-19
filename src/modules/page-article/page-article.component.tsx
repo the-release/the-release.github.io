@@ -11,20 +11,20 @@ export interface PageArticleProps {
 }
 
 export const PagePost: FC<PageArticleProps> = ({
-  article: { metadata, htmlContent }
+  article: { title, description, images, creationDate, htmlContent }
 }) => {
   return (
     <>
       <Head>
-        <title>{metadata.title} | The Follower</title>
+        <title>{title} | The Follower</title>
 
         <meta name="author" content="Adam Rogers" />
-        <meta name="description" content={metadata.description} />
+        <meta name="description" content={description} />
         <meta name="content-type" content="article" />
-        <meta property="og:image" content={metadata.coverImageUrl} />
+        <meta property="og:image" content={images[0]} />
         <meta property="og:site_name" content="Wired" />
-        <meta property="og:title" content={metadata.title} />
-        <meta property="og:description" content={metadata.description} />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
         <meta property="og:type" content="article" />
         <meta
           property="og:url"
@@ -32,7 +32,7 @@ export const PagePost: FC<PageArticleProps> = ({
         />
       </Head>
       <Layout>
-        <ArticleMeta>{metadata.creationDate}</ArticleMeta>
+        <ArticleMeta>{creationDate}</ArticleMeta>
         <Markdown>{htmlContent}</Markdown>
       </Layout>
     </>

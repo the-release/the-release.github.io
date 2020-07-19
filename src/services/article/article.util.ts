@@ -3,7 +3,7 @@ import path from "path";
 import { titleCase } from "title-case";
 import jimp from "jimp";
 
-const isAbsoluteUrl = (url: string) => {
+export const isAbsoluteUrl = (url: string) => {
   return new RegExp(/^https?:\/\/|^\/\//i, "i").test(url);
 };
 
@@ -33,13 +33,21 @@ export const toTitleCase = (html: string) => {
   return $.html();
 };
 
-export const optimizeImage = async (imagePath: string) => {
-  const image = await jimp.read(imagePath);
+export const optimizeImage = async (src: string, dest: string) => {
+  const image = await jimp.read(src);
 
   if (image.getWidth() > 960) {
     await image.resize(960, jimp.AUTO);
   }
 
   await image.quality(50);
-  await image.writeAsync(imagePath);
+  await image.writeAsync(dest);
+};
+
+export const generateThumbnail = async (src: string, dest: string) => {
+  const image = await jimp.read(src);
+
+  await image.resize(300, jimp.AUTO);
+  await image.quality(50);
+  await image.writeAsync(dest);
 };

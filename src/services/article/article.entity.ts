@@ -1,12 +1,10 @@
-export interface ArticleMetadata {
-  title: string;
-  description: string;
-  coverImageUrl: string;
-  creationDate: string;
-}
-
 export interface Article {
   slug: string;
   htmlContent: string;
-  metadata: ArticleMetadata;
+  title: string;
+  description: string;
+  coverImageUrl: string | null;
+  thumbnail: string | null;
+  creationDate: string;
+  images: string[];
 }

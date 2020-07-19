@@ -34,10 +34,13 @@ export const PageHome: FC<PageHomeProps> = ({ articles }) => {
           <br />
           go brrrrrr{shouldShowUnderscore && "_"}
         </Heading>
-        {articles.map(({ slug, metadata }, index) => (
+        {articles.map(({ slug, thumbnail }, index) => (
           <React.Fragment key={index}>
-            <a href={`/article/${slug}`}>{slug}</a>
-            <img src={metadata.coverImageUrl} />
+            <a href={`/article/${slug}`}>
+              {slug}
+              <br />
+              {thumbnail && <img src={thumbnail} />}
+            </a>
             <br />
           </React.Fragment>
         ))}
