@@ -2,6 +2,8 @@
 
 **WeWork explores a nostalgic niche to leave their recent IPO disaster behind.**
 
+<!--lede here-->
+
 ![Beijing-based app TikTok logo over China flag](solen-feyissa-QKEeVYu0d7U-unsplash.jpg)
 *Beijing-based app TikTok has over 70M US users*
 
