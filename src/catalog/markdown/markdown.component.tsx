@@ -39,7 +39,7 @@ const MarkdownContainer = styled.div(
       strong {
         display: block;
         font-family: ${theme.fonts.sans};
-        margin-bottom: 3em;
+        margin-bottom: 2.5em;
       }
     }
 
