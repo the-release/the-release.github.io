@@ -3,7 +3,7 @@ import Head from "next/head";
 
 import { Layout } from "../layout/layout.component";
 import { Markdown } from "../../catalog/markdown/markdown.component";
-import { ArticleMeta } from "../../catalog/article-meta/article-meta.component";
+import { ArticleMetadata } from "../../catalog/article-metadata/article-metadata.component";
 import { Article } from "../../services/article/article.entity";
 
 export interface PageArticleProps {
@@ -39,7 +39,7 @@ export const PagePost: FC<PageArticleProps> = ({
         />
       </Head>
       <Layout>
-        <ArticleMeta creationDate={creationDate} category={category} />
+        <ArticleMetadata creationDate={creationDate} category={category} />
         <Markdown>{htmlContent}</Markdown>
       </Layout>
     </>

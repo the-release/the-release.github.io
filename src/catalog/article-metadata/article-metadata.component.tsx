@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import styled from "styled-components";
 import { Category } from "../../services/category/category.entity";
 
-interface ArticleMetaProps {
+interface ArticleMetadataProps {
   creationDate: string;
   category: Category;
 }
@@ -12,7 +12,7 @@ const StyledContainer = styled.div`
   margin-bottom: 30px;
 `;
 
-export const ArticleMeta: FC<ArticleMetaProps> = ({
+export const ArticleMetadata: FC<ArticleMetadataProps> = ({
   creationDate,
   category,
   ...otherProps
