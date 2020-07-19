@@ -1,7 +1,8 @@
 import cheerio from "cheerio";
 import fs from "fs";
-import { ArticleMetadata } from "./page-article";
 import marked from "marked";
+import { format } from "date-fns";
+import { ArticleMetadata } from "./page-article";
 
 export const metadataSelector = (
   html: string,
@@ -12,7 +13,7 @@ export const metadataSelector = (
   return {
     title: titleSelector($),
     description: descriptionSelector($),
-    image: imageSelector($),
+    coverImageUrl: coverImageUrlSelector($),
     creationDate: creationDateSelector(filePath)
   };
 };
@@ -29,7 +30,7 @@ const descriptionSelector = ($: CheerioStatic) => {
     .text();
 };
 
-const imageSelector = ($: CheerioStatic) => {
+const coverImageUrlSelector = ($: CheerioStatic) => {
   const src = $("img")
     .first()
     .attr("src");
@@ -40,11 +41,11 @@ const imageSelector = ($: CheerioStatic) => {
 const creationDateSelector = (filePath: string) => {
   const stats = fs.statSync(filePath);
 
-  return `${stats.birthtime}`;
+  return format(stats.birthtime, "MMMM dd, yyyy h:mm a");
 };
 
 export const htmlContentSelector = (filePath: string) => {
-  const fileContents = fs.readFileSync(filePath, "utf8").trim();
+  const markdown = fs.readFileSync(filePath, "utf8").trim();
 
-  return marked(fileContents);
+  return marked(markdown);
 };

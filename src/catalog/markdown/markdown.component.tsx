@@ -4,6 +4,7 @@ import styled, { css } from "styled-components";
 const MarkdownContainer = styled.div(
   ({ theme }) => css`
     font-family: ${theme.fonts.serif};
+    font-size: 21px;
     word-break: break-word;
 
     h1,
@@ -15,8 +16,8 @@ const MarkdownContainer = styled.div(
     ul,
     ol,
     p,
-    img {
-      margin-bottom: 1em;
+    p img:last-child {
+      margin-bottom: 1.6em;
     }
 
     h1,
@@ -28,9 +29,19 @@ const MarkdownContainer = styled.div(
       font-family: ${theme.fonts.sans};
     }
 
-    h1 {
+    h1:first-child {
       font-size: 56px;
-      margin-bottom: 0.8em;
+      margin-bottom: 0.3em;
+      max-width: 960px;
+    }
+
+    /* Lede */
+    h1 + p {
+      strong {
+        display: block;
+        font-family: ${theme.fonts.sans};
+        margin-bottom: 3em;
+      }
     }
 
     h2 {
@@ -45,20 +56,29 @@ const MarkdownContainer = styled.div(
       font-size: 16px;
     }
 
-    img {
-      width: 100%;
-      height: auto;
+    p {
       max-width: 960px;
+      line-height: 1.6em;
+    }
+
+    img {
+      width: auto;
+      height: auto;
+      max-width: 100%;
+      border-radius: 5px;
+    }
+
+    /* Image caption */
+    p img + em {
+      display: block;
+      font-family: ${theme.fonts.sans};
+      font-size: 14px;
+      color: #666;
     }
 
     ul,
     ol {
       padding: 0 20px;
-    }
-
-    /* Lede */
-    h1 + p strong {
-      font-family: ${theme.fonts.sans};
     }
 
     strong {
@@ -70,7 +90,7 @@ const MarkdownContainer = styled.div(
 
       &:focus,
       &:hover {
-        color: #09f;
+        color: #8a3af4;
       }
     }
 
@@ -78,7 +98,6 @@ const MarkdownContainer = styled.div(
       padding-left: 20px;
       border-left: solid #ccc 3px;
       font-style: italic;
-      font-size: 24px;
       color: #666;
     }
   `

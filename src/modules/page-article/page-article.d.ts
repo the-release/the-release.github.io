@@ -6,6 +6,6 @@ export interface PageArticleProps {
 export interface ArticleMetadata {
   title: string;
   description: string;
-  image: string;
+  coverImageUrl: string;
   creationDate: string;
 }

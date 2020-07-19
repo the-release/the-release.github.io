@@ -3,6 +3,8 @@ import path from "path";
 import { GetStaticProps } from "next";
 import glob from "glob";
 import jimp from "jimp";
+import { titleCase } from "title-case";
+import cheerio from "cheerio";
 
 import { PagePost } from "../../modules/page-article/page-article.component";
 import {
@@ -10,7 +12,6 @@ import {
   metadataSelector
 } from "../../modules/page-article/page-article.selector";
 import { PageArticleProps } from "../../modules/page-article/page-article";
-import cheerio from "cheerio";
 
 const articlesDir = path.join(process.cwd(), "articles");
 const publicDir = path.join(process.cwd(), "public");
@@ -31,13 +32,31 @@ export const getStaticPaths = async () => {
   };
 };
 
+const isAbsoluteUrl = (url: string) => {
+  return new RegExp(/^https?:\/\/|^\/\//i, "i").test(url);
+};
+
 const toAbsolutePaths = (html: string, basePath: string) => {
   const $ = cheerio.load(html);
 
   $("img").each((index, elem) => {
     const src = $(elem).attr("src") || "";
 
-    $(elem).attr("src", path.join(basePath, src));
+    if (!isAbsoluteUrl(src)) {
+      $(elem).attr("src", path.join(basePath, src));
+    }
+  });
+
+  return $.html();
+};
+
+const toTitleCase = (html: string) => {
+  const $ = cheerio.load(html);
+
+  $("h1,h2,h3,h4,h5,h6").each((index, elem) => {
+    const title = $(elem).text();
+
+    $(elem).text(titleCase(title));
   });
 
   return $.html();
@@ -61,9 +80,8 @@ export const getStaticProps: GetStaticProps<PageArticleProps> = async ({
   const articleFilePath = path.join(articleDir, "/article.md");
   const articleImagesGlob = path.join(articleDir, "**/*.{jpeg,jpg,png,gif}");
   const basePath = path.join("/article", params.slug);
-  const htmlContent = toAbsolutePaths(
-    htmlContentSelector(articleFilePath),
-    basePath
+  const htmlContent = toTitleCase(
+    toAbsolutePaths(htmlContentSelector(articleFilePath), basePath)
   );
   const metadata = metadataSelector(htmlContent, articleFilePath);
 

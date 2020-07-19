@@ -10,7 +10,7 @@ declare module "styled-components" {
 
 const fonts = {
   sans: "-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif",
-  serif: `"Times New Roman", Times, Georgia, serif`
+  serif: `Georgia, Cambria, "Times New Roman", Times, serif`
 };
 
 const fontWeights = {
