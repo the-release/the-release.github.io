@@ -36,8 +36,8 @@ export const toTitleCase = (html: string) => {
 export const optimizeImage = async (src: string, dest: string) => {
   const image = await jimp.read(src);
 
-  if (image.getWidth() > 960) {
-    await image.resize(960, jimp.AUTO);
+  if (image.getWidth() > 1920) {
+    await image.resize(1920, jimp.AUTO);
   }
 
   await image.quality(50);
