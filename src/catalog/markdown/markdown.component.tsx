@@ -15,8 +15,7 @@ const MarkdownContainer = styled.div(
     h6,
     ul,
     ol,
-    p,
-    p img:last-child {
+    p {
       margin-bottom: 1.6em;
     }
 

@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import styled from "styled-components";
 
 const StyledContainer = styled.div`
-  font-size: 12px;
+  font-size: 16px;
   margin-bottom: 30px;
 `;
 
