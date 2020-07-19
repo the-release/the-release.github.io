@@ -41,6 +41,12 @@ export const imagesSelector = ($: CheerioStatic) => {
   return images;
 };
 
+export const timestampSelector = (filePath: string) => {
+  const stats = fs.statSync(filePath);
+
+  return stats.birthtimeMs;
+};
+
 export const creationDateSelector = (filePath: string) => {
   const stats = fs.statSync(filePath);
 

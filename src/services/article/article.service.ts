@@ -8,6 +8,7 @@ import {
   descriptionSelector,
   htmlContentSelector,
   imagesSelector,
+  timestampSelector,
   titleSelector
 } from "./article.selector";
 import { Article } from "./article.entity";
@@ -19,7 +20,7 @@ import {
   toTitleCase
 } from "./article.util";
 
-const articlesDir = path.join(process.cwd(), "articles");
+const articlesDir = path.join(process.cwd(), "data", "articles");
 const publicDir = path.join(process.cwd(), "public");
 
 export const getArticleBySlug = async (slug: string): Promise<Article> => {
@@ -55,6 +56,7 @@ export const getArticleBySlug = async (slug: string): Promise<Article> => {
     slug,
     htmlContent,
     creationDate: creationDateSelector(articleFilePath),
+    timestamp: timestampSelector(articleFilePath),
     title: titleSelector($),
     description: descriptionSelector($),
     coverImageUrl: coverImageUrlSelector($),
@@ -65,12 +67,15 @@ export const getArticleBySlug = async (slug: string): Promise<Article> => {
 export const getArticles = async (): Promise<Article[]> => {
   const items = await fs.readdir(articlesDir, { withFileTypes: true });
   const folders = items.filter(item => item.isDirectory());
-
-  return await Promise.all(
+  const articles = await Promise.all(
     folders.map(async ({ name }) => {
       const slug = path.parse(name).name;
 
       return await getArticleBySlug(slug);
     })
   );
+
+  return articles.sort((x, y) => {
+    return x.timestamp - y.timestamp;
+  });
 };
