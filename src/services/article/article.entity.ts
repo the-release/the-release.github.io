@@ -6,5 +6,4 @@ export interface Article {
   coverImageUrl: string | null;
   thumbnail: string | null;
   creationDate: string;
-  images: string[];
 }

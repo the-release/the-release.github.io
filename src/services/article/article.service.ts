@@ -58,7 +58,6 @@ export const getArticleBySlug = async (slug: string): Promise<Article> => {
     title: titleSelector($),
     description: descriptionSelector($),
     coverImageUrl: coverImageUrlSelector($),
-    images,
     thumbnail: thumbnailPath
   };
 };
