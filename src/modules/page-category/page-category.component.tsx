@@ -4,12 +4,14 @@ import Head from "next/head";
 import { Layout } from "../layout/layout.component";
 import { Heading } from "../../catalog/heading/heading.component";
 import { Article } from "../../services/article/article.entity";
+import { Category } from "../../services/category/category.entity";
 
 export interface PageCategoryProps {
   articles: Article[];
+  category: Category;
 }
 
-export const PageCategory: FC<PageCategoryProps> = ({ articles }) => {
+export const PageCategory: FC<PageCategoryProps> = ({ articles, category }) => {
   return (
     <>
       <Head>
@@ -21,7 +23,7 @@ export const PageCategory: FC<PageCategoryProps> = ({ articles }) => {
         />
       </Head>
       <Layout>
-        <Heading component="h1">Category</Heading>
+        <Heading component="h1">{category.name}</Heading>
         {articles.map(({ slug, thumbnail }, index) => (
           <React.Fragment key={index}>
             <a href={`/article/${slug}`}>

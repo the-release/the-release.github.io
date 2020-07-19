@@ -1,7 +1,10 @@
 import { GetStaticProps } from "next";
 
-import { getArticlesByCategory } from "../../services/article/article.service";
-import { getCategories } from "../../services/category/category.service";
+import { getArticlesByCategorySlug } from "../../services/article/article.service";
+import {
+  getCategories,
+  getCategoryBySlug
+} from "../../services/category/category.service";
 import {
   PageCategory,
   PageCategoryProps
@@ -9,9 +12,9 @@ import {
 
 export const getStaticPaths = async () => {
   const categories = await getCategories();
-  const paths = categories.map(({ name }) => {
+  const paths = categories.map(({ slug }) => {
     return {
-      params: { slug: name }
+      params: { slug }
     };
   });
 
@@ -24,11 +27,13 @@ export const getStaticPaths = async () => {
 export const getStaticProps: GetStaticProps<PageCategoryProps> = async ({
   params
 }: any) => {
-  const articles = await getArticlesByCategory(params.slug);
+  const articles = await getArticlesByCategorySlug(params.slug);
+  const category = await getCategoryBySlug(params.slug);
 
   return {
     props: {
-      articles
+      articles,
+      category
     }
   };
 };

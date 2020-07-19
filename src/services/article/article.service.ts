@@ -19,6 +19,7 @@ import {
   toAbsolutePaths,
   toTitleCase
 } from "./article.util";
+import { getCategoryBySlug } from "../category/category.service";
 
 const articlesDir = path.join(process.cwd(), "data", "articles");
 const publicDir = path.join(process.cwd(), "public");
@@ -31,7 +32,8 @@ export const getArticleBySlug = async (slug: string): Promise<Article> => {
     toAbsolutePaths(htmlContentSelector(articleFilePath), basePath)
   );
   const categoryFilePath = path.join(articleDir, "/category.txt");
-  const category = (await fs.readFile(categoryFilePath, "utf8")).trim();
+  const categorySlug = (await fs.readFile(categoryFilePath, "utf8")).trim();
+  const category = await getCategoryBySlug(categorySlug);
 
   const $ = cheerio.load(htmlContent);
   const images = imagesSelector($);
@@ -68,13 +70,13 @@ export const getArticleBySlug = async (slug: string): Promise<Article> => {
   };
 };
 
-export const getArticlesByCategory = async (
-  category: string
+export const getArticlesByCategorySlug = async (
+  slug: string
 ): Promise<Article[]> => {
   const articles = await getArticles();
 
   return articles.filter(article => {
-    return article.category === category;
+    return article.category.slug === slug;
   });
 };
 

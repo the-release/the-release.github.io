@@ -1,3 +1,5 @@
+import { Category } from "../category/category.entity";
+
 export interface Article {
   slug: string;
   htmlContent: string;
@@ -7,5 +9,5 @@ export interface Article {
   thumbnail: string | null;
   creationDate: string;
   timestamp: number;
-  category: string;
+  category: Category;
 }

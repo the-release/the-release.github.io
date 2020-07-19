@@ -25,9 +25,9 @@ export const PageHome: FC<PageHomeProps> = ({ articles, categories }) => {
       <Layout>
         <Heading component="h1">The release</Heading>
         <Heading>Categories</Heading>
-        {categories.map(({ name }, index) => (
+        {categories.map(({ name, slug }, index) => (
           <React.Fragment key={index}>
-            <a href={`/category/${name}`}>{name}</a>
+            <a href={`/category/${slug}`}>{name}</a>
             <br />
           </React.Fragment>
         ))}
