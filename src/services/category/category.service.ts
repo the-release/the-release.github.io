@@ -9,16 +9,19 @@ const categoriesFilePath = path.join(process.cwd(), "data", "categories.txt");
 export const getCategories = async (): Promise<Category[]> => {
   const categories = await fs.readFile(categoriesFilePath, "utf8");
 
-  return categories.split("\n").map(category => {
-    const name = category.trim();
+  return categories
+    .split("\n")
+    .filter(category => !!category)
+    .map(category => {
+      const name = category.trim();
 
-    return {
-      name,
-      slug: slugify(name, {
-        lower: true
-      })
-    };
-  });
+      return {
+        name,
+        slug: slugify(name, {
+          lower: true
+        })
+      };
+    });
 };
 
 export const getCategoryBySlug = async (slug: string): Promise<Category> => {
