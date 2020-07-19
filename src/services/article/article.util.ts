@@ -48,6 +48,6 @@ export const generateThumbnail = async (src: string, dest: string) => {
   const image = await jimp.read(src);
 
   await image.resize(300, jimp.AUTO);
-  await image.quality(50);
+  await image.quality(60);
   await image.writeAsync(dest);
 };
