@@ -10,17 +10,23 @@ export const getAuthors = async (): Promise<Author[]> => {
   const items = await fs.readdir(authorsDir, { withFileTypes: true });
   const files = items.filter(item => item.isFile());
 
-  return files.map(({ name: filename }) => {
-    const name = path.parse(filename).name;
+  return files
+    .map(({ name: filename }) => {
+      const name = path.parse(filename).name;
 
-    return {
-      name,
-      slug: slugify(name, {
-        lower: true
-      })
-    };
-  });
-  // TODO: sort alphabetically
+      return {
+        name,
+        slug: slugify(name, {
+          lower: true
+        })
+      };
+    })
+    .sort((a, b) => {
+      if (a.name < b.name) return -1;
+      if (a.name > b.name) return 1;
+
+      return 0;
+    });
 };
 
 export const getAuthorBySlug = async (slug: string): Promise<Author> => {
