@@ -63,7 +63,6 @@ export const getArticleBySlug = async (slug: string): Promise<Article> => {
   const categoryFilePath = path.join(articleDir, "/category.txt");
   const categorySlug = (await fs.readFile(categoryFilePath, "utf8")).trim();
   const category = await getCategoryBySlug(categorySlug);
-
   const $ = cheerio.load(htmlContent);
   const images = imagesSelector($);
   const thumbnail = await exportImages(images);
