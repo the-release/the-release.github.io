@@ -98,6 +98,16 @@ export const getArticlesByCategorySlug = async (
   });
 };
 
+export const getArticlesByAuthorSlug = async (
+  slug: string
+): Promise<Article[]> => {
+  const articles = await getArticles();
+
+  return articles.filter(article => {
+    return article.author.slug === slug;
+  });
+};
+
 export const getArticles = async (): Promise<Article[]> => {
   const items = await fs.readdir(articlesDir, { withFileTypes: true });
   const folders = items.filter(item => item.isDirectory());
