@@ -1,4 +1,5 @@
 import { Category } from "../category/category.entity";
+import { Author } from "../author/author.entity";
 
 export interface Article {
   slug: string;
@@ -10,4 +11,5 @@ export interface Article {
   creationDate: string;
   timestamp: number;
   category: Category;
+  author: Author;
 }

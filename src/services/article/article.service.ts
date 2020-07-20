@@ -20,6 +20,7 @@ import {
   toTitleCase
 } from "./article.util";
 import { getCategoryBySlug } from "../category/category.service";
+import { getAuthorBySlug } from "../author/author.service";
 
 const articlesDir = path.join(process.cwd(), "data", "articles");
 const publicDir = path.join(process.cwd(), "public");
@@ -63,6 +64,7 @@ export const getArticleBySlug = async (slug: string): Promise<Article> => {
   const metadataFilePath = path.join(articleDir, "/metadata.json");
   const metadata = JSON.parse(await fs.readFile(metadataFilePath, "utf8"));
   const category = await getCategoryBySlug(metadata.category);
+  const author = await getAuthorBySlug(metadata.author);
   const $ = cheerio.load(htmlContent);
   const images = imagesSelector($);
   const thumbnail = await exportImages(images);
@@ -81,7 +83,8 @@ export const getArticleBySlug = async (slug: string): Promise<Article> => {
     description: descriptionSelector($),
     coverImageUrl,
     thumbnail,
-    category
+    category,
+    author
   };
 };
 

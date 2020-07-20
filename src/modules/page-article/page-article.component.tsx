@@ -17,6 +17,7 @@ export const PagePost: FC<PageArticleProps> = ({
     coverImageUrl,
     creationDate,
     category,
+    author,
     htmlContent
   }
 }) => {
@@ -39,7 +40,11 @@ export const PagePost: FC<PageArticleProps> = ({
         />
       </Head>
       <Layout>
-        <ArticleMetadata creationDate={creationDate} category={category} />
+        <ArticleMetadata
+          creationDate={creationDate}
+          category={category}
+          author={author}
+        />
         <Markdown>{htmlContent}</Markdown>
       </Layout>
     </>

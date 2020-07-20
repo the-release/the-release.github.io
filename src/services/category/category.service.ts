@@ -22,6 +22,7 @@ export const getCategories = async (): Promise<Category[]> => {
         })
       };
     });
+  // TODO: sort alphabetically
 };
 
 export const getCategoryBySlug = async (slug: string): Promise<Category> => {
