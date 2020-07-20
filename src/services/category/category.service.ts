@@ -1,8 +1,8 @@
 import path from "path";
 import { promises as fs } from "fs";
-import slugify from "slugify";
 
 import { Category } from "./category.entity";
+import { slugify } from "../../utils/slugify/slugify";
 
 const categoriesFilePath = path.join(process.cwd(), "data", "categories.txt");
 
@@ -17,9 +17,7 @@ export const getCategories = async (): Promise<Category[]> => {
 
       return {
         name,
-        slug: slugify(name, {
-          lower: true
-        })
+        slug: slugify(name)
       };
     })
     .sort((a, b) => {

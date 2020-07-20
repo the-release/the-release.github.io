@@ -14,6 +14,12 @@ const StyledContainer = styled.div`
   margin-bottom: 30px;
 `;
 
+const AuthorPhoto = styled.img`
+  width: 50px;
+  height: auto;
+  border-radius: 200px;
+`;
+
 export const ArticleMetadata: FC<ArticleMetadataProps> = ({
   creationDate,
   category,
@@ -23,7 +29,10 @@ export const ArticleMetadata: FC<ArticleMetadataProps> = ({
     <StyledContainer>
       {creationDate} •{" "}
       <a href={`/category/${category.slug}`}>{category.name}</a> •{" "}
-      <a href={`/author/${author.slug}`}>{author.name}</a>
+      <a href={`/author/${author.slug}`}>
+        <AuthorPhoto src={author.thumbnail} />
+        {author.name}
+      </a>
     </StyledContainer>
   );
 };
