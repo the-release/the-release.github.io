@@ -32,10 +32,12 @@ export const PageHome: FC<PageHomeProps> = ({ articles, categories }) => {
           </React.Fragment>
         ))}
         <Heading>Latest Articles</Heading>
-        {articles.map(({ slug, thumbnail }, index) => (
+        {articles.map(({ title, slug, thumbnail }, index) => (
           <React.Fragment key={index}>
             <a href={`/article/${slug}`}>
-              {slug}
+              <Heading component="h2" variant="h4">
+                {title}
+              </Heading>
               <br />
               {thumbnail && <img alt="" src={thumbnail} />}
             </a>
