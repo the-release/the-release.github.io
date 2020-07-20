@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import styled from "styled-components";
-import { Category } from "../../services/category/category.entity";
+import { Category } from "../../../services/category/category.entity";
 
 interface ArticleMetadataProps {
   creationDate: string;
@@ -14,11 +14,10 @@ const StyledContainer = styled.div`
 
 export const ArticleMetadata: FC<ArticleMetadataProps> = ({
   creationDate,
-  category,
-  ...otherProps
+  category
 }) => {
   return (
-    <StyledContainer {...otherProps}>
+    <StyledContainer>
       {creationDate} •{" "}
       <a href={`/category/${category.slug}`}>{category.name}</a>
     </StyledContainer>
