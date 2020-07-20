@@ -4,7 +4,7 @@
 
 <!--lede here-->
 
-![Beijing-based app TikTok logo over China flag](solen-feyissa-QKEeVYu0d7U-unsplash.jpg)
+![Beijing-based app TikTok logo over China flag](us-tiktok-ban.jpg)
 *Beijing-based app TikTok has over 70M US users*
 
 With President Donald Trump calling the global Covid-19 crisis the "Chinese virus" for months now, we can't ignore the increasing divide between the US and China. After the Trump administration announced on Fox News to outlaw Chinese apps, TikTok is now officially a national security risk. 
