@@ -5,8 +5,8 @@ export interface Article {
   htmlContent: string;
   title: string;
   description: string;
-  coverImageUrl: string | null;
-  thumbnail: string | null;
+  coverImageUrl: string;
+  thumbnail: string;
   creationDate: string;
   timestamp: number;
   category: Category;

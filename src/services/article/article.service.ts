@@ -24,6 +24,35 @@ import { getCategoryBySlug } from "../category/category.service";
 const articlesDir = path.join(process.cwd(), "data", "articles");
 const publicDir = path.join(process.cwd(), "public");
 
+const exportImages = async (images: string[]) => {
+  let thumbnailPath: string | null = null;
+
+  for (const [index, image] of images.entries()) {
+    // TODO: disallow external images
+    if (isAbsoluteUrl(image)) continue;
+
+    const src = path.join(articlesDir, image.replace(/^\/article/, ""));
+    const dest = path.join(publicDir, image);
+    const { dir, name, ext } = path.parse(image);
+
+    if (index === 0) {
+      thumbnailPath = path.join(dir, `${name}.thumb${ext}`);
+    }
+
+    if ((await fs.stat(dest).catch(() => undefined))?.isFile()) continue;
+
+    await optimizeImage(src, dest);
+
+    if (index === 0) {
+      const thumbDest = path.join(publicDir, dir, `${name}.thumb${ext}`);
+
+      await generateThumbnail(src, thumbDest);
+    }
+  }
+
+  return thumbnailPath;
+};
+
 export const getArticleBySlug = async (slug: string): Promise<Article> => {
   const articleDir = path.join(articlesDir, slug);
   const articleFilePath = path.join(articleDir, "/article.md");
@@ -37,24 +66,11 @@ export const getArticleBySlug = async (slug: string): Promise<Article> => {
 
   const $ = cheerio.load(htmlContent);
   const images = imagesSelector($);
-  let thumbnailPath: string | null = null;
+  const thumbnail = await exportImages(images);
+  const coverImageUrl = coverImageUrlSelector($);
 
-  for (const [index, image] of images.entries()) {
-    if (isAbsoluteUrl(image)) continue;
-
-    const src = path.join(articlesDir, image.replace(/^\/article/, ""));
-    const dest = path.join(publicDir, image);
-    const { dir, name, ext } = path.parse(image);
-
-    await optimizeImage(src, dest);
-
-    if (index === 0) {
-      thumbnailPath = `${dir}/${name}.thumb${ext}`;
-
-      const thumbDest = path.join(publicDir, thumbnailPath);
-
-      await generateThumbnail(src, thumbDest);
-    }
+  if (!coverImageUrl || !thumbnail) {
+    throw new Error(`Missing cover image for article /${slug}`);
   }
 
   return {
@@ -64,8 +80,8 @@ export const getArticleBySlug = async (slug: string): Promise<Article> => {
     timestamp: timestampSelector(articleFilePath),
     title: titleSelector($),
     description: descriptionSelector($),
-    coverImageUrl: coverImageUrlSelector($),
-    thumbnail: thumbnailPath,
+    coverImageUrl,
+    thumbnail,
     category
   };
 };
