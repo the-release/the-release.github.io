@@ -32,7 +32,7 @@ export const ArticleMetadata: FC<ArticleMetadataProps> = ({
       {creationDate} •{" "}
       <a href={`/category/${category.slug}`}>{category.name}</a> •{" "}
       <a href={`/author/${author.slug}`}>
-        <AuthorPhoto src={author.thumbnail} />
+        <AuthorPhoto alt={`A photo of ${author.name}`} src={author.thumbnail} />
         {author.name}
       </a>{" "}
       • {readingTime}
