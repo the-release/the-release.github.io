@@ -7,6 +7,7 @@ interface ArticleMetadataProps {
   creationDate: string;
   category: Category;
   author: Author;
+  readingTime: string;
 }
 
 const StyledContainer = styled.div`
@@ -23,7 +24,8 @@ const AuthorPhoto = styled.img`
 export const ArticleMetadata: FC<ArticleMetadataProps> = ({
   creationDate,
   category,
-  author
+  author,
+  readingTime
 }) => {
   return (
     <StyledContainer>
@@ -33,6 +35,7 @@ export const ArticleMetadata: FC<ArticleMetadataProps> = ({
         <AuthorPhoto src={author.thumbnail} />
         {author.name}
       </a>
+      {" "}• {readingTime}
     </StyledContainer>
   );
 };

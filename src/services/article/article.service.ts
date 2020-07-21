@@ -1,6 +1,7 @@
 import path from "path";
 import { promises as fs } from "fs";
 import cheerio from "cheerio";
+import readingTime from "reading-time";
 
 import {
   coverImageUrlSelector,
@@ -66,6 +67,7 @@ export const getArticleBySlug = async (slug: string): Promise<Article> => {
   const category = await getCategoryBySlug(metadata.category);
   const author = await getAuthorBySlug(metadata.author);
   const $ = cheerio.load(htmlContent);
+  const plainText = $.root().text();
   const images = imagesSelector($);
   const thumbnail = await exportImages(images);
   const coverImageUrl = coverImageUrlSelector($);
@@ -81,6 +83,7 @@ export const getArticleBySlug = async (slug: string): Promise<Article> => {
     timestamp: timestampSelector(articleFilePath),
     title: titleSelector($),
     description: descriptionSelector($),
+    readingTime: readingTime(plainText).text,
     coverImageUrl,
     thumbnail,
     category,

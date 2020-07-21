@@ -12,4 +12,5 @@ export interface Article {
   timestamp: number;
   category: Category;
   author: Author;
+  readingTime: string;
 }

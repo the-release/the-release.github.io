@@ -18,7 +18,8 @@ export const PagePost: FC<PageArticleProps> = ({
     creationDate,
     category,
     author,
-    htmlContent
+    htmlContent,
+    readingTime
   }
 }) => {
   return (
@@ -44,6 +45,7 @@ export const PagePost: FC<PageArticleProps> = ({
           creationDate={creationDate}
           category={category}
           author={author}
+          readingTime={readingTime}
         />
         <Markdown>{htmlContent}</Markdown>
       </Layout>
