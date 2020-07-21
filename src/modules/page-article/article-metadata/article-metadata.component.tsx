@@ -34,8 +34,8 @@ export const ArticleMetadata: FC<ArticleMetadataProps> = ({
       <a href={`/author/${author.slug}`}>
         <AuthorPhoto src={author.thumbnail} />
         {author.name}
-      </a>
-      {" "}• {readingTime}
+      </a>{" "}
+      • {readingTime}
     </StyledContainer>
   );
 };
