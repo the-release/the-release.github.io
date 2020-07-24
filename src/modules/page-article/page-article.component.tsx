@@ -5,6 +5,7 @@ import { Layout } from "../layout/layout.component";
 import { Markdown } from "../../catalog/markdown/markdown.component";
 import { ArticleMetadata } from "./article-metadata/article-metadata.component";
 import { Article } from "../../services/article/article.entity";
+import { ORIGIN } from "../../config";
 
 export interface PageArticleProps {
   article: Article;
@@ -19,7 +20,8 @@ export const PagePost: FC<PageArticleProps> = ({
     category,
     author,
     htmlContent,
-    readingTime
+    readingTime,
+    slug
   }
 }) => {
   return (
@@ -35,10 +37,8 @@ export const PagePost: FC<PageArticleProps> = ({
         <meta property="og:title" content={title} />
         <meta property="og:description" content={description} />
         <meta property="og:type" content="article" />
-        <meta
-          property="og:url"
-          content="https://www.wired.com/story/hydroxychloroquine-still-doesnt-do-anything-new-data-shows/"
-        />
+        {/* TODO: store canonical url in article entity */}
+        <meta property="og:url" content={`${ORIGIN}/article/${slug}`} />
       </Head>
       <Layout>
         <ArticleMetadata
