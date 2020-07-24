@@ -43,3 +43,4 @@ jobs:
           personal_token: ${{ secrets.PERSONAL_TOKEN }}
           publish_branch: master
           publish_dir: ./dist/out
+          cname: therelease.news
