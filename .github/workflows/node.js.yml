@@ -27,4 +27,4 @@ jobs:
       with:
         personal_token: ${{ secrets.PERSONAL_TOKEN }}
         publish_branch: master
-        publish_dir: ./dist
+        publish_dir: ./dist/out
