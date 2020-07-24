@@ -8,7 +8,7 @@ export const Header: FC = () => {
   return (
     <StyledHeader>
       <Heading component="h2" variant="h4">
-        <a href="/">The Array</a>
+        <a href="/">The Release</a>
       </Heading>
     </StyledHeader>
   );

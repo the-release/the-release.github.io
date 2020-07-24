@@ -21,7 +21,7 @@ export const PageHome: FC<PageHomeProps> = ({
   return (
     <>
       <Head>
-        <title>Etienne Martin – Web Architect</title>
+        <title>The Release – Web Architect</title>
         <meta
           name="description"
           key="description"
@@ -29,7 +29,7 @@ export const PageHome: FC<PageHomeProps> = ({
         />
       </Head>
       <Layout>
-        <Heading component="h1">The release</Heading>
+        <Heading component="h1">The Release</Heading>
         <Heading>Latest Articles</Heading>
         {articles.map(({ title, slug, thumbnail }, index) => (
           <React.Fragment key={index}>
