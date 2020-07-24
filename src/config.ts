@@ -1,1 +1,1 @@
-export const HOST = process.env.HOST || "http://localhost:3000";
+export const ORIGIN = process.env.ORIGIN || "http://localhost:3000";

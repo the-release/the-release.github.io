@@ -3,7 +3,7 @@ import marked from "marked";
 import { format } from "date-fns";
 import url from "url";
 
-import { HOST } from "../../config";
+import { ORIGIN } from "../../config";
 
 export const titleSelector = ($: CheerioStatic) => {
   return $("h1")
@@ -24,7 +24,7 @@ export const coverImageUrlSelector = ($: CheerioStatic) => {
 
   if (!src) return null;
 
-  return url.resolve(HOST, src || "");
+  return url.resolve(ORIGIN, src || "");
 };
 
 export const imagesSelector = ($: CheerioStatic) => {
