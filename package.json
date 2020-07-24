@@ -2,7 +2,8 @@
   "name": "the-follower",
   "version": "1.0.0",
   "scripts": {
-    "dev": "sh tools/dev.sh",
+    "dev": "next -p 3000",
+    "predev": "yarn cleanup && yarn",
     "prebuild": "yarn cleanup",
     "build": "next build && next export -o ./dist/out",
     "cleanup": "rm -rf dist/",
