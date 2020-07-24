@@ -5,7 +5,7 @@ import { Layout } from "../layout/layout.component";
 import { Markdown } from "../../catalog/markdown/markdown.component";
 import { ArticleMetadata } from "./article-metadata/article-metadata.component";
 import { Article } from "../../services/article/article.entity";
-import { ORIGIN } from "../../config";
+import { ORIGIN, SITE_NAME } from "../../config";
 
 export interface PageArticleProps {
   article: Article;
@@ -27,13 +27,15 @@ export const PagePost: FC<PageArticleProps> = ({
   return (
     <>
       <Head>
-        <title>{title} | The Follower</title>
+        <title>
+          {title} | {SITE_NAME}
+        </title>
 
-        <meta name="author" content="Adam Rogers" />
+        <meta name="author" content={author.name} />
         <meta name="description" content={description} />
         <meta name="content-type" content="article" />
-        {coverImageUrl && <meta property="og:image" content={coverImageUrl} />}
-        <meta property="og:site_name" content="Wired" />
+        <meta property="og:image" content={coverImageUrl} />
+        <meta property="og:site_name" content={SITE_NAME} />
         <meta property="og:title" content={title} />
         <meta property="og:description" content={description} />
         <meta property="og:type" content="article" />
