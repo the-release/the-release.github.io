@@ -10,6 +10,7 @@ import {
   htmlContentSelector,
   imagesSelector,
   metadataSelector,
+  plainTextSelector,
   timestampSelector,
   titleSelector
 } from "./article.selector";
@@ -28,18 +29,19 @@ export const getArticleBySlug = async <U extends keyof Article>(
 ) => {
   const articleDir = path.join(articlesDir, slug);
   const articleFilePath = path.join(articleDir, "/article.md");
-  const basePath = path.join("/article", slug);
   const htmlContent = toTitleCase(
-    toAbsolutePaths(await htmlContentSelector(articleFilePath), basePath)
+    toAbsolutePaths(await htmlContentSelector(articleFilePath), slug)
   );
   const metadata = await metadataSelector(articleDir);
   const category = await getCategoryBySlug(metadata.category);
   const author = await getAuthorBySlug(metadata.author);
+
   const $ = cheerio.load(htmlContent);
-  const plainText = $.root().text();
+  const plainText = plainTextSelector($);
   const images = imagesSelector($);
-  const thumbnail = await exportImages(images);
   const coverImageUrl = coverImageUrlSelector($);
+
+  const thumbnail = await exportImages(images);
 
   if (!coverImageUrl || !thumbnail) {
     throw new Error(`Missing cover image for article /${slug}`);

@@ -8,8 +8,9 @@ export const isAbsoluteUrl = (url: string) => {
   return new RegExp(/^https?:\/\/|^\/\//i, "i").test(url);
 };
 
-export const toAbsolutePaths = (html: string, basePath: string) => {
+export const toAbsolutePaths = (html: string, slug: string) => {
   const $ = cheerio.load(html);
+  const basePath = path.join("/article", slug);
 
   $("img").each((index, elem) => {
     const src = $(elem).attr("src") || "";

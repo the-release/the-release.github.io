@@ -2,9 +2,9 @@ import { promises as fs } from "fs";
 import marked from "marked";
 import { format } from "date-fns";
 import url from "url";
+import path from "path";
 
 import { ORIGIN } from "../../config";
-import path from "path";
 
 export const titleSelector = ($: CheerioStatic) => {
   return $("h1")
@@ -16,6 +16,10 @@ export const descriptionSelector = ($: CheerioStatic) => {
   return $("p")
     .first()
     .text();
+};
+
+export const plainTextSelector = ($: CheerioStatic) => {
+  return $.root().text();
 };
 
 export const coverImageUrlSelector = ($: CheerioStatic) => {
