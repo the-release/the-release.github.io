@@ -9,7 +9,7 @@ import { getCategories } from "../services/category/category.service";
 import { getAuthors } from "../services/author/author.service";
 
 export const getStaticProps: GetStaticProps<PageHomeProps> = async () => {
-  const articles = await getArticles();
+  const articles = await getArticles(["title", "url", "thumbnail"]);
   const categories = await getCategories();
   const authors = await getAuthors();
 

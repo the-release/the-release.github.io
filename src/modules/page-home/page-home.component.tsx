@@ -9,7 +9,7 @@ import { Author } from "../../services/author/author.entity";
 import { SITE_NAME } from "../../config";
 
 export interface PageHomeProps {
-  articles: Article[];
+  articles: Pick<Article, "title" | "url" | "thumbnail">[];
   categories: Category[];
   authors: Author[];
 }

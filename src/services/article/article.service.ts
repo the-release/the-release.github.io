@@ -17,6 +17,7 @@ import { exportImages, toAbsolutePaths, toTitleCase } from "./article.util";
 import { getCategoryBySlug } from "../category/category.service";
 import { getAuthorBySlug } from "../author/author.service";
 import { ORIGIN } from "../../config";
+import { pick } from "../../utils/pick/pick";
 
 const articlesDir = path.join(process.cwd(), "data", "articles");
 
@@ -77,7 +78,9 @@ export const getArticlesByAuthorSlug = async (
   });
 };
 
-export const getArticles = async (): Promise<Article[]> => {
+export const getArticles = async <U extends keyof Article>(
+  props?: Array<U>
+) => {
   const items = await fs.readdir(articlesDir, { withFileTypes: true });
   const folders = items.filter(item => item.isDirectory());
   const articles = await Promise.all(
@@ -88,7 +91,11 @@ export const getArticles = async (): Promise<Article[]> => {
     })
   );
 
-  return articles.sort((x, y) => {
+  const sortedArticles = articles.sort((x, y) => {
     return x.timestamp - y.timestamp;
   });
+
+  if (!props) return sortedArticles;
+
+  return sortedArticles.map(article => pick(article, props));
 };
