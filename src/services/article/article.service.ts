@@ -27,6 +27,7 @@ import { ORIGIN } from "../../config";
 const articlesDir = path.join(process.cwd(), "data", "articles");
 const publicDir = path.join(process.cwd(), "public");
 
+// TODO: hash images
 const exportImages = async (images: string[]) => {
   let thumbnailPath: string | null = null;
 
