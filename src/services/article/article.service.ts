@@ -9,6 +9,7 @@ import {
   descriptionSelector,
   htmlContentSelector,
   imagesSelector,
+  metadataSelector,
   timestampSelector,
   titleSelector
 } from "./article.selector";
@@ -29,10 +30,9 @@ export const getArticleBySlug = async <U extends keyof Article>(
   const articleFilePath = path.join(articleDir, "/article.md");
   const basePath = path.join("/article", slug);
   const htmlContent = toTitleCase(
-    toAbsolutePaths(htmlContentSelector(articleFilePath), basePath)
+    toAbsolutePaths(await htmlContentSelector(articleFilePath), basePath)
   );
-  const metadataFilePath = path.join(articleDir, "/metadata.json");
-  const metadata = JSON.parse(await fs.readFile(metadataFilePath, "utf8"));
+  const metadata = await metadataSelector(articleDir);
   const category = await getCategoryBySlug(metadata.category);
   const author = await getAuthorBySlug(metadata.author);
   const $ = cheerio.load(htmlContent);
@@ -49,8 +49,8 @@ export const getArticleBySlug = async <U extends keyof Article>(
     url: `${ORIGIN}/article/${slug}`,
     slug,
     htmlContent,
-    creationDate: creationDateSelector(articleFilePath),
-    timestamp: timestampSelector(articleFilePath),
+    creationDate: await creationDateSelector(articleFilePath),
+    timestamp: await timestampSelector(articleFilePath),
     title: titleSelector($),
     description: descriptionSelector($),
     readingTime: readingTime(plainText).text,
