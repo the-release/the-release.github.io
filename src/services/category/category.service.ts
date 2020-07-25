@@ -3,6 +3,7 @@ import { promises as fs } from "fs";
 
 import { Category } from "./category.entity";
 import { slugify } from "../../utils/slugify/slugify";
+import { ORIGIN } from "../../config";
 
 const categoriesFilePath = path.join(process.cwd(), "data", "categories.txt");
 
@@ -14,10 +15,12 @@ export const getCategories = async (): Promise<Category[]> => {
     .filter(category => !!category)
     .map(category => {
       const name = category.trim();
+      const slug = slugify(name);
 
       return {
-        name,
-        slug: slugify(name)
+        url: `${ORIGIN}/category/${slug}`,
+        slug,
+        name
       };
     })
     .sort((a, b) => {

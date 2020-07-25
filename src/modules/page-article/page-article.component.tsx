@@ -5,7 +5,7 @@ import { Layout } from "../layout/layout.component";
 import { Markdown } from "../../catalog/markdown/markdown.component";
 import { ArticleMetadata } from "./article-metadata/article-metadata.component";
 import { Article } from "../../services/article/article.entity";
-import { ORIGIN, SITE_NAME } from "../../config";
+import { SITE_NAME } from "../../config";
 
 export interface PageArticleProps {
   article: Article;
@@ -21,7 +21,7 @@ export const PagePost: FC<PageArticleProps> = ({
     author,
     htmlContent,
     readingTime,
-    slug
+    url
   }
 }) => {
   return (
@@ -40,7 +40,7 @@ export const PagePost: FC<PageArticleProps> = ({
         <meta property="og:description" content={description} />
         <meta property="og:type" content="article" />
         {/* TODO: store canonical url in article entity */}
-        <meta property="og:url" content={`${ORIGIN}/article/${slug}`} />
+        <meta property="og:url" content={url} />
       </Head>
       <Layout>
         <ArticleMetadata

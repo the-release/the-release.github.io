@@ -22,6 +22,7 @@ import {
 } from "./article.util";
 import { getCategoryBySlug } from "../category/category.service";
 import { getAuthorBySlug } from "../author/author.service";
+import { ORIGIN } from "../../config";
 
 const articlesDir = path.join(process.cwd(), "data", "articles");
 const publicDir = path.join(process.cwd(), "public");
@@ -77,6 +78,7 @@ export const getArticleBySlug = async (slug: string): Promise<Article> => {
   }
 
   return {
+    url: `${ORIGIN}/article/${slug}`,
     slug,
     htmlContent,
     creationDate: creationDateSelector(articleFilePath),
