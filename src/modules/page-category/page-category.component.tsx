@@ -24,10 +24,10 @@ export const PageCategory: FC<PageCategoryProps> = ({ articles, category }) => {
       </Head>
       <Layout>
         <Heading component="h1">{category.name}</Heading>
-        {articles.map(({ slug, thumbnail }, index) => (
+        {articles.map(({ url, title, thumbnail }, index) => (
           <React.Fragment key={index}>
-            <a href={`/article/${slug}`}>
-              {slug}
+            <a href={url}>
+              {title}
               <br />
               {thumbnail && <img alt="" src={thumbnail} />}
             </a>

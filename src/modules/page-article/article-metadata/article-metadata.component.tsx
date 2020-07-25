@@ -29,9 +29,8 @@ export const ArticleMetadata: FC<ArticleMetadataProps> = ({
 }) => {
   return (
     <StyledContainer>
-      {creationDate} •{" "}
-      <a href={`/category/${category.slug}`}>{category.name}</a> •{" "}
-      <a href={`/author/${author.slug}`}>
+      {creationDate} • <a href={category.url}>{category.name}</a> •{" "}
+      <a href={author.url}>
         <AuthorPhoto alt={`A photo of ${author.name}`} src={author.thumbnail} />
         {author.name}
       </a>{" "}

@@ -27,10 +27,10 @@ export const PageAuthor: FC<PageAuthorProps> = ({ articles, author }) => {
           <img width={100} src={author.thumbnail} />
           {author.name}
         </Heading>
-        {articles.map(({ slug, thumbnail }, index) => (
+        {articles.map(({ url, title, thumbnail }, index) => (
           <React.Fragment key={index}>
-            <a href={`/article/${slug}`}>
-              {slug}
+            <a href={url}>
+              {title}
               <br />
               {thumbnail && <img alt="" src={thumbnail} />}
             </a>

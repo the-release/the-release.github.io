@@ -6,6 +6,7 @@ import { Heading } from "../../catalog/heading/heading.component";
 import { Article } from "../../services/article/article.entity";
 import { Category } from "../../services/category/category.entity";
 import { Author } from "../../services/author/author.entity";
+import { SITE_NAME } from "../../config";
 
 export interface PageHomeProps {
   articles: Article[];
@@ -21,7 +22,7 @@ export const PageHome: FC<PageHomeProps> = ({
   return (
     <>
       <Head>
-        <title>The Release – Web Architect</title>
+        <title>{SITE_NAME} – Web Architect</title>
         <meta
           name="description"
           key="description"
@@ -29,11 +30,11 @@ export const PageHome: FC<PageHomeProps> = ({
         />
       </Head>
       <Layout>
-        <Heading component="h1">The Release</Heading>
+        <Heading component="h1">{SITE_NAME}</Heading>
         <Heading>Latest Articles</Heading>
-        {articles.map(({ title, slug, thumbnail }, index) => (
+        {articles.map(({ title, url, thumbnail }, index) => (
           <React.Fragment key={index}>
-            <a href={`/article/${slug}`}>
+            <a href={url}>
               <Heading component="h2" variant="h4">
                 {title}
               </Heading>
@@ -44,16 +45,16 @@ export const PageHome: FC<PageHomeProps> = ({
           </React.Fragment>
         ))}
         <Heading>Categories</Heading>
-        {categories.map(({ name, slug }, index) => (
+        {categories.map(({ name, url }, index) => (
           <React.Fragment key={index}>
-            <a href={`/category/${slug}`}>{name}</a>
+            <a href={url}>{name}</a>
             <br />
           </React.Fragment>
         ))}
         <Heading>Authors</Heading>
-        {authors.map(({ name, slug }, index) => (
+        {authors.map(({ name, url }, index) => (
           <React.Fragment key={index}>
-            <a href={`/author/${slug}`}>{name}</a>
+            <a href={url}>{name}</a>
             <br />
           </React.Fragment>
         ))}
