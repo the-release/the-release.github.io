@@ -13,49 +13,12 @@ import {
   titleSelector
 } from "./article.selector";
 import { Article } from "./article.entity";
-import {
-  generateThumbnail,
-  isAbsoluteUrl,
-  optimizeImage,
-  toAbsolutePaths,
-  toTitleCase
-} from "./article.util";
+import { exportImages, toAbsolutePaths, toTitleCase } from "./article.util";
 import { getCategoryBySlug } from "../category/category.service";
 import { getAuthorBySlug } from "../author/author.service";
 import { ORIGIN } from "../../config";
 
 const articlesDir = path.join(process.cwd(), "data", "articles");
-const publicDir = path.join(process.cwd(), "public");
-
-// TODO: hash images
-const exportImages = async (images: string[]) => {
-  let thumbnailPath: string | null = null;
-
-  for (const [index, image] of images.entries()) {
-    // TODO: disallow external images
-    if (isAbsoluteUrl(image)) continue;
-
-    const src = path.join(articlesDir, image.replace(/^\/article/, ""));
-    const dest = path.join(publicDir, image);
-    const { dir, name, ext } = path.parse(image);
-
-    if (index === 0) {
-      thumbnailPath = path.join(dir, `${name}.thumb${ext}`);
-    }
-
-    if ((await fs.stat(dest).catch(() => undefined))?.isFile()) continue;
-
-    await optimizeImage(src, dest);
-
-    if (index === 0) {
-      const thumbDest = path.join(publicDir, dir, `${name}.thumb${ext}`);
-
-      await generateThumbnail(src, thumbDest);
-    }
-  }
-
-  return thumbnailPath;
-};
 
 export const getArticleBySlug = async (slug: string): Promise<Article> => {
   const articleDir = path.join(articlesDir, slug);
