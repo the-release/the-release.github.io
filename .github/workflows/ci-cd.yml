@@ -35,6 +35,8 @@ jobs:
 
       - run: yarn install --frozen-lockfile
 
+      - run: yarn audit
+
       - name: Build
         run: yarn build
         env:

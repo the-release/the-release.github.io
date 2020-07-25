@@ -74,6 +74,7 @@ const MarkdownContainer = styled.div(
       font-family: ${theme.fonts.sans};
       font-size: 14px;
       color: #666;
+      line-height: 1.6em;
     }
 
     ul,
