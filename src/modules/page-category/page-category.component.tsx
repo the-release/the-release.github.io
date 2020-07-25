@@ -7,7 +7,7 @@ import { Article } from "../../services/article/article.entity";
 import { Category } from "../../services/category/category.entity";
 
 export interface PageCategoryProps {
-  articles: Article[];
+  articles: Pick<Article, "title" | "url" | "thumbnail">[];
   category: Category;
 }
 
@@ -24,7 +24,7 @@ export const PageCategory: FC<PageCategoryProps> = ({ articles, category }) => {
       </Head>
       <Layout>
         <Heading component="h1">{category.name}</Heading>
-        {articles.map(({ url, title, thumbnail }, index) => (
+        {articles.map(({ title, url, thumbnail }, index) => (
           <React.Fragment key={index}>
             <a href={url}>
               {title}

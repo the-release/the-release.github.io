@@ -7,7 +7,7 @@ import { Article } from "../../services/article/article.entity";
 import { Author } from "../../services/author/author.entity";
 
 export interface PageAuthorProps {
-  articles: Article[];
+  articles: Pick<Article, "title" | "url" | "thumbnail">[];
   author: Author;
 }
 
@@ -27,7 +27,7 @@ export const PageAuthor: FC<PageAuthorProps> = ({ articles, author }) => {
           <img width={100} src={author.thumbnail} />
           {author.name}
         </Heading>
-        {articles.map(({ url, title, thumbnail }, index) => (
+        {articles.map(({ title, url, thumbnail }, index) => (
           <React.Fragment key={index}>
             <a href={url}>
               {title}

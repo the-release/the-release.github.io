@@ -8,7 +8,18 @@ import { Article } from "../../services/article/article.entity";
 import { ORIGIN, SITE_NAME, TWITTER_HANDLE } from "../../config";
 
 export interface PageArticleProps {
-  article: Article;
+  article: Pick<
+    Article,
+    | "title"
+    | "description"
+    | "coverImageUrl"
+    | "creationDate"
+    | "category"
+    | "author"
+    | "htmlContent"
+    | "readingTime"
+    | "url"
+  >;
 }
 
 export const PagePost: FC<PageArticleProps> = ({
