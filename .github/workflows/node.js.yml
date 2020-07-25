@@ -6,8 +6,8 @@ name: Node.js CI
 on:
   push:
     branches: [ main ]
-#  pull_request:
-#    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
   build:
@@ -41,6 +41,7 @@ jobs:
           ORIGIN: https://therelease.news
 
       - name: Deploy
+        if: github.ref == 'refs/heads/main'
         uses: peaceiris/actions-gh-pages@v3
         with:
           personal_token: ${{ secrets.PERSONAL_TOKEN }}
