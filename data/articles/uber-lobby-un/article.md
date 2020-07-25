@@ -2,7 +2,7 @@
 
 **A global group of gig economy companies petitioned the United Nations to honor their demand.**
 
-![A man in suit and tie is holding a United Nations notebook under his arm.](lobbyist-united-nations.jpg)
+![A man in suit and tie holding a United Nations notebook under his arm.](lobbyist-united-nations.jpg)
 *A network of lobbyists from the US, Canada, the UK, France, Germany, India and Australia have reportedly been working on this case.*
 
 A group of more than 45 platform economy companies have reportedly signed an alliance in joined efforts to ostracize their fleets of gig-workers from The Universal Declaration of Human Rights.
