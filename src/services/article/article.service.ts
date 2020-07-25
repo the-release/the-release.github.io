@@ -21,7 +21,10 @@ import { pick } from "../../utils/pick/pick";
 
 const articlesDir = path.join(process.cwd(), "data", "articles");
 
-export const getArticleBySlug = async (slug: string): Promise<Article> => {
+export const getArticleBySlug = async <U extends keyof Article>(
+  slug: string,
+  props?: Array<U>
+) => {
   const articleDir = path.join(articlesDir, slug);
   const articleFilePath = path.join(articleDir, "/article.md");
   const basePath = path.join("/article", slug);
@@ -42,7 +45,7 @@ export const getArticleBySlug = async (slug: string): Promise<Article> => {
     throw new Error(`Missing cover image for article /${slug}`);
   }
 
-  return {
+  const article: Article = {
     url: `${ORIGIN}/article/${slug}`,
     slug,
     htmlContent,
@@ -56,26 +59,38 @@ export const getArticleBySlug = async (slug: string): Promise<Article> => {
     category,
     author
   };
+
+  if (!props) return article;
+
+  return pick(article, props);
 };
 
-export const getArticlesByCategorySlug = async (
-  slug: string
-): Promise<Article[]> => {
+export const getArticlesByCategorySlug = async <U extends keyof Article>(
+  slug: string,
+  props?: Array<U>
+) => {
   const articles = await getArticles();
-
-  return articles.filter(article => {
+  const filteredArticles = articles.filter(article => {
     return article.category.slug === slug;
   });
+
+  if (!props) return filteredArticles;
+
+  return filteredArticles.map(article => pick(article, props));
 };
 
-export const getArticlesByAuthorSlug = async (
-  slug: string
-): Promise<Article[]> => {
+export const getArticlesByAuthorSlug = async <U extends keyof Article>(
+  slug: string,
+  props?: Array<U>
+) => {
   const articles = await getArticles();
-
-  return articles.filter(article => {
+  const filteredArticles = articles.filter(article => {
     return article.author.slug === slug;
   });
+
+  if (!props) return filteredArticles;
+
+  return filteredArticles.map(article => pick(article, props));
 };
 
 export const getArticles = async <U extends keyof Article>(

@@ -27,7 +27,11 @@ export const getStaticPaths = async () => {
 export const getStaticProps: GetStaticProps<PageCategoryProps> = async ({
   params
 }: any) => {
-  const articles = await getArticlesByCategorySlug(params.slug);
+  const articles = await getArticlesByCategorySlug(params.slug, [
+    "title",
+    "url",
+    "thumbnail"
+  ]);
   const category = await getCategoryBySlug(params.slug);
 
   return {

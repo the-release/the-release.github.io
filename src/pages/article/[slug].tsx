@@ -26,7 +26,17 @@ export const getStaticPaths = async () => {
 export const getStaticProps: GetStaticProps<PageArticleProps> = async ({
   params
 }: any) => {
-  const article = await getArticleBySlug(params.slug);
+  const article = await getArticleBySlug(params.slug, [
+    "title",
+    "description",
+    "coverImageUrl",
+    "creationDate",
+    "category",
+    "author",
+    "htmlContent",
+    "readingTime",
+    "url"
+  ]);
 
   return {
     props: {
