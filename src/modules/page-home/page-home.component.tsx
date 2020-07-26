@@ -6,7 +6,7 @@ import { Heading } from "../../catalog/heading/heading.component";
 import { Article } from "../../services/article/article.entity";
 import { Category } from "../../services/category/category.entity";
 import { Author } from "../../services/author/author.entity";
-import { SITE_NAME } from "../../config";
+import { SITE_NAME, SLOGAN } from "../../config";
 import { Image } from "../../catalog/image/image.component";
 
 export interface PageHomeProps {
@@ -23,7 +23,9 @@ export const PageHome: FC<PageHomeProps> = ({
   return (
     <>
       <Head>
-        <title>{SITE_NAME} – Web Architect</title>
+        <title>
+          {SITE_NAME} – {SLOGAN}
+        </title>
         <meta
           name="description"
           key="description"
