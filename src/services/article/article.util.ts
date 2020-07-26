@@ -24,7 +24,7 @@ export const exportImages = async (html: string, slug: string) => {
     if (!src) return;
 
     if (isAbsoluteUrl(src)) {
-      throw new Error("Absolute URLs are not allowed for images");
+      throw new Error("Image URLs should not be absolute");
     }
 
     absolutePaths.push(path.join(basePath, src));
