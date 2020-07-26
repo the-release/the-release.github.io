@@ -3,21 +3,37 @@ import path from "path";
 import { titleCase } from "title-case";
 import jimp from "jimp";
 import { promises as fs } from "fs";
+import { sha256 } from "../../utils/sha256/sha256";
 
 export const isAbsoluteUrl = (url: string) => {
   return new RegExp(/^https?:\/\/|^\/\//i, "i").test(url);
 };
 
-export const toAbsolutePaths = (html: string, slug: string) => {
+export const exportImages = async (html: string, slug: string) => {
   const $ = cheerio.load(html);
   const basePath = path.join("/article", slug);
+  const absolutePaths: string[] = [];
+  const exportedPaths: string[] = [];
+  const images = $("img");
 
-  $("img").each((index, elem) => {
-    const src = $(elem).attr("src") || "";
+  images.each((index, elem) => {
+    const src = $(elem).attr("src");
 
-    if (!isAbsoluteUrl(src)) {
-      $(elem).attr("src", path.join(basePath, src));
+    if (!src) return;
+
+    if (isAbsoluteUrl(src)) {
+      throw new Error("Absolute URLs are not allowed for images");
     }
+
+    absolutePaths.push(path.join(basePath, src));
+  });
+
+  for (const absolutePath of absolutePaths) {
+    exportedPaths.push(await exportImage(absolutePath));
+  }
+
+  images.each((index, elem) => {
+    $(elem).attr("src", exportedPaths[index]);
   });
 
   return $.html();
@@ -54,34 +70,32 @@ const generateThumbnail = async (src: string, dest: string) => {
   await image.writeAsync(dest);
 };
 
-// TODO: hash images
-export const exportImages = async (images: string[]) => {
+export const exportThumbnail = async (imagePath: string) => {
+  const publicDir = path.join(process.cwd(), "public");
+  const src = path.join(publicDir, imagePath);
+  const { dir, name, ext } = path.parse(imagePath);
+  const dest = path.join(publicDir, dir, `${name}.thumb${ext}`);
+  const newPath = path.join(dir, `${name}.thumb${ext}`);
+
+  if ((await fs.stat(dest)).isFile()) return newPath;
+
+  await generateThumbnail(src, dest);
+
+  return newPath;
+};
+
+export const exportImage = async (absolutePath: string) => {
   const articlesDir = path.join(process.cwd(), "data", "articles");
   const publicDir = path.join(process.cwd(), "public");
-  let thumbnailPath: string | null = null;
+  const src = path.join(articlesDir, absolutePath.replace(/^\/article/, ""));
+  const hash = sha256(await fs.readFile(src));
+  const { dir, name, ext } = path.parse(absolutePath);
+  const newPath = path.join(dir, `${name}.${hash}${ext}`);
+  const dest = path.join(publicDir, newPath);
 
-  for (const [index, image] of images.entries()) {
-    // TODO: disallow external images
-    if (isAbsoluteUrl(image)) continue;
+  if ((await fs.stat(dest)).isFile()) return newPath;
 
-    const src = path.join(articlesDir, image.replace(/^\/article/, ""));
-    const dest = path.join(publicDir, image);
-    const { dir, name, ext } = path.parse(image);
+  await optimizeImage(src, dest);
 
-    if (index === 0) {
-      thumbnailPath = path.join(dir, `${name}.thumb${ext}`);
-    }
-
-    if ((await fs.stat(dest).catch(() => undefined))?.isFile()) continue;
-
-    await optimizeImage(src, dest);
-
-    if (index === 0) {
-      const thumbDest = path.join(publicDir, dir, `${name}.thumb${ext}`);
-
-      await generateThumbnail(src, thumbDest);
-    }
-  }
-
-  return thumbnailPath;
+  return newPath;
 };

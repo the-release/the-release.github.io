@@ -22,28 +22,14 @@ export const plainTextSelector = ($: CheerioStatic) => {
   return $.root().text();
 };
 
-export const coverImageUrlSelector = ($: CheerioStatic) => {
-  const src = $("img")
-    .first()
-    .attr("src");
-
-  if (!src) return null;
-
-  return url.resolve(ORIGIN, src || "");
+export const coverImageUrlSelector = (imagePath: string) => {
+  return url.resolve(ORIGIN, imagePath || "");
 };
 
-export const imagesSelector = ($: CheerioStatic) => {
-  const images: string[] = [];
-
-  $("img").each((index, elem) => {
-    const src = $(elem).attr("src");
-
-    if (!src) return;
-
-    images.push(src);
-  });
-
-  return images;
+export const coverImagePathSelector = ($: CheerioStatic) => {
+  return $("img")
+    .first()
+    .attr("src");
 };
 
 export const timestampSelector = async (filePath: string) => {
