@@ -1,4 +1,6 @@
-import { GetStaticProps } from "next";
+import { GetStaticPaths, GetStaticProps } from "next";
+import { ParsedUrlQuery } from "querystring";
+
 import {
   getAuthorBySlug,
   getAuthors
@@ -11,7 +13,12 @@ import {
 } from "../../../modules/page-author/page-author.component";
 import { ITEMS_PER_PAGE } from "../../../config";
 
-export const getStaticPaths = async () => {
+interface PageAuthorParams extends ParsedUrlQuery {
+  slug: string;
+  page: string;
+}
+
+export const getStaticPaths: GetStaticPaths<PageAuthorParams> = async () => {
   const authors = await getAuthors();
   const paths: {
     params: { slug: string; page: string };
@@ -34,13 +41,16 @@ export const getStaticPaths = async () => {
   };
 };
 
-export const getStaticProps: GetStaticProps<PageAuthorProps> = async ({
-  params
-}: any) => {
-  const author = await getAuthorBySlug(params.slug);
-  const pageIndex = parseInt(params.page, 10);
+export const getStaticProps: GetStaticProps<
+  PageAuthorProps,
+  PageAuthorParams
+> = async ({ params }) => {
+  const slug = params!.slug;
+  const page = params!.page;
+  const author = await getAuthorBySlug(slug);
+  const pageIndex = parseInt(page, 10);
   const { pageItems: articles, previousPageIndex, nextPageIndex } = paginate(
-    await getArticlesByAuthorSlug(params.slug, [
+    await getArticlesByAuthorSlug(slug, [
       "title",
       "url",
       "thumbnail",

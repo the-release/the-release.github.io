@@ -1,4 +1,5 @@
-import { GetStaticProps } from "next";
+import { GetStaticPaths, GetStaticProps } from "next";
+import { ParsedUrlQuery } from "querystring";
 
 import { getArticlesByAuthorSlug } from "../../services/article/article.service";
 import {
@@ -12,7 +13,11 @@ import {
 import { paginate } from "../../utils/paginate/paginate";
 import { ITEMS_PER_PAGE } from "../../config";
 
-export const getStaticPaths = async () => {
+interface PageAuthorParams extends ParsedUrlQuery {
+  slug: string;
+}
+
+export const getStaticPaths: GetStaticPaths<PageAuthorParams> = async () => {
   const authors = await getAuthors();
   const paths = authors.map(({ slug }) => {
     return {
@@ -26,12 +31,14 @@ export const getStaticPaths = async () => {
   };
 };
 
-export const getStaticProps: GetStaticProps<PageAuthorProps> = async ({
-  params
-}: any) => {
-  const author = await getAuthorBySlug(params.slug);
+export const getStaticProps: GetStaticProps<
+  PageAuthorProps,
+  PageAuthorParams
+> = async ({ params }) => {
+  const slug = params!.slug;
+  const author = await getAuthorBySlug(slug);
   const { pageItems: articles, previousPageIndex, nextPageIndex } = paginate(
-    await getArticlesByAuthorSlug(params.slug, [
+    await getArticlesByAuthorSlug(slug, [
       "title",
       "url",
       "thumbnail",

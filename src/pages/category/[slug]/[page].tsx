@@ -1,4 +1,5 @@
-import { GetStaticProps } from "next";
+import { GetStaticPaths, GetStaticProps } from "next";
+import { ParsedUrlQuery } from "querystring";
 
 import { getArticlesByCategorySlug } from "../../../services/article/article.service";
 import {
@@ -12,7 +13,12 @@ import {
 import { paginate } from "../../../utils/paginate/paginate";
 import { ITEMS_PER_PAGE } from "../../../config";
 
-export const getStaticPaths = async () => {
+interface PageCategoryParams extends ParsedUrlQuery {
+  slug: string;
+  page: string;
+}
+
+export const getStaticPaths: GetStaticPaths<PageCategoryParams> = async () => {
   const categories = await getCategories();
   const paths: {
     params: { slug: string; page: string };
@@ -35,13 +41,16 @@ export const getStaticPaths = async () => {
   };
 };
 
-export const getStaticProps: GetStaticProps<PageCategoryProps> = async ({
-  params
-}: any) => {
-  const category = await getCategoryBySlug(params.slug);
-  const pageIndex = parseInt(params.page, 10);
+export const getStaticProps: GetStaticProps<
+  PageCategoryProps,
+  PageCategoryParams
+> = async ({ params }) => {
+  const slug = params!.slug;
+  const page = params!.page;
+  const category = await getCategoryBySlug(slug);
+  const pageIndex = parseInt(page, 10);
   const { pageItems: articles, previousPageIndex, nextPageIndex } = paginate(
-    await getArticlesByCategorySlug(params.slug, [
+    await getArticlesByCategorySlug(slug, [
       "title",
       "url",
       "thumbnail",
