@@ -6,6 +6,7 @@ import { Heading } from "../../catalog/heading/heading.component";
 import { Article } from "../../services/article/article.entity";
 import { Author } from "../../services/author/author.entity";
 import { Image } from "../../catalog/image/image.component";
+import { SITE_NAME } from "../../config";
 
 export interface PageAuthorProps {
   articles: Pick<Article, "title" | "url" | "thumbnail" | "coverImageAlt">[];
@@ -16,7 +17,9 @@ export const PageAuthor: FC<PageAuthorProps> = ({ articles, author }) => {
   return (
     <>
       <Head>
-        <title>Etienne Martin – Web Architect</title>
+        <title>
+          {author.name} – {SITE_NAME}
+        </title>
         <meta
           name="description"
           key="description"
