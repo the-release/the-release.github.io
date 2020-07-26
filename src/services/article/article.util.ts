@@ -4,6 +4,7 @@ import { titleCase } from "title-case";
 import jimp from "jimp";
 import { promises as fs } from "fs";
 import { sha256 } from "../../utils/sha256/sha256";
+import { isFile } from "../../utils/is-file/is-file";
 
 export const isAbsoluteUrl = (url: string) => {
   return new RegExp(/^https?:\/\/|^\/\//i, "i").test(url);
@@ -70,10 +71,6 @@ const generateThumbnail = async (src: string, dest: string) => {
   await image.writeAsync(dest);
 };
 
-const isFile = async (path: string) => {
-  return (await fs.stat(path).catch(() => undefined))?.isFile();
-};
-
 export const exportThumbnail = async (imagePath: string) => {
   const publicDir = path.join(process.cwd(), "public");
   const src = path.join(publicDir, imagePath);
@@ -88,13 +85,13 @@ export const exportThumbnail = async (imagePath: string) => {
   return newPath;
 };
 
-export const exportImage = async (absolutePath: string) => {
+const exportImage = async (absolutePath: string) => {
   const articlesDir = path.join(process.cwd(), "data", "articles");
   const publicDir = path.join(process.cwd(), "public");
   const src = path.join(articlesDir, absolutePath.replace(/^\/article/, ""));
   const hash = sha256(await fs.readFile(src));
   const { dir, name, ext } = path.parse(absolutePath);
-  const newPath = path.join(dir, `${name}.${hash}${ext}`);
+  const newPath = path.join(dir, `${name}-${hash}${ext}`);
   const dest = path.join(publicDir, newPath);
 
   if (await isFile(dest)) return newPath;
