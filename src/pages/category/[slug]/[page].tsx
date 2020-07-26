@@ -1,29 +1,30 @@
 import { GetStaticProps } from "next";
+
+import { getArticlesByCategorySlug } from "../../../services/article/article.service";
 import {
-  getAuthorBySlug,
-  getAuthors
-} from "../../../services/author/author.service";
-import { getArticlesByAuthorSlug } from "../../../services/article/article.service";
+  getCategories,
+  getCategoryBySlug
+} from "../../../services/category/category.service";
+import {
+  PageCategory,
+  PageCategoryProps
+} from "../../../modules/page-category/page-category.component";
 import { paginate } from "../../../utils/paginate/paginate";
-import {
-  PageAuthor,
-  PageAuthorProps
-} from "../../../modules/page-author/page-author.component";
 import { ITEMS_PER_PAGE } from "../../../config";
 
 export const getStaticPaths = async () => {
-  const authors = await getAuthors();
+  const categories = await getCategories();
   const paths: {
     params: { slug: string; page: string };
   }[] = [];
 
-  for (const author of authors) {
-    const articles = await getArticlesByAuthorSlug(author.slug);
+  for (const category of categories) {
+    const articles = await getArticlesByCategorySlug(category.slug);
     const paginatedArticles = paginate(articles, ITEMS_PER_PAGE);
 
     for (const pageIndex in paginatedArticles.pages) {
       paths.push({
-        params: { slug: author.slug, page: pageIndex.toString() }
+        params: { slug: category.slug, page: pageIndex.toString() }
       });
     }
   }
@@ -34,13 +35,13 @@ export const getStaticPaths = async () => {
   };
 };
 
-export const getStaticProps: GetStaticProps<PageAuthorProps> = async ({
+export const getStaticProps: GetStaticProps<PageCategoryProps> = async ({
   params
 }: any) => {
-  const author = await getAuthorBySlug(params.slug);
+  const category = await getCategoryBySlug(params.slug);
   const pageIndex = parseInt(params.page, 10);
   const { pageItems: articles, previousPageIndex, nextPageIndex } = paginate(
-    await getArticlesByAuthorSlug(params.slug, [
+    await getArticlesByCategorySlug(params.slug, [
       "title",
       "url",
       "thumbnail",
@@ -53,11 +54,11 @@ export const getStaticProps: GetStaticProps<PageAuthorProps> = async ({
   return {
     props: {
       articles,
-      author,
+      category,
       previousPageIndex,
       nextPageIndex
     }
   };
 };
 
-export default PageAuthor;
+export default PageCategory;

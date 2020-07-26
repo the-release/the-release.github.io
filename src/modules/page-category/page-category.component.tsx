@@ -12,9 +12,16 @@ import { ArticleList } from "../../article-list/article-list.component";
 export interface PageCategoryProps {
   articles: Pick<Article, "title" | "url" | "thumbnail" | "coverImageAlt">[];
   category: Category;
+  previousPageIndex: number | null;
+  nextPageIndex: number | null;
 }
 
-export const PageCategory: FC<PageCategoryProps> = ({ articles, category }) => {
+export const PageCategory: FC<PageCategoryProps> = ({
+  articles,
+  category,
+  previousPageIndex,
+  nextPageIndex
+}) => {
   return (
     <>
       <Head>
@@ -34,6 +41,12 @@ export const PageCategory: FC<PageCategoryProps> = ({ articles, category }) => {
             <ArticleCard {...props} key={index} />
           ))}
         </ArticleList>
+        {previousPageIndex !== null && (
+          <a href={`${category.url}/${previousPageIndex}`}>Previous page</a>
+        )}
+        {nextPageIndex !== null && (
+          <a href={`${category.url}/${nextPageIndex}`}>Next page</a>
+        )}
       </Layout>
     </>
   );

@@ -29,21 +29,20 @@ export const getStaticPaths = async () => {
 export const getStaticProps: GetStaticProps<PageAuthorProps> = async ({
   params
 }: any) => {
-  const articles = await getArticlesByAuthorSlug(params.slug, [
-    "title",
-    "url",
-    "thumbnail",
-    "coverImageAlt"
-  ]);
   const author = await getAuthorBySlug(params.slug);
-  const { pageItems, previousPageIndex, nextPageIndex } = paginate(
-    articles,
+  const { pageItems: articles, previousPageIndex, nextPageIndex } = paginate(
+    await getArticlesByAuthorSlug(params.slug, [
+      "title",
+      "url",
+      "thumbnail",
+      "coverImageAlt"
+    ]),
     ITEMS_PER_PAGE
   );
 
   return {
     props: {
-      articles: pageItems,
+      articles,
       author,
       previousPageIndex,
       nextPageIndex

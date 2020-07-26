@@ -18,6 +18,7 @@ export const paginate = <T>(
     totalPages,
     pages,
     pageItems: pages[pageIndex] || [],
+    pageIndex,
     previousPageIndex: pageIndex === 0 ? null : pageIndex - 1,
     nextPageIndex: pageIndex + 2 > totalPages ? null : pageIndex + 1
   };
