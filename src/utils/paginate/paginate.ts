@@ -5,7 +5,7 @@ export const paginate = <T>(
 ) => {
   const totalItems = collection.length;
   const totalPages = Math.ceil(totalItems / itemsPerPage);
-  const pages = [...new Array(totalPages)].map((awd, pageIndex) => {
+  const pages = [...new Array(totalPages)].map((_, pageIndex) => {
     return collection.slice(
       pageIndex * itemsPerPage,
       (pageIndex + 1) * itemsPerPage
