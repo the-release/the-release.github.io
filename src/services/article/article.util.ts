@@ -21,7 +21,7 @@ export const exportImages = async (html: string, slug: string) => {
   images.each((index, elem) => {
     const src = $(elem).attr("src");
 
-    if (!src) return;
+    if (!src) throw new Error("Missing image URL");
 
     if (isAbsoluteUrl(src)) {
       throw new Error("Image URLs should not be absolute");

@@ -13,9 +13,16 @@ import { ArticleList } from "../../article-list/article-list.component";
 export interface PageAuthorProps {
   articles: Pick<Article, "title" | "url" | "thumbnail" | "coverImageAlt">[];
   author: Author;
+  previousPageIndex: number | null;
+  nextPageIndex: number | null;
 }
 
-export const PageAuthor: FC<PageAuthorProps> = ({ articles, author }) => {
+export const PageAuthor: FC<PageAuthorProps> = ({
+  articles,
+  author,
+  previousPageIndex,
+  nextPageIndex
+}) => {
   return (
     <>
       <Head>
@@ -38,6 +45,12 @@ export const PageAuthor: FC<PageAuthorProps> = ({ articles, author }) => {
             <ArticleCard {...props} key={index} />
           ))}
         </ArticleList>
+        {previousPageIndex !== null && (
+          <a href={`${author.url}/${previousPageIndex}`}>Previous page</a>
+        )}
+        {nextPageIndex !== null && (
+          <a href={`${author.url}/${nextPageIndex}`}>Next page</a>
+        )}
       </Layout>
     </>
   );

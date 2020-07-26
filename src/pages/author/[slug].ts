@@ -9,6 +9,8 @@ import {
   PageAuthor,
   PageAuthorProps
 } from "../../modules/page-author/page-author.component";
+import { paginate } from "../../utils/paginate/paginate";
+import { ITEMS_PER_PAGE } from "../../config";
 
 export const getStaticPaths = async () => {
   const authors = await getAuthors();
@@ -34,11 +36,17 @@ export const getStaticProps: GetStaticProps<PageAuthorProps> = async ({
     "coverImageAlt"
   ]);
   const author = await getAuthorBySlug(params.slug);
+  const { pageItems, previousPageIndex, nextPageIndex } = paginate(
+    articles,
+    ITEMS_PER_PAGE
+  );
 
   return {
     props: {
-      articles,
-      author
+      articles: pageItems,
+      author,
+      previousPageIndex,
+      nextPageIndex
     }
   };
 };
