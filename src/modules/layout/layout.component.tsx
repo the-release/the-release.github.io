@@ -9,7 +9,7 @@ const StyledLayout = styled.div`
   flex-flow: column;
   padding: 75px 100px;
 
-  @media only screen and (max-width: 768px) {
+  @media only screen and (max-width: 1080px) {
     padding: 30px 40px;
   }
 

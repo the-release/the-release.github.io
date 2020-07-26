@@ -6,7 +6,7 @@ interface ImageProps {
   alt: string;
 }
 
-const StyledImage = styled.img`
+export const StyledImage = styled.img`
   border-radius: 5px;
   background: #eee;
   width: auto;
