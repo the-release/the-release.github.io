@@ -7,15 +7,19 @@ import path from "path";
 import { ORIGIN } from "../../config";
 
 export const titleSelector = ($: CheerioStatic) => {
-  return $("h1")
-    .first()
-    .text();
+  const titleElement = $("body > h1:first-child");
+
+  if (!titleElement.length) throw new Error("Missing title");
+
+  return titleElement.text();
 };
 
 export const descriptionSelector = ($: CheerioStatic) => {
-  return $("p")
-    .first()
-    .text();
+  const descriptionElement = $("body > h1:first-child + p > strong:only-child");
+
+  if (!descriptionElement.length) throw new Error("Missing lede");
+
+  return descriptionElement.text();
 };
 
 export const plainTextSelector = ($: CheerioStatic) => {
