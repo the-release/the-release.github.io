@@ -70,6 +70,10 @@ const generateThumbnail = async (src: string, dest: string) => {
   await image.writeAsync(dest);
 };
 
+const isFile = async (path: string) => {
+  return (await fs.stat(path).catch(() => undefined))?.isFile();
+};
+
 export const exportThumbnail = async (imagePath: string) => {
   const publicDir = path.join(process.cwd(), "public");
   const src = path.join(publicDir, imagePath);
@@ -77,7 +81,7 @@ export const exportThumbnail = async (imagePath: string) => {
   const dest = path.join(publicDir, dir, `${name}.thumb${ext}`);
   const newPath = path.join(dir, `${name}.thumb${ext}`);
 
-  if ((await fs.stat(dest).catch(() => undefined))?.isFile()) return newPath;
+  if (await isFile(dest)) return newPath;
 
   await generateThumbnail(src, dest);
 
@@ -93,7 +97,7 @@ export const exportImage = async (absolutePath: string) => {
   const newPath = path.join(dir, `${name}.${hash}${ext}`);
   const dest = path.join(publicDir, newPath);
 
-  if ((await fs.stat(dest).catch(() => undefined))?.isFile()) return newPath;
+  if (await isFile(dest)) return newPath;
 
   await optimizeImage(src, dest);
 
