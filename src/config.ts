@@ -3,3 +3,4 @@ export const SLOGAN = "Tech's Single Source Of Truth";
 export const TWITTER_HANDLE = "@TheReleaseNews";
 export const ORIGIN = process.env.ORIGIN || "http://localhost:3000";
 export const ITEMS_PER_PAGE = 2;
+export const HOMEPAGE_MAX_ITEMS = 20;
