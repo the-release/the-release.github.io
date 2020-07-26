@@ -5,7 +5,7 @@ import { Layout } from "../layout/layout.component";
 import { Heading } from "../../catalog/heading/heading.component";
 import { Article } from "../../services/article/article.entity";
 import { Category } from "../../services/category/category.entity";
-import {Image} from "../../catalog/image/image.component";
+import { Image } from "../../catalog/image/image.component";
 
 export interface PageCategoryProps {
   articles: Pick<Article, "title" | "url" | "thumbnail" | "coverImageAlt">[];

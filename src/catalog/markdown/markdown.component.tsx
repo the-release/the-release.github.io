@@ -66,6 +66,7 @@ const MarkdownContainer = styled.div(
       height: auto;
       max-width: 100%;
       border-radius: 5px;
+      background: #eee;
     }
 
     /* Image caption */
