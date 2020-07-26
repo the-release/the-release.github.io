@@ -46,15 +46,6 @@ export const getArticleBySlug = async <U extends keyof Article>(
   const $ = cheerio.load(htmlContent);
   const plainText = plainTextSelector($);
   const { src: coverImageSrc, alt: coverImageAlt } = coverImageSelector($);
-
-  if (!coverImageSrc) {
-    throw new Error(`Missing cover image for article /${slug}`);
-  }
-
-  if (!coverImageAlt) {
-    throw new Error(`Missing alt text on cover image for article /${slug}`);
-  }
-
   const coverImageUrl = coverImageUrlSelector(coverImageSrc);
   const thumbnail = await exportThumbnail(coverImageSrc);
 

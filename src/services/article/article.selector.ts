@@ -23,7 +23,7 @@ export const descriptionSelector = ($: CheerioStatic) => {
 };
 
 export const plainTextSelector = ($: CheerioStatic) => {
-  return $.root().text();
+  return $("body").text();
 };
 
 export const coverImageUrlSelector = (imagePath: string) => {
@@ -32,10 +32,15 @@ export const coverImageUrlSelector = (imagePath: string) => {
 
 export const coverImageSelector = ($: CheerioStatic) => {
   const coverImage = $("img").first();
+  const src = coverImage.attr("src");
+  const alt = coverImage.attr("alt");
+
+  if (!src) throw new Error(`Missing cover image`);
+  if (!alt) throw new Error(`Missing alt text on cover image`);
 
   return {
-    src: coverImage.attr("src"),
-    alt: coverImage.attr("alt")
+    src,
+    alt
   };
 };
 
