@@ -26,10 +26,13 @@ export const coverImageUrlSelector = (imagePath: string) => {
   return url.resolve(ORIGIN, imagePath || "");
 };
 
-export const coverImagePathSelector = ($: CheerioStatic) => {
-  return $("img")
-    .first()
-    .attr("src");
+export const coverImageSelector = ($: CheerioStatic) => {
+  const coverImage = $("img").first();
+
+  return {
+    src: coverImage.attr("src"),
+    alt: coverImage.attr("alt")
+  };
 };
 
 export const timestampSelector = async (filePath: string) => {

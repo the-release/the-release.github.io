@@ -30,7 +30,8 @@ export const getStaticProps: GetStaticProps<PageCategoryProps> = async ({
   const articles = await getArticlesByCategorySlug(params.slug, [
     "title",
     "url",
-    "thumbnail"
+    "thumbnail",
+    "coverImageAlt"
   ]);
   const category = await getCategoryBySlug(params.slug);
 

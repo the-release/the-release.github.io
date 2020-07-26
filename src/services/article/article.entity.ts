@@ -8,6 +8,7 @@ export interface Article {
   title: string;
   description: string;
   coverImageUrl: string;
+  coverImageAlt: string;
   thumbnail: string;
   creationDate: string;
   timestamp: number;

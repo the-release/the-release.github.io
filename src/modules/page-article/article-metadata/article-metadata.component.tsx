@@ -2,6 +2,7 @@ import React, { FC } from "react";
 import styled from "styled-components";
 import { Category } from "../../../services/category/category.entity";
 import { Author } from "../../../services/author/author.entity";
+import { Image } from "../../../catalog/image/image.component";
 
 interface ArticleMetadataProps {
   creationDate: string;
@@ -15,12 +16,6 @@ const StyledContainer = styled.div`
   margin-bottom: 30px;
 `;
 
-const AuthorPhoto = styled.img`
-  width: 50px;
-  height: auto;
-  border-radius: 200px;
-`;
-
 export const ArticleMetadata: FC<ArticleMetadataProps> = ({
   creationDate,
   category,
@@ -31,7 +26,7 @@ export const ArticleMetadata: FC<ArticleMetadataProps> = ({
     <StyledContainer>
       {creationDate} • <a href={category.url}>{category.name}</a> •{" "}
       <a href={author.url}>
-        <AuthorPhoto alt={`A photo of ${author.name}`} src={author.thumbnail} />
+        <Image alt={`A photo of ${author.name}`} src={author.thumbnail} />
         {author.name}
       </a>{" "}
       • {readingTime}

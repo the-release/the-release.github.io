@@ -5,9 +5,10 @@ import { Layout } from "../layout/layout.component";
 import { Heading } from "../../catalog/heading/heading.component";
 import { Article } from "../../services/article/article.entity";
 import { Author } from "../../services/author/author.entity";
+import { Image } from "../../catalog/image/image.component";
 
 export interface PageAuthorProps {
-  articles: Pick<Article, "title" | "url" | "thumbnail">[];
+  articles: Pick<Article, "title" | "url" | "thumbnail" | "coverImageAlt">[];
   author: Author;
 }
 
@@ -24,15 +25,17 @@ export const PageAuthor: FC<PageAuthorProps> = ({ articles, author }) => {
       </Head>
       <Layout>
         <Heading component="h1">
-          <img width={100} src={author.thumbnail} />
+          <Image alt={`A photo of ${author.name}`} src={author.thumbnail} />
           {author.name}
         </Heading>
-        {articles.map(({ title, url, thumbnail }, index) => (
+        {articles.map(({ title, url, thumbnail, coverImageAlt }, index) => (
           <React.Fragment key={index}>
             <a href={url}>
-              {title}
+              <Heading component="h2" variant="h4">
+                {title}
+              </Heading>
               <br />
-              {thumbnail && <img alt="" src={thumbnail} />}
+              <Image alt={coverImageAlt} src={thumbnail} />
             </a>
             <br />
           </React.Fragment>

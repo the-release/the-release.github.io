@@ -30,7 +30,8 @@ export const getStaticProps: GetStaticProps<PageAuthorProps> = async ({
   const articles = await getArticlesByAuthorSlug(params.slug, [
     "title",
     "url",
-    "thumbnail"
+    "thumbnail",
+    "coverImageAlt"
   ]);
   const author = await getAuthorBySlug(params.slug);
 

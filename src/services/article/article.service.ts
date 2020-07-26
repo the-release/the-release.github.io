@@ -4,7 +4,7 @@ import cheerio from "cheerio";
 import readingTime from "reading-time";
 
 import {
-  coverImagePathSelector,
+  coverImageSelector,
   coverImageUrlSelector,
   creationDateSelector,
   descriptionSelector,
@@ -38,14 +38,18 @@ export const getArticleBySlug = async <U extends keyof Article>(
 
   const $ = cheerio.load(htmlContent);
   const plainText = plainTextSelector($);
-  const coverImagePath = coverImagePathSelector($);
+  const { src: coverImageSrc, alt: coverImageAlt } = coverImageSelector($);
 
-  if (!coverImagePath) {
+  if (!coverImageSrc) {
     throw new Error(`Missing cover image for article /${slug}`);
   }
 
-  const coverImageUrl = coverImageUrlSelector(coverImagePath);
-  const thumbnail = await exportThumbnail(coverImagePath);
+  if (!coverImageAlt) {
+    throw new Error(`Missing alt text on cover image for article /${slug}`);
+  }
+
+  const coverImageUrl = coverImageUrlSelector(coverImageSrc);
+  const thumbnail = await exportThumbnail(coverImageSrc);
 
   const article: Article = {
     url: `${ORIGIN}/article/${slug}`,
@@ -57,6 +61,7 @@ export const getArticleBySlug = async <U extends keyof Article>(
     description: descriptionSelector($),
     readingTime: readingTime(plainText).text,
     coverImageUrl,
+    coverImageAlt,
     thumbnail,
     category,
     author
