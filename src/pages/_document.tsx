@@ -35,9 +35,8 @@ export default class MyDocument extends Document {
       <Html lang="en">
         <Head>
           <meta name="theme-color" content="#1b1b1b" />
-          <link rel="icon" href="/favicon.svg" />
-          <link rel="mask-icon" href="/mask-icon.svg" color="#1b1b1b" />
-          <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+          <link rel="icon" href="/favicon-v1.svg" />
+          <link rel="apple-touch-icon" href="/apple-touch-icon-v1.png" />
         </Head>
         <body>
           <Main />

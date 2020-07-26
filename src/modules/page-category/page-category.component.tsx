@@ -6,6 +6,7 @@ import { Heading } from "../../catalog/heading/heading.component";
 import { Article } from "../../services/article/article.entity";
 import { Category } from "../../services/category/category.entity";
 import { Image } from "../../catalog/image/image.component";
+import { SITE_NAME } from "../../config";
 
 export interface PageCategoryProps {
   articles: Pick<Article, "title" | "url" | "thumbnail" | "coverImageAlt">[];
@@ -16,7 +17,9 @@ export const PageCategory: FC<PageCategoryProps> = ({ articles, category }) => {
   return (
     <>
       <Head>
-        <title>Etienne Martin – Web Architect</title>
+        <title>
+          {category.name} – {SITE_NAME}
+        </title>
         <meta
           name="description"
           key="description"
