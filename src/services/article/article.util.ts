@@ -5,6 +5,7 @@ import jimp from "jimp";
 import { promises as fs } from "fs";
 import { sha256 } from "../../utils/sha256/sha256";
 import { isFile } from "../../utils/is-file/is-file";
+import { ORIGIN } from "../../config";
 
 export const isAbsoluteUrl = (url: string) => {
   return new RegExp(/^https?:\/\/|^\/\//i, "i").test(url);
@@ -47,6 +48,25 @@ export const toTitleCase = (html: string) => {
     const title = $(elem).text();
 
     $(elem).text(titleCase(title));
+  });
+
+  return $.html();
+};
+
+export const externalLinks = (html: string) => {
+  const $ = cheerio.load(html);
+
+  $("a").each((index, elem) => {
+    const href = $(elem).attr("href");
+
+    if (!href) throw new Error("empty link");
+    if (!isAbsoluteUrl(href)) return;
+    if (href.startsWith(ORIGIN)) {
+      throw new Error("Internal links should not be absolute");
+    }
+
+    $(elem).attr("target", "_blank");
+    $(elem).attr("rel", "noopener noreferrer");
   });
 
   return $.html();

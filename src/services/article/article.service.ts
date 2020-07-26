@@ -15,7 +15,12 @@ import {
   titleSelector
 } from "./article.selector";
 import { Article } from "./article.entity";
-import { exportThumbnail, exportImages, toTitleCase } from "./article.util";
+import {
+  exportThumbnail,
+  exportImages,
+  toTitleCase,
+  externalLinks
+} from "./article.util";
 import { getCategoryBySlug } from "../category/category.service";
 import { getAuthorBySlug } from "../author/author.service";
 import { ORIGIN } from "../../config";
@@ -29,8 +34,10 @@ export const getArticleBySlug = async <U extends keyof Article>(
 ) => {
   const articleDir = path.join(articlesDir, slug);
   const articleFilePath = path.join(articleDir, "/article.md");
-  const htmlContent = toTitleCase(
-    await exportImages(await htmlContentSelector(articleFilePath), slug)
+  const htmlContent = externalLinks(
+    toTitleCase(
+      await exportImages(await htmlContentSelector(articleFilePath), slug)
+    )
   );
   const metadata = await metadataSelector(articleDir);
   const category = await getCategoryBySlug(metadata.category);
