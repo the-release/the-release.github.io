@@ -7,7 +7,7 @@ import { Article } from "../../services/article/article.entity";
 import { Category } from "../../services/category/category.entity";
 import { SITE_NAME } from "../../config";
 import { ArticleCard } from "../article-card/article-card.component";
-import { ArticleList } from "../../article-list/article-list.component";
+import { ArticleList } from "../article-list/article-list.component";
 
 export interface PageCategoryProps {
   articles: Pick<Article, "title" | "url" | "thumbnail" | "coverImageAlt">[];

@@ -8,7 +8,7 @@ import { Article } from "../../services/article/article.entity";
 import { Author } from "../../services/author/author.entity";
 import { Image } from "../../catalog/image/image.component";
 import { ArticleCard } from "../article-card/article-card.component";
-import { ArticleList } from "../../article-list/article-list.component";
+import { ArticleList } from "../article-list/article-list.component";
 
 export interface PageAuthorProps {
   articles: Pick<Article, "title" | "url" | "thumbnail" | "coverImageAlt">[];
