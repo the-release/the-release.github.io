@@ -1,4 +1,5 @@
-import { GetStaticProps } from "next";
+import { GetStaticPaths, GetStaticProps } from "next";
+import { ParsedUrlQuery } from "querystring";
 
 import {
   PageArticleProps,
@@ -9,7 +10,11 @@ import {
   getArticles
 } from "../../services/article/article.service";
 
-export const getStaticPaths = async () => {
+interface PageArticleParams extends ParsedUrlQuery {
+  slug: string;
+}
+
+export const getStaticPaths: GetStaticPaths<PageArticleParams> = async () => {
   const articles = await getArticles();
   const paths = articles.map(({ slug }) => {
     return {
@@ -23,10 +28,11 @@ export const getStaticPaths = async () => {
   };
 };
 
-export const getStaticProps: GetStaticProps<PageArticleProps> = async ({
-  params
-}: any) => {
-  const article = await getArticleBySlug(params.slug, [
+export const getStaticProps: GetStaticProps<
+  PageArticleProps,
+  PageArticleParams
+> = async ({ params }) => {
+  const article = await getArticleBySlug(params!.slug, [
     "title",
     "description",
     "coverImageUrl",

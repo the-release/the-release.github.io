@@ -5,6 +5,7 @@ import jimp from "jimp";
 import { promises as fs } from "fs";
 import { sha256 } from "../../utils/sha256/sha256";
 import { isFile } from "../../utils/is-file/is-file";
+import { ORIGIN } from "../../config";
 
 export const isAbsoluteUrl = (url: string) => {
   return new RegExp(/^https?:\/\/|^\/\//i, "i").test(url);
@@ -20,10 +21,10 @@ export const exportImages = async (html: string, slug: string) => {
   images.each((index, elem) => {
     const src = $(elem).attr("src");
 
-    if (!src) return;
+    if (!src) throw new Error("Missing image URL");
 
     if (isAbsoluteUrl(src)) {
-      throw new Error("Absolute URLs are not allowed for images");
+      throw new Error("Image URLs should not be absolute");
     }
 
     absolutePaths.push(path.join(basePath, src));
@@ -47,6 +48,25 @@ export const toTitleCase = (html: string) => {
     const title = $(elem).text();
 
     $(elem).text(titleCase(title));
+  });
+
+  return $.html();
+};
+
+export const externalLinks = (html: string) => {
+  const $ = cheerio.load(html);
+
+  $("a").each((index, elem) => {
+    const href = $(elem).attr("href");
+
+    if (!href) throw new Error("empty link");
+    if (!isAbsoluteUrl(href)) return;
+    if (href.startsWith(ORIGIN)) {
+      throw new Error("Internal links should not be absolute");
+    }
+
+    $(elem).attr("target", "_blank");
+    $(elem).attr("rel", "noopener noreferrer");
   });
 
   return $.html();

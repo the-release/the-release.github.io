@@ -1,25 +1,25 @@
 import { GetStaticPaths, GetStaticProps } from "next";
 import { ParsedUrlQuery } from "querystring";
 
-import { getArticlesByCategorySlug } from "../../services/article/article.service";
+import { getArticlesByAuthorSlug } from "../../services/article/article.service";
 import {
-  getCategories,
-  getCategoryBySlug
-} from "../../services/category/category.service";
+  getAuthorBySlug,
+  getAuthors
+} from "../../services/author/author.service";
 import {
-  PageCategory,
-  PageCategoryProps
-} from "../../modules/page-category/page-category.component";
+  PageAuthor,
+  PageAuthorProps
+} from "../../modules/page-author/page-author.component";
 import { paginate } from "../../utils/paginate/paginate";
 import { ITEMS_PER_PAGE } from "../../config";
 
-interface PageCategoryParams extends ParsedUrlQuery {
+interface PageAuthorParams extends ParsedUrlQuery {
   slug: string;
 }
 
-export const getStaticPaths: GetStaticPaths<PageCategoryParams> = async () => {
-  const categories = await getCategories();
-  const paths = categories.map(({ slug }) => {
+export const getStaticPaths: GetStaticPaths<PageAuthorParams> = async () => {
+  const authors = await getAuthors();
+  const paths = authors.map(({ slug }) => {
     return {
       params: { slug }
     };
@@ -32,13 +32,13 @@ export const getStaticPaths: GetStaticPaths<PageCategoryParams> = async () => {
 };
 
 export const getStaticProps: GetStaticProps<
-  PageCategoryProps,
-  PageCategoryParams
+  PageAuthorProps,
+  PageAuthorParams
 > = async ({ params }) => {
   const slug = params!.slug;
-  const category = await getCategoryBySlug(slug);
+  const author = await getAuthorBySlug(slug);
   const { pageItems: articles, previousPageIndex, nextPageIndex } = paginate(
-    await getArticlesByCategorySlug(slug, [
+    await getArticlesByAuthorSlug(slug, [
       "title",
       "url",
       "thumbnail",
@@ -50,11 +50,11 @@ export const getStaticProps: GetStaticProps<
   return {
     props: {
       articles,
-      category,
+      author,
       previousPageIndex,
       nextPageIndex
     }
   };
 };
 
-export default PageCategory;
+export default PageAuthor;

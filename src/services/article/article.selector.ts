@@ -7,19 +7,23 @@ import path from "path";
 import { ORIGIN } from "../../config";
 
 export const titleSelector = ($: CheerioStatic) => {
-  return $("h1")
-    .first()
-    .text();
+  const titleElement = $("body > h1:first-child");
+
+  if (!titleElement.length) throw new Error("Missing title");
+
+  return titleElement.text();
 };
 
 export const descriptionSelector = ($: CheerioStatic) => {
-  return $("p")
-    .first()
-    .text();
+  const descriptionElement = $("body > h1:first-child + p > strong:only-child");
+
+  if (!descriptionElement.length) throw new Error("Missing lede");
+
+  return descriptionElement.text();
 };
 
 export const plainTextSelector = ($: CheerioStatic) => {
-  return $.root().text();
+  return $("body").text();
 };
 
 export const coverImageUrlSelector = (imagePath: string) => {
@@ -28,10 +32,15 @@ export const coverImageUrlSelector = (imagePath: string) => {
 
 export const coverImageSelector = ($: CheerioStatic) => {
   const coverImage = $("img").first();
+  const src = coverImage.attr("src");
+  const alt = coverImage.attr("alt");
+
+  if (!src) throw new Error(`Missing cover image`);
+  if (!alt) throw new Error(`Missing alt text on cover image`);
 
   return {
-    src: coverImage.attr("src"),
-    alt: coverImage.attr("alt")
+    src,
+    alt
   };
 };
 

@@ -7,6 +7,7 @@ import {
 import { getArticles } from "../services/article/article.service";
 import { getCategories } from "../services/category/category.service";
 import { getAuthors } from "../services/author/author.service";
+import { HOMEPAGE_MAX_ITEMS } from "../config";
 
 export const getStaticProps: GetStaticProps<PageHomeProps> = async () => {
   const articles = await getArticles([
@@ -20,7 +21,7 @@ export const getStaticProps: GetStaticProps<PageHomeProps> = async () => {
 
   return {
     props: {
-      articles,
+      articles: articles.slice(0, HOMEPAGE_MAX_ITEMS),
       categories,
       authors
     }
