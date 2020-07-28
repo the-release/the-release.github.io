@@ -10,9 +10,7 @@ export const PageNotFound: FC = () => {
         <title>404 – Page Not Found</title>
       </Head>
       <Layout>
-        <Heading component="h1">
-          404 Not Found
-        </Heading>
+        <Heading component="h1">404 Not Found</Heading>
       </Layout>
     </>
   );
