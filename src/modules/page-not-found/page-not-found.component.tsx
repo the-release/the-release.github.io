@@ -27,7 +27,7 @@ export const PageNotFound: FC = () => {
       <Head>
         <title>404 – Page Not Found</title>
       </Head>
-      <Video src="404.mp4" autoPlay muted loop playsInline />
+      <Video src="/404.mp4" autoPlay muted loop playsInline />
       <Layout>
         <Heading component="h1">
           404 Not Found{shouldShowUnderscore && "_"}
