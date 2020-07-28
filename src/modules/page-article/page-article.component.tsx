@@ -3,7 +3,7 @@ import Head from "next/head";
 
 import { Layout } from "../layout/layout.component";
 import { Markdown } from "../../catalog/markdown/markdown.component";
-import { ArticleMetadata } from "./article-metadata/article-metadata.component";
+import { ArticleMetadata } from "../article-metadata/article-metadata.component";
 import { Article } from "../../services/article/article.entity";
 import { ORIGIN, SITE_NAME, TWITTER_HANDLE } from "../../config";
 
