@@ -5,9 +5,9 @@
     "fs-to-db": "ts-node-dev --project ./tsconfig.ts-node.json ./src/fs-to-db/fs-to-db.ts",
     "dev": "next -p 3000",
     "predev": "yarn cleanup && yarn",
-    "prebuild": "yarn cleanup",
+    "prebuild": "yarn cleanup && yarn fs-to-db",
     "build": "next build && next export -o ./dist/out",
-    "cleanup": "rm -rf dist/",
+    "cleanup": "rm -rf dist/ && rm -rf /tmp/the-release/db.sqlite",
     "serve": "serve -p 3000 ./dist/out",
     "deploy": "sh tools/deploy.sh"
   },

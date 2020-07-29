@@ -3,7 +3,7 @@ import { GetStaticProps } from "next";
 import { promises as fs } from "fs";
 import { getRepository } from "typeorm";
 
-import { HOMEPAGE_MAX_ITEMS, ORIGIN } from "../config";
+import { ORIGIN } from "../config";
 import { Article } from "../entities/article.entity";
 import { Category } from "../entities/category.entity";
 import { Author } from "../entities/author.entity";
@@ -50,13 +50,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
   const categories = await categoryRepository.find();
   const authors = await authorRepository.find();
-  const articles = await articleRepository.find({
-    order: {
-      timestamp: "DESC"
-    },
-    take: HOMEPAGE_MAX_ITEMS,
-    relations: ["category", "author"]
-  });
+  const articles = await articleRepository.find();
   let xml = `<?xml version="1.0" encoding="UTF-8"?>`;
 
   xml += `
