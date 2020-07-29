@@ -5,10 +5,10 @@ import {
   PageArticleProps,
   PagePost
 } from "../../modules/page-article/page-article.component";
-import {
-  getArticleBySlug,
-  getArticles
-} from "../../services/article/article.service";
+import { getArticles } from "../../fs-to-db/services/fs/article.service";
+import { dbConnection } from "../../fs-to-db/db";
+import { getRepository } from "typeorm";
+import { Article } from "../../entities/article.entity";
 
 interface PageArticleParams extends ParsedUrlQuery {
   slug: string;
@@ -32,21 +32,19 @@ export const getStaticProps: GetStaticProps<
   PageArticleProps,
   PageArticleParams
 > = async ({ params }) => {
-  const article = await getArticleBySlug(params!.slug, [
-    "title",
-    "description",
-    "coverImageUrl",
-    "creationDate",
-    "category",
-    "author",
-    "htmlContent",
-    "readingTime",
-    "url"
-  ]);
+  await dbConnection();
+
+  const articleRepository = getRepository(Article);
+  const article = await articleRepository.findOneOrFail(
+    { slug: params!.slug },
+    {
+      relations: ["category", "author"]
+    }
+  );
 
   return {
     props: {
-      article
+      article: JSON.parse(JSON.stringify(article))
     }
   };
 };

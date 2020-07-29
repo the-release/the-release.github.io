@@ -1,14 +1,13 @@
+import path from "path";
 import { GetStaticProps } from "next";
 import { promises as fs } from "fs";
-import path from "path";
+import { getRepository } from "typeorm";
 
-import { ORIGIN } from "../config";
-import { getArticles } from "../services/article/article.service";
-import { getCategories } from "../services/category/category.service";
-import { getAuthors } from "../services/author/author.service";
-import { Article } from "../services/article/article.entity";
-import { Category } from "../services/category/category.entity";
-import { Author } from "../services/author/author.entity";
+import { HOMEPAGE_MAX_ITEMS, ORIGIN } from "../config";
+import { Article } from "../entities/article.entity";
+import { Category } from "../entities/category.entity";
+import { Author } from "../entities/author.entity";
+import { dbConnection } from "../fs-to-db/db";
 
 const sitemapPath = path.join(process.cwd(), "public", "sitemap.xml");
 
@@ -44,9 +43,20 @@ const authorEntry = (author: Author) => {
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-  const articles = await getArticles();
-  const categories = await getCategories();
-  const authors = await getAuthors();
+  await dbConnection();
+  const categoryRepository = getRepository(Category);
+  const authorRepository = getRepository(Author);
+  const articleRepository = getRepository(Article);
+
+  const categories = await categoryRepository.find();
+  const authors = await authorRepository.find();
+  const articles = await articleRepository.find({
+    order: {
+      timestamp: "DESC"
+    },
+    take: HOMEPAGE_MAX_ITEMS,
+    relations: ["category", "author"]
+  });
   let xml = `<?xml version="1.0" encoding="UTF-8"?>`;
 
   xml += `

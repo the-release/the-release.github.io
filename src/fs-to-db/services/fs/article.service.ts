@@ -13,18 +13,16 @@ import {
   plainTextSelector,
   timestampSelector,
   titleSelector
-} from "./article.selector";
-import { Article } from "./article.entity";
+} from "../../../services/article/article.selector";
+import { Article } from "../../../entities/article.entity";
 import {
   exportThumbnail,
   exportImages,
   toTitleCase,
   externalLinks
-} from "./article.util";
-import { getCategoryBySlug } from "../category/category.service";
-import { getAuthorBySlug } from "../author/author.service";
-import { ORIGIN } from "../../config";
-import { pick } from "../../utils/pick/pick";
+} from "../../../services/article/article.util";
+import { ORIGIN } from "../../../config";
+import { pick } from "../../../utils/pick/pick";
 
 const articlesDir = path.join(process.cwd(), "data", "articles");
 
@@ -40,8 +38,8 @@ export const getArticleBySlug = async <U extends keyof Article>(
     )
   );
   const metadata = await metadataSelector(articleDir);
-  const category = await getCategoryBySlug(metadata.category);
-  const author = await getAuthorBySlug(metadata.author);
+  const category = metadata.category;
+  const author = metadata.author;
 
   const $ = cheerio.load(htmlContent);
   const plainText = plainTextSelector($);
@@ -49,7 +47,7 @@ export const getArticleBySlug = async <U extends keyof Article>(
   const coverImageUrl = coverImageUrlSelector(coverImageSrc);
   const thumbnail = await exportThumbnail(coverImageSrc);
 
-  const article: Article = {
+  const article = {
     url: `${ORIGIN}/article/${slug}`,
     slug,
     htmlContent,
@@ -68,34 +66,6 @@ export const getArticleBySlug = async <U extends keyof Article>(
   if (!props) return article;
 
   return pick(article, props);
-};
-
-export const getArticlesByCategorySlug = async <U extends keyof Article>(
-  slug: string,
-  props?: Array<U>
-) => {
-  const articles = await getArticles();
-  const filteredArticles = articles.filter(article => {
-    return article.category.slug === slug;
-  });
-
-  if (!props) return filteredArticles;
-
-  return filteredArticles.map(article => pick(article, props));
-};
-
-export const getArticlesByAuthorSlug = async <U extends keyof Article>(
-  slug: string,
-  props?: Array<U>
-) => {
-  const articles = await getArticles();
-  const filteredArticles = articles.filter(article => {
-    return article.author.slug === slug;
-  });
-
-  if (!props) return filteredArticles;
-
-  return filteredArticles.map(article => pick(article, props));
 };
 
 export const getArticles = async <U extends keyof Article>(

@@ -1,24 +1,25 @@
 import { GetStaticPaths, GetStaticProps } from "next";
 import { ParsedUrlQuery } from "querystring";
+import { getRepository } from "typeorm";
 
-import { getArticlesByAuthorSlug } from "../../services/article/article.service";
-import {
-  getAuthorBySlug,
-  getAuthors
-} from "../../services/author/author.service";
 import {
   PageAuthor,
   PageAuthorProps
 } from "../../modules/page-author/page-author.component";
 import { paginate } from "../../utils/paginate/paginate";
 import { ITEMS_PER_PAGE } from "../../config";
+import { dbConnection } from "../../fs-to-db/db";
+import { Article } from "../../entities/article.entity";
+import { Author } from "../../entities/author.entity";
 
 interface PageAuthorParams extends ParsedUrlQuery {
   slug: string;
 }
 
 export const getStaticPaths: GetStaticPaths<PageAuthorParams> = async () => {
-  const authors = await getAuthors();
+  await dbConnection();
+  const authorRepository = getRepository(Author);
+  const authors = await authorRepository.find();
   const paths = authors.map(({ slug }) => {
     return {
       params: { slug }
@@ -36,21 +37,31 @@ export const getStaticProps: GetStaticProps<
   PageAuthorParams
 > = async ({ params }) => {
   const slug = params!.slug;
-  const author = await getAuthorBySlug(slug);
+
+  await dbConnection();
+  const authorRepository = getRepository(Author);
+  const articleRepository = getRepository(Article);
+  const author = await authorRepository.findOneOrFail({
+    slug
+  });
+
   const { pageItems: articles, previousPageIndex, nextPageIndex } = paginate(
-    await getArticlesByAuthorSlug(slug, [
-      "title",
-      "url",
-      "thumbnail",
-      "coverImageAlt"
-    ]),
+    await articleRepository.find({
+      where: {
+        author: slug
+      },
+      order: {
+        timestamp: "DESC"
+      },
+      relations: ["category", "author"]
+    }),
     ITEMS_PER_PAGE
   );
 
   return {
     props: {
-      articles,
-      author,
+      articles: JSON.parse(JSON.stringify(articles)),
+      author: JSON.parse(JSON.stringify(author)),
       previousPageIndex,
       nextPageIndex
     }

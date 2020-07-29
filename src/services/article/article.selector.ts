@@ -62,7 +62,12 @@ export const htmlContentSelector = async (filePath: string) => {
   return marked(markdown);
 };
 
-export const metadataSelector = async (articleDir: string) => {
+export const metadataSelector = async (
+  articleDir: string
+): Promise<{
+  category: string;
+  author: string;
+}> => {
   const metadataFilePath = path.join(articleDir, "/metadata.json");
 
   return JSON.parse(await fs.readFile(metadataFilePath, "utf8"));
