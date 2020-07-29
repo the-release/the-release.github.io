@@ -1,5 +1,6 @@
 import { GetStaticPaths, GetStaticProps } from "next";
 import { ParsedUrlQuery } from "querystring";
+import { getRepository } from "typeorm";
 
 import { paginate } from "../../../utils/paginate/paginate";
 import {
@@ -8,7 +9,6 @@ import {
 } from "../../../modules/page-author/page-author.component";
 import { ITEMS_PER_PAGE } from "../../../config";
 import { dbConnection } from "../../../fs-to-db/db";
-import { getRepository } from "typeorm";
 import { Author } from "../../../entities/author.entity";
 import { Article } from "../../../entities/article.entity";
 
