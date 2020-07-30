@@ -16,12 +16,13 @@ export const resizeImage = async ({
   quality?: number;
 }) => {
   await fs.mkdir(path.parse(dest).dir, { recursive: true });
-  console.log(src);
   sharp(src)
     .resize(width, height)
     .jpeg({ quality })
     .toFile(dest)
     .catch(err => {
+      console.log("----------");
+      console.log(src);
       console.log(err);
     });
 };
