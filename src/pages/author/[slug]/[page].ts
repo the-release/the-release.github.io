@@ -1,6 +1,5 @@
 import { GetStaticPaths, GetStaticProps } from "next";
 import { ParsedUrlQuery } from "querystring";
-import { getRepository } from "typeorm";
 
 import { paginate } from "../../../utils/paginate/paginate";
 import {
@@ -9,8 +8,8 @@ import {
 } from "../../../modules/page-author/page-author.component";
 import { ITEMS_PER_PAGE } from "../../../config";
 import { dbConnection } from "../../../fs-to-db/db";
-import { Author } from "../../../entities/author.entity";
 import { getArticles } from "../../../services/article.service";
+import { getAuthors } from "../../../services/author.service";
 
 interface PageAuthorParams extends ParsedUrlQuery {
   slug: string;
@@ -20,7 +19,7 @@ interface PageAuthorParams extends ParsedUrlQuery {
 export const getStaticPaths: GetStaticPaths<PageAuthorParams> = async () => {
   await dbConnection();
 
-  const authors = await getRepository(Author).find();
+  const authors = await getAuthors({ props: ["slug"] });
   const paths: {
     params: { slug: string; page: string };
   }[] = [];
@@ -56,10 +55,11 @@ export const getStaticProps: GetStaticProps<
   await dbConnection();
 
   const slug = params!.slug;
-  const page = params!.page;
-  const pageIndex = parseInt(page, 10);
-  const author = await getRepository(Author).findOneOrFail({
-    slug
+  const pageIndex = parseInt(params!.page, 10);
+  const [author] = await getAuthors({
+    where: {
+      slug
+    }
   });
 
   const { pageItems: articles, previousPageIndex, nextPageIndex } = paginate(
@@ -76,7 +76,7 @@ export const getStaticProps: GetStaticProps<
   return {
     props: {
       articles,
-      author: JSON.parse(JSON.stringify(author)),
+      author,
       previousPageIndex,
       nextPageIndex
     }

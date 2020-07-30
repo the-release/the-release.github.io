@@ -1,7 +1,6 @@
 import path from "path";
 import { GetStaticProps } from "next";
 import { promises as fs } from "fs";
-import { getRepository } from "typeorm";
 
 import { ORIGIN } from "../config";
 import { Article } from "../entities/article.entity";
@@ -9,6 +8,8 @@ import { Category } from "../entities/category.entity";
 import { Author } from "../entities/author.entity";
 import { dbConnection } from "../fs-to-db/db";
 import { getArticles } from "../services/article.service";
+import { getCategories } from "../services/category.service";
+import { getAuthors } from "../services/author.service";
 
 const siteMapPath = path.join(process.cwd(), "public", "sitemap.xml");
 
@@ -21,7 +22,7 @@ const articleEntry = (article: Pick<Article, "url">) => {
   </url>`;
 };
 
-const categoryEntry = (category: Category) => {
+const categoryEntry = (category: Pick<Category, "url">) => {
   return `  <url>
     <loc>${category.url}</loc>
     <lastmod>2020-05-04T14:26:06+00:00</lastmod>
@@ -29,7 +30,7 @@ const categoryEntry = (category: Category) => {
   </url>`;
 };
 
-const authorEntry = (author: Author) => {
+const authorEntry = (author: Pick<Author, "url">) => {
   return `  <url>
     <loc>${author.url}</loc>
     <lastmod>2020-05-04T14:26:06+00:00</lastmod>
@@ -40,9 +41,15 @@ const authorEntry = (author: Author) => {
 export const getStaticProps: GetStaticProps = async () => {
   await dbConnection();
 
-  const categories = await getRepository(Category).find();
-  const authors = await getRepository(Author).find();
   const articles = await getArticles({
+    props: ["url"]
+  });
+
+  const categories = await getCategories({
+    props: ["url"]
+  });
+
+  const authors = await getAuthors({
     props: ["url"]
   });
 

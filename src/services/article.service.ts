@@ -12,7 +12,7 @@ export const getArticles = async <U extends keyof Article>({
   props,
   limit,
   where
-}: GetOptions<U>) => {
+}: GetOptions<U> = {}) => {
   const articles = await getRepository(Article).find({
     order: {
       timestamp: "DESC"

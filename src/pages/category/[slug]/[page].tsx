@@ -1,6 +1,5 @@
 import { GetStaticPaths, GetStaticProps } from "next";
 import { ParsedUrlQuery } from "querystring";
-import { getRepository } from "typeorm";
 
 import {
   PageCategory,
@@ -9,8 +8,8 @@ import {
 import { paginate } from "../../../utils/paginate/paginate";
 import { ITEMS_PER_PAGE } from "../../../config";
 import { dbConnection } from "../../../fs-to-db/db";
-import { Category } from "../../../entities/category.entity";
 import { getArticles } from "../../../services/article.service";
+import { getCategories } from "../../../services/category.service";
 
 interface PageCategoryParams extends ParsedUrlQuery {
   slug: string;
@@ -20,7 +19,7 @@ interface PageCategoryParams extends ParsedUrlQuery {
 export const getStaticPaths: GetStaticPaths<PageCategoryParams> = async () => {
   await dbConnection();
 
-  const categories = await getRepository(Category).find();
+  const categories = await getCategories({ props: ["slug"] });
   const paths: {
     params: { slug: string; page: string };
   }[] = [];
@@ -56,10 +55,11 @@ export const getStaticProps: GetStaticProps<
   await dbConnection();
 
   const slug = params!.slug;
-  const page = params!.page;
-  const pageIndex = parseInt(page, 10);
-  const category = await getRepository(Category).findOneOrFail({
-    slug
+  const pageIndex = parseInt(params!.page, 10);
+  const [category] = await getCategories({
+    where: {
+      slug
+    }
   });
 
   const { pageItems: articles, previousPageIndex, nextPageIndex } = paginate(
@@ -76,7 +76,7 @@ export const getStaticProps: GetStaticProps<
   return {
     props: {
       articles,
-      category: JSON.parse(JSON.stringify(category)),
+      category,
       previousPageIndex,
       nextPageIndex
     }
