@@ -23,7 +23,7 @@ jobs:
 
       - name: Install libvips
         run: sudo apt-get update -y && \
-          apt-get install -y libvips
+          sudo apt-get install -y libvips
 
       - name: Get yarn cache
         id: yarn-cache
