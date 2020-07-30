@@ -9,8 +9,8 @@ import {
 import { paginate } from "../../utils/paginate/paginate";
 import { ITEMS_PER_PAGE } from "../../config";
 import { dbConnection } from "../../fs-to-db/db";
-import { Article } from "../../entities/article.entity";
 import { Author } from "../../entities/author.entity";
+import { getArticles } from "../../services/article.service";
 
 interface PageAuthorParams extends ParsedUrlQuery {
   slug: string;
@@ -44,21 +44,18 @@ export const getStaticProps: GetStaticProps<
   });
 
   const { pageItems: articles, previousPageIndex, nextPageIndex } = paginate(
-    await getRepository(Article).find({
+    await getArticles({
+      props: ["title", "url", "thumbnail", "coverImageAlt"],
       where: {
         author: slug
-      },
-      order: {
-        timestamp: "DESC"
-      },
-      relations: ["category", "author"]
+      }
     }),
     ITEMS_PER_PAGE
   );
 
   return {
     props: {
-      articles: JSON.parse(JSON.stringify(articles)),
+      articles,
       author: JSON.parse(JSON.stringify(author)),
       previousPageIndex,
       nextPageIndex

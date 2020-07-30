@@ -10,7 +10,7 @@ import { paginate } from "../../../utils/paginate/paginate";
 import { ITEMS_PER_PAGE } from "../../../config";
 import { dbConnection } from "../../../fs-to-db/db";
 import { Category } from "../../../entities/category.entity";
-import { Article } from "../../../entities/article.entity";
+import { getArticles } from "../../../services/article.service";
 
 interface PageCategoryParams extends ParsedUrlQuery {
   slug: string;
@@ -27,7 +27,8 @@ export const getStaticPaths: GetStaticPaths<PageCategoryParams> = async () => {
 
   for (const category of categories) {
     const paginatedArticles = paginate(
-      await getRepository(Article).find({
+      await getArticles({
+        props: [],
         where: {
           category: category.slug
         }
@@ -62,14 +63,11 @@ export const getStaticProps: GetStaticProps<
   });
 
   const { pageItems: articles, previousPageIndex, nextPageIndex } = paginate(
-    await getRepository(Article).find({
+    await getArticles({
+      props: ["title", "url", "thumbnail", "coverImageAlt"],
       where: {
         category: slug
-      },
-      order: {
-        timestamp: "DESC"
-      },
-      relations: ["category", "author"]
+      }
     }),
     ITEMS_PER_PAGE,
     pageIndex
@@ -77,7 +75,7 @@ export const getStaticProps: GetStaticProps<
 
   return {
     props: {
-      articles: JSON.parse(JSON.stringify(articles)),
+      articles,
       category: JSON.parse(JSON.stringify(category)),
       previousPageIndex,
       nextPageIndex
