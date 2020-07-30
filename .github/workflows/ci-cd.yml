@@ -27,7 +27,6 @@ jobs:
           build-essential \
           wget \
           pkg-config \
-          # libvips dependencies
           glib2.0-dev \
           libexpat1-dev \
           libtiff5-dev \
