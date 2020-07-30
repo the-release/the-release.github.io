@@ -26,7 +26,7 @@ export const getStaticPaths: GetStaticPaths<PageCategoryParams> = async () => {
   }[] = [];
 
   for (const category of categories) {
-    const paginatedArticles = paginate(
+    const { pages } = paginate(
       await getArticles({
         props: [],
         where: {
@@ -36,7 +36,7 @@ export const getStaticPaths: GetStaticPaths<PageCategoryParams> = async () => {
       ITEMS_PER_PAGE
     );
 
-    for (const pageIndex in paginatedArticles.pages) {
+    for (const pageIndex in pages) {
       paths.push({
         params: { slug: category.slug, page: pageIndex.toString() }
       });

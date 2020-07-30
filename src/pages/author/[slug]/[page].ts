@@ -26,7 +26,7 @@ export const getStaticPaths: GetStaticPaths<PageAuthorParams> = async () => {
   }[] = [];
 
   for (const author of authors) {
-    const paginatedArticles = paginate(
+    const { pages } = paginate(
       await getArticles({
         props: [],
         where: {
@@ -36,7 +36,7 @@ export const getStaticPaths: GetStaticPaths<PageAuthorParams> = async () => {
       ITEMS_PER_PAGE
     );
 
-    for (const pageIndex in paginatedArticles.pages) {
+    for (const pageIndex in pages) {
       paths.push({
         params: { slug: author.slug, page: pageIndex.toString() }
       });
