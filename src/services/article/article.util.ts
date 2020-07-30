@@ -1,11 +1,12 @@
 import cheerio from "cheerio";
 import path from "path";
 import { titleCase } from "title-case";
-import jimp from "jimp";
+
 import { promises as fs } from "fs";
 import { sha256 } from "../../utils/sha256/sha256";
 import { isFile } from "../../utils/is-file/is-file";
 import { ORIGIN } from "../../config";
+import { resizeImage } from "../../utils/resize-image/resize-image";
 
 export const isAbsoluteUrl = (url: string) => {
   return new RegExp(/^https?:\/\/|^\/\//i, "i").test(url);
@@ -73,30 +74,33 @@ export const externalLinks = (html: string) => {
 };
 
 const optimizeImage = async (src: string, dest: string) => {
-  const image = await jimp.read(src);
+  return resizeImage({
+    src,
+    dest,
+    width: 1920,
+    quality: 50
+  });
 
-  if (image.getWidth() > 1920) {
-    await image.resize(1920, jimp.AUTO);
-  }
-
-  await image.quality(50);
-  await image.writeAsync(dest);
+  // if (image.getWidth() > 1920) {
+  //   await image.resize(1920, jimp.AUTO);
+  // }
 };
 
 const generateThumbnail = async (src: string, dest: string) => {
-  const image = await jimp.read(src);
-
-  await image.resize(300, jimp.AUTO);
-  await image.quality(60);
-  await image.writeAsync(dest);
+  return resizeImage({
+    src,
+    dest,
+    width: 300,
+    quality: 60
+  });
 };
 
 export const exportThumbnail = async (imagePath: string) => {
   const publicDir = path.join(process.cwd(), "public");
   const src = path.join(publicDir, imagePath);
-  const { dir, name, ext } = path.parse(imagePath);
-  const dest = path.join(publicDir, dir, `${name}.thumb${ext}`);
-  const newPath = path.join(dir, `${name}.thumb${ext}`);
+  const { dir, name } = path.parse(imagePath);
+  const dest = path.join(publicDir, dir, `${name}.thumb.jpg`);
+  const newPath = path.join(dir, `${name}.thumb.jpg`);
 
   if (await isFile(dest)) return newPath;
 
@@ -110,8 +114,8 @@ const exportImage = async (absolutePath: string) => {
   const publicDir = path.join(process.cwd(), "public");
   const src = path.join(articlesDir, absolutePath.replace(/^\/article/, ""));
   const hash = sha256(await fs.readFile(src));
-  const { dir, name, ext } = path.parse(absolutePath);
-  const newPath = path.join(dir, `${name}-${hash}${ext}`);
+  const { dir, name } = path.parse(absolutePath);
+  const newPath = path.join(dir, `${name}-${hash}.jpg`);
   const dest = path.join(publicDir, newPath);
 
   if (await isFile(dest)) return newPath;
