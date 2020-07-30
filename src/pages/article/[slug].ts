@@ -1,13 +1,12 @@
 import { GetStaticPaths, GetStaticProps } from "next";
 import { ParsedUrlQuery } from "querystring";
+import { getRepository } from "typeorm";
 
 import {
   PageArticleProps,
   PagePost
 } from "../../modules/page-article/page-article.component";
-import { getArticles } from "../../fs-to-db/services/fs/article.service";
 import { dbConnection } from "../../fs-to-db/db";
-import { getRepository } from "typeorm";
 import { Article } from "../../entities/article.entity";
 
 interface PageArticleParams extends ParsedUrlQuery {
@@ -15,7 +14,9 @@ interface PageArticleParams extends ParsedUrlQuery {
 }
 
 export const getStaticPaths: GetStaticPaths<PageArticleParams> = async () => {
-  const articles = await getArticles();
+  await dbConnection();
+
+  const articles = await getRepository(Article).find();
   const paths = articles.map(({ slug }) => {
     return {
       params: { slug }
@@ -34,8 +35,7 @@ export const getStaticProps: GetStaticProps<
 > = async ({ params }) => {
   await dbConnection();
 
-  const articleRepository = getRepository(Article);
-  const article = await articleRepository.findOneOrFail(
+  const article = await getRepository(Article).findOneOrFail(
     { slug: params!.slug },
     {
       relations: ["category", "author"]

@@ -18,8 +18,8 @@ interface PageAuthorParams extends ParsedUrlQuery {
 
 export const getStaticPaths: GetStaticPaths<PageAuthorParams> = async () => {
   await dbConnection();
-  const authorRepository = getRepository(Author);
-  const authors = await authorRepository.find();
+
+  const authors = await getRepository(Author).find();
   const paths = authors.map(({ slug }) => {
     return {
       params: { slug }
@@ -36,17 +36,15 @@ export const getStaticProps: GetStaticProps<
   PageAuthorProps,
   PageAuthorParams
 > = async ({ params }) => {
-  const slug = params!.slug;
-
   await dbConnection();
-  const authorRepository = getRepository(Author);
-  const articleRepository = getRepository(Article);
-  const author = await authorRepository.findOneOrFail({
+
+  const slug = params!.slug;
+  const author = await getRepository(Author).findOneOrFail({
     slug
   });
 
   const { pageItems: articles, previousPageIndex, nextPageIndex } = paginate(
-    await articleRepository.find({
+    await getRepository(Article).find({
       where: {
         author: slug
       },

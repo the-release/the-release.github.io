@@ -19,20 +19,21 @@ interface PageAuthorParams extends ParsedUrlQuery {
 
 export const getStaticPaths: GetStaticPaths<PageAuthorParams> = async () => {
   await dbConnection();
-  const authorRepository = getRepository(Author);
-  const articleRepository = getRepository(Article);
-  const authors = await authorRepository.find();
+
+  const authors = await getRepository(Author).find();
   const paths: {
     params: { slug: string; page: string };
   }[] = [];
 
   for (const author of authors) {
-    const articles = await articleRepository.find({
-      where: {
-        author: author.slug
-      }
-    });
-    const paginatedArticles = paginate(articles, ITEMS_PER_PAGE);
+    const paginatedArticles = paginate(
+      await getRepository(Article).find({
+        where: {
+          author: author.slug
+        }
+      }),
+      ITEMS_PER_PAGE
+    );
 
     for (const pageIndex in paginatedArticles.pages) {
       paths.push({
@@ -51,19 +52,17 @@ export const getStaticProps: GetStaticProps<
   PageAuthorProps,
   PageAuthorParams
 > = async ({ params }) => {
+  await dbConnection();
+
   const slug = params!.slug;
   const page = params!.page;
   const pageIndex = parseInt(page, 10);
-
-  await dbConnection();
-  const authorRepository = getRepository(Author);
-  const articleRepository = getRepository(Article);
-  const author = await authorRepository.findOneOrFail({
+  const author = await getRepository(Author).findOneOrFail({
     slug
   });
 
   const { pageItems: articles, previousPageIndex, nextPageIndex } = paginate(
-    await articleRepository.find({
+    await getRepository(Article).find({
       where: {
         author: slug
       },

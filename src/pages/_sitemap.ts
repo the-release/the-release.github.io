@@ -44,13 +44,11 @@ const authorEntry = (author: Author) => {
 
 export const getStaticProps: GetStaticProps = async () => {
   await dbConnection();
-  const categoryRepository = getRepository(Category);
-  const authorRepository = getRepository(Author);
-  const articleRepository = getRepository(Article);
 
-  const categories = await categoryRepository.find();
-  const authors = await authorRepository.find();
-  const articles = await articleRepository.find();
+  const categories = await getRepository(Category).find();
+  const authors = await getRepository(Author).find();
+  const articles = await getRepository(Article).find();
+
   let xml = `<?xml version="1.0" encoding="UTF-8"?>`;
 
   xml += `

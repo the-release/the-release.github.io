@@ -19,20 +19,21 @@ interface PageCategoryParams extends ParsedUrlQuery {
 
 export const getStaticPaths: GetStaticPaths<PageCategoryParams> = async () => {
   await dbConnection();
-  const categoryRepository = getRepository(Category);
-  const articleRepository = getRepository(Article);
-  const categories = await categoryRepository.find();
+
+  const categories = await getRepository(Category).find();
   const paths: {
     params: { slug: string; page: string };
   }[] = [];
 
   for (const category of categories) {
-    const articles = await articleRepository.find({
-      where: {
-        category: category.slug
-      }
-    });
-    const paginatedArticles = paginate(articles, ITEMS_PER_PAGE);
+    const paginatedArticles = paginate(
+      await getRepository(Article).find({
+        where: {
+          category: category.slug
+        }
+      }),
+      ITEMS_PER_PAGE
+    );
 
     for (const pageIndex in paginatedArticles.pages) {
       paths.push({
@@ -51,19 +52,17 @@ export const getStaticProps: GetStaticProps<
   PageCategoryProps,
   PageCategoryParams
 > = async ({ params }) => {
+  await dbConnection();
+
   const slug = params!.slug;
   const page = params!.page;
   const pageIndex = parseInt(page, 10);
-
-  await dbConnection();
-  const categoryRepository = getRepository(Category);
-  const articleRepository = getRepository(Article);
-  const category = await categoryRepository.findOneOrFail({
+  const category = await getRepository(Category).findOneOrFail({
     slug
   });
 
   const { pageItems: articles, previousPageIndex, nextPageIndex } = paginate(
-    await articleRepository.find({
+    await getRepository(Article).find({
       where: {
         category: slug
       },

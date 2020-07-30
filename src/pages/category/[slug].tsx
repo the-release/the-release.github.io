@@ -18,8 +18,8 @@ interface PageCategoryParams extends ParsedUrlQuery {
 
 export const getStaticPaths: GetStaticPaths<PageCategoryParams> = async () => {
   await dbConnection();
-  const categoryRepository = getRepository(Category);
-  const categories = await categoryRepository.find();
+
+  const categories = await getRepository(Category).find();
   const paths = categories.map(({ slug }) => {
     return {
       params: { slug }
@@ -36,17 +36,15 @@ export const getStaticProps: GetStaticProps<
   PageCategoryProps,
   PageCategoryParams
 > = async ({ params }) => {
-  const slug = params!.slug;
-
   await dbConnection();
-  const categoryRepository = getRepository(Category);
-  const articleRepository = getRepository(Article);
-  const category = await categoryRepository.findOneOrFail({
+
+  const slug = params!.slug;
+  const category = await getRepository(Category).findOneOrFail({
     slug
   });
 
   const { pageItems: articles, previousPageIndex, nextPageIndex } = paginate(
-    await articleRepository.find({
+    await getRepository(Article).find({
       where: {
         category: slug
       },
