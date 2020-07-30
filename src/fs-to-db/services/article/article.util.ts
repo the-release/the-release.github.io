@@ -81,6 +81,7 @@ const optimizeImage = async (src: string, dest: string) => {
     quality: 50
   });
 
+  // TODO: resize only if bigger than 1920px in width
   // if (image.getWidth() > 1920) {
   //   await image.resize(1920, jimp.AUTO);
   // }
