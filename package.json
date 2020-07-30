@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "prefs-to-db": "rm -rf /tmp/the-release/db.sqlite",
-    "fs-to-db": "ts-node-dev --project ./tsconfig.ts-node.json ./src/fs-to-db/fs-to-db.ts",
+    "fs-to-db": "ts-node --project ./tsconfig.ts-node.json ./src/fs-to-db/fs-to-db.ts",
     "dev": "next -p 3000",
     "predev": "yarn cleanup && yarn",
     "prebuild": "yarn cleanup && yarn fs-to-db",
@@ -48,7 +48,7 @@
     "sqlite3": "^5.0.0",
     "terser-webpack-plugin": "^2.2.1",
     "title-case": "^3.0.2",
-    "ts-node-dev": "^1.0.0-pre.56",
+    "ts-node": "^8.10.2",
     "typeorm": "^0.2.25",
     "typescript": "3.7.3"
   }
