@@ -19,5 +19,8 @@ export const resizeImage = async ({
   sharp(src)
     .resize(width, height)
     .jpeg({ quality })
-    .toFile(dest);
+    .toFile(dest)
+    .catch(err => {
+      console.log(err);
+    });
 };
