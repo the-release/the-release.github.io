@@ -37,6 +37,17 @@ export const getStaticProps: GetStaticProps<
   await dbConnection();
 
   const [article] = await getArticles({
+    props: [
+      "title",
+      "description",
+      "coverImageUrl",
+      "creationDate",
+      "category",
+      "author",
+      "htmlContent",
+      "readingTime",
+      "url"
+    ],
     where: {
       slug: params!.slug
     }
