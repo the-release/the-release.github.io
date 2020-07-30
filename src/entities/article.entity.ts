@@ -11,6 +11,9 @@ export class Article {
   @Column({ type: "varchar", length: 255, unique: true })
   url: string;
 
+  @Column({ type: "varchar", length: 255, unique: true })
+  absoluteUrl: string;
+
   @Column({ type: "varchar", length: 255 })
   htmlContent: string;
 
@@ -52,6 +55,7 @@ export class Article {
 
   constructor(props: Article = {} as any) {
     this.url = props.url;
+    this.absoluteUrl = props.absoluteUrl;
     this.slug = props.slug;
     this.htmlContent = props.htmlContent;
     this.title = props.title;

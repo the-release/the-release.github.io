@@ -1,6 +1,7 @@
 import { FindOneOptions, getRepository } from "typeorm";
 import { pick } from "../utils/pick/pick";
 import { Category } from "../entities/category.entity";
+import { dbConnection } from "../fs-to-db/db";
 
 interface GetOptions<U> {
   props?: Array<U>;
@@ -13,6 +14,7 @@ export const getCategories = async <U extends keyof Category>({
   limit,
   where
 }: GetOptions<U> = {}) => {
+  await dbConnection();
   const categories = await getRepository(Category).find({
     order: {
       name: "ASC"

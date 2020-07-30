@@ -46,7 +46,8 @@ export const getArticleBySlug = async <U extends keyof Article>(
   const thumbnail = await exportThumbnail(coverImageSrc);
 
   const article = {
-    url: `${ORIGIN}/article/${slug}`,
+    url: `/article/${slug}`,
+    absoluteUrl: `${ORIGIN}/article/${slug}`,
     slug,
     htmlContent,
     creationDate: await creationDateSelector(articleFilePath),

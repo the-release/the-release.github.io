@@ -18,7 +18,8 @@ export const getCategories = async (): Promise<Category[]> => {
       const slug = slugify(name);
 
       return {
-        url: `${ORIGIN}/category/${slug}`,
+        url: `/category/${slug}`,
+        absoluteUrl: `${ORIGIN}/category/${slug}`,
         slug,
         name
       };

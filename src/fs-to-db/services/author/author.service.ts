@@ -20,7 +20,8 @@ export const getAuthors = async (): Promise<Author[]> => {
         const thumbnail = await exportImage(filename);
 
         return {
-          url: `${ORIGIN}/author/${slug}`,
+          url: `/author/${slug}`,
+          absoluteUrl: `${ORIGIN}/author/${slug}`,
           slug,
           name,
           thumbnail

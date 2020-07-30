@@ -7,7 +7,6 @@ import {
 } from "../../modules/page-category/page-category.component";
 import { paginate } from "../../utils/paginate/paginate";
 import { ITEMS_PER_PAGE } from "../../config";
-import { dbConnection } from "../../fs-to-db/db";
 import { getArticles } from "../../services/article.service";
 import { getCategories } from "../../services/category.service";
 
@@ -16,8 +15,6 @@ interface PageCategoryParams extends ParsedUrlQuery {
 }
 
 export const getStaticPaths: GetStaticPaths<PageCategoryParams> = async () => {
-  await dbConnection();
-
   const categories = await getCategories({ props: ["slug"] });
   const paths = categories.map(({ slug }) => {
     return {
@@ -35,8 +32,6 @@ export const getStaticProps: GetStaticProps<
   PageCategoryProps,
   PageCategoryParams
 > = async ({ params }) => {
-  await dbConnection();
-
   const slug = params!.slug;
   const [category] = await getCategories({
     where: {

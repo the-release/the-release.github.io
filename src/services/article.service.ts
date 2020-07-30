@@ -1,6 +1,7 @@
 import { FindOneOptions, getRepository } from "typeorm";
 import { Article } from "../entities/article.entity";
 import { pick } from "../utils/pick/pick";
+import { dbConnection } from "../fs-to-db/db";
 
 interface GetOptions<U> {
   props?: Array<U>;
@@ -13,6 +14,7 @@ export const getArticles = async <U extends keyof Article>({
   limit,
   where
 }: GetOptions<U> = {}) => {
+  await dbConnection();
   const articles = await getRepository(Article).find({
     order: {
       timestamp: "DESC"

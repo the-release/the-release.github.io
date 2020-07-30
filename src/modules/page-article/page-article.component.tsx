@@ -18,7 +18,7 @@ export interface PageArticleProps {
     | "author"
     | "htmlContent"
     | "readingTime"
-    | "url"
+    | "absoluteUrl"
   >;
 }
 
@@ -32,7 +32,7 @@ export const PagePost: FC<PageArticleProps> = ({
     author,
     htmlContent,
     readingTime,
-    url
+    absoluteUrl
   }
 }) => {
   return (
@@ -51,7 +51,7 @@ export const PagePost: FC<PageArticleProps> = ({
         <meta property="og:title" content={title} />
         <meta property="og:description" content={description} />
         <meta property="og:type" content="article" />
-        <meta property="og:url" content={url} />
+        <meta property="og:url" content={absoluteUrl} />
 
         <meta property="twitter:card" content="summary_large_image" />
         <meta property="twitter:creator" content={TWITTER_HANDLE} />

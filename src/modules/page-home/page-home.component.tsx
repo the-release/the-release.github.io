@@ -1,5 +1,6 @@
 import React, { FC } from "react";
 import Head from "next/head";
+import Link from "next/link";
 
 import { Layout } from "../layout/layout.component";
 import { Heading } from "../../catalog/heading/heading.component";
@@ -44,14 +45,18 @@ export const PageHome: FC<PageHomeProps> = ({
         <Heading>Categories</Heading>
         {categories.map(({ name, url }, index) => (
           <React.Fragment key={index}>
-            <a href={url}>{name}</a>
+            <Link href="/category/[slug]" as={url}>
+              <a>{name}</a>
+            </Link>
             <br />
           </React.Fragment>
         ))}
         <Heading>Authors</Heading>
         {authors.map(({ name, url }, index) => (
           <React.Fragment key={index}>
-            <a href={url}>{name}</a>
+            <Link href="/author/[slug]" as={url}>
+              <a>{name}</a>
+            </Link>
             <br />
           </React.Fragment>
         ))}

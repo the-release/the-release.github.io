@@ -6,7 +6,6 @@ import { ORIGIN } from "../config";
 import { Article } from "../entities/article.entity";
 import { Category } from "../entities/category.entity";
 import { Author } from "../entities/author.entity";
-import { dbConnection } from "../fs-to-db/db";
 import { getArticles } from "../services/article.service";
 import { getCategories } from "../services/category.service";
 import { getAuthors } from "../services/author.service";
@@ -39,8 +38,6 @@ const authorEntry = (author: Pick<Author, "url">) => {
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-  await dbConnection();
-
   const articles = await getArticles({
     props: ["url"]
   });

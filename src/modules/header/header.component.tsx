@@ -1,5 +1,7 @@
 import React, { FC } from "react";
 import styled from "styled-components";
+import Link from "next/link";
+
 import { Heading } from "../../catalog/heading/heading.component";
 import { SITE_NAME } from "../../config";
 
@@ -9,7 +11,9 @@ export const Header: FC = () => {
   return (
     <StyledHeader>
       <Heading component="h2" variant="h4">
-        <a href="/">{SITE_NAME}</a>
+        <Link href="/">
+          <a>{SITE_NAME}</a>
+        </Link>
       </Heading>
     </StyledHeader>
   );

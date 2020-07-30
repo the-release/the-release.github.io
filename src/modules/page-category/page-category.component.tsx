@@ -1,5 +1,6 @@
 import React, { FC } from "react";
 import Head from "next/head";
+import Link from "next/link";
 
 import { Layout } from "../layout/layout.component";
 import { Heading } from "../../catalog/heading/heading.component";
@@ -42,10 +43,20 @@ export const PageCategory: FC<PageCategoryProps> = ({
           ))}
         </ArticleList>
         {previousPageIndex !== null && (
-          <a href={`${category.url}/${previousPageIndex}`}>Previous page</a>
+          <Link
+            href="/category/[slug]/[page]"
+            as={`${category.url}/${previousPageIndex}`}
+          >
+            <a>Previous page</a>
+          </Link>
         )}
         {nextPageIndex !== null && (
-          <a href={`${category.url}/${nextPageIndex}`}>Next page</a>
+          <Link
+            href="/category/[slug]/[page]"
+            as={`${category.url}/${nextPageIndex}`}
+          >
+            <a>Next page</a>
+          </Link>
         )}
       </Layout>
     </>

@@ -1,5 +1,6 @@
 import React, { FC } from "react";
 import Head from "next/head";
+import Link from "next/link";
 
 import { SITE_NAME } from "../../config";
 import { Layout } from "../layout/layout.component";
@@ -46,10 +47,20 @@ export const PageAuthor: FC<PageAuthorProps> = ({
           ))}
         </ArticleList>
         {previousPageIndex !== null && (
-          <a href={`${author.url}/${previousPageIndex}`}>Previous page</a>
+          <Link
+            href="/author/[slug]/[page]"
+            as={`${author.url}/${previousPageIndex}`}
+          >
+            <a>Previous page</a>
+          </Link>
         )}
         {nextPageIndex !== null && (
-          <a href={`${author.url}/${nextPageIndex}`}>Next page</a>
+          <Link
+            href="/author/[slug]/[page]"
+            as={`${author.url}/${nextPageIndex}`}
+          >
+            <a>Next page</a>
+          </Link>
         )}
       </Layout>
     </>

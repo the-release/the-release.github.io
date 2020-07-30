@@ -8,11 +8,15 @@ export class Category {
   @Column({ type: "varchar", length: 255, unique: true })
   url: string;
 
+  @Column({ type: "varchar", length: 255, unique: true })
+  absoluteUrl: string;
+
   @Column({ type: "varchar", length: 255 })
   name: string;
 
   constructor(props: Category = {} as any) {
     this.url = props.url;
+    this.absoluteUrl = props.absoluteUrl;
     this.name = props.name;
     this.slug = props.slug;
   }

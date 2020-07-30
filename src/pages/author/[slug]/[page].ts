@@ -7,7 +7,6 @@ import {
   PageAuthorProps
 } from "../../../modules/page-author/page-author.component";
 import { ITEMS_PER_PAGE } from "../../../config";
-import { dbConnection } from "../../../fs-to-db/db";
 import { getArticles } from "../../../services/article.service";
 import { getAuthors } from "../../../services/author.service";
 
@@ -17,8 +16,6 @@ interface PageAuthorParams extends ParsedUrlQuery {
 }
 
 export const getStaticPaths: GetStaticPaths<PageAuthorParams> = async () => {
-  await dbConnection();
-
   const authors = await getAuthors({ props: ["slug"] });
   const paths: {
     params: { slug: string; page: string };
@@ -52,8 +49,6 @@ export const getStaticProps: GetStaticProps<
   PageAuthorProps,
   PageAuthorParams
 > = async ({ params }) => {
-  await dbConnection();
-
   const slug = params!.slug;
   const pageIndex = parseInt(params!.page, 10);
   const [author] = await getAuthors({
