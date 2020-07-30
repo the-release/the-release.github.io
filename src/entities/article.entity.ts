@@ -4,6 +4,7 @@ import { Category } from "./category.entity";
 
 @Entity("article")
 export class Article {
+  // TODO: put proper lengths
   @PrimaryColumn({ type: "varchar", length: 255 })
   slug: string;
 

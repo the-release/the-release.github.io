@@ -32,7 +32,13 @@ createConnection(TYPEORM_CONFIG).then(async () => {
       slug: article.author
     });
 
-    if (!category || !author) throw new Error("Missing category");
+    if (!category) {
+      throw new Error(`Invalid category for article /${article.slug}`);
+    }
+
+    if (!author) {
+      throw new Error(`Invalid author for article /${article.slug}`);
+    }
 
     await articleRepository.save(
       new Article({

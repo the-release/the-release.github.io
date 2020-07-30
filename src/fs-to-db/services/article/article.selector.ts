@@ -69,6 +69,10 @@ export const metadataSelector = async (
   author: string;
 }> => {
   const metadataFilePath = path.join(articleDir, "/metadata.json");
+  const metadata = JSON.parse(await fs.readFile(metadataFilePath, "utf8"));
 
-  return JSON.parse(await fs.readFile(metadataFilePath, "utf8"));
+  if (!metadata.category) throw new Error(`Missing category`);
+  if (!metadata.author) throw new Error(`Missing author`);
+
+  return metadata;
 };

@@ -32,14 +32,12 @@ export const getArticleBySlug = async <U extends keyof Article>(
 ) => {
   const articleDir = path.join(articlesDir, slug);
   const articleFilePath = path.join(articleDir, "/article.md");
+  const { category, author } = await metadataSelector(articleDir);
   const htmlContent = externalLinks(
     toTitleCase(
       await exportImages(await htmlContentSelector(articleFilePath), slug)
     )
   );
-  const metadata = await metadataSelector(articleDir);
-  const category = metadata.category;
-  const author = metadata.author;
 
   const $ = cheerio.load(htmlContent);
   const plainText = plainTextSelector($);
