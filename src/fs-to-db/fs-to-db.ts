@@ -1,11 +1,11 @@
 import { createConnection, getRepository } from "typeorm";
 import { TYPEORM_CONFIG } from "../typeorm.config";
-import { getArticles } from "./services/fs/article.service";
+import { getArticles } from "./services/article/article.service";
 import { Article } from "../entities/article.entity";
 import { Category } from "../entities/category.entity";
 import { Author } from "../entities/author.entity";
-import { getCategories } from "./services/fs/category.service";
-import { getAuthors } from "./services/fs/author.service";
+import { getCategories } from "./services/category/category.service";
+import { getAuthors } from "./services/author/author.service";
 
 createConnection(TYPEORM_CONFIG).then(async () => {
   const categoryRepository = getRepository(Category);

@@ -13,14 +13,14 @@ import {
   plainTextSelector,
   timestampSelector,
   titleSelector
-} from "../../../services/article/article.selector";
+} from "./article.selector";
 import { Article } from "../../../entities/article.entity";
 import {
   exportThumbnail,
   exportImages,
   toTitleCase,
   externalLinks
-} from "../../../services/article/article.util";
+} from "./article.util";
 import { ORIGIN } from "../../../config";
 import { pick } from "../../../utils/pick/pick";
 

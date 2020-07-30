@@ -4,7 +4,7 @@ import { format } from "date-fns";
 import url from "url";
 import path from "path";
 
-import { ORIGIN } from "../../config";
+import { ORIGIN } from "../../../config";
 
 export const titleSelector = ($: CheerioStatic) => {
   const titleElement = $("body > h1:first-child");

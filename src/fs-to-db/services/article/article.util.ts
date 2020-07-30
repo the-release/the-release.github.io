@@ -3,10 +3,10 @@ import path from "path";
 import { titleCase } from "title-case";
 
 import { promises as fs } from "fs";
-import { sha256 } from "../../utils/sha256/sha256";
-import { isFile } from "../../utils/is-file/is-file";
-import { ORIGIN } from "../../config";
-import { resizeImage } from "../../utils/resize-image/resize-image";
+import { sha256 } from "../../../utils/sha256/sha256";
+import { isFile } from "../../../utils/is-file/is-file";
+import { ORIGIN } from "../../../config";
+import { resizeImage } from "../../../utils/resize-image/resize-image";
 
 export const isAbsoluteUrl = (url: string) => {
   return new RegExp(/^https?:\/\/|^\/\//i, "i").test(url);

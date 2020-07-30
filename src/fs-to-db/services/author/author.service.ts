@@ -2,7 +2,7 @@ import path from "path";
 import { promises as fs } from "fs";
 
 import { Author } from "../../../entities/author.entity";
-import { exportImage } from "../../../services/author/author.util";
+import { exportImage } from "./author.util";
 import { slugify } from "../../../utils/slugify/slugify";
 import { ORIGIN } from "../../../config";
 

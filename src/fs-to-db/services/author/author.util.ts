@@ -1,9 +1,9 @@
 import path from "path";
 import { promises as fs } from "fs";
-import { isFile } from "../../utils/is-file/is-file";
-import { slugify } from "../../utils/slugify/slugify";
-import { sha256 } from "../../utils/sha256/sha256";
-import { resizeImage } from "../../utils/resize-image/resize-image";
+import { isFile } from "../../../utils/is-file/is-file";
+import { slugify } from "../../../utils/slugify/slugify";
+import { sha256 } from "../../../utils/sha256/sha256";
+import { resizeImage } from "../../../utils/resize-image/resize-image";
 
 const authorsDir = path.join(process.cwd(), "data", "authors");
 const publicDir = path.join(process.cwd(), "public");
