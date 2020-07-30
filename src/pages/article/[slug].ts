@@ -5,17 +5,19 @@ import {
   PageArticleProps,
   PagePost
 } from "../../modules/page-article/page-article.component";
-import {
-  getArticleBySlug,
-  getArticles
-} from "../../services/article/article.service";
+import { dbConnection } from "../../fs-to-db/db";
+import { getArticles } from "../../services/article.service";
 
 interface PageArticleParams extends ParsedUrlQuery {
   slug: string;
 }
 
 export const getStaticPaths: GetStaticPaths<PageArticleParams> = async () => {
-  const articles = await getArticles();
+  await dbConnection();
+
+  const articles = await getArticles({
+    props: ["slug"]
+  });
   const paths = articles.map(({ slug }) => {
     return {
       params: { slug }
@@ -32,17 +34,24 @@ export const getStaticProps: GetStaticProps<
   PageArticleProps,
   PageArticleParams
 > = async ({ params }) => {
-  const article = await getArticleBySlug(params!.slug, [
-    "title",
-    "description",
-    "coverImageUrl",
-    "creationDate",
-    "category",
-    "author",
-    "htmlContent",
-    "readingTime",
-    "url"
-  ]);
+  await dbConnection();
+
+  const [article] = await getArticles({
+    props: [
+      "title",
+      "description",
+      "coverImageUrl",
+      "creationDate",
+      "category",
+      "author",
+      "htmlContent",
+      "readingTime",
+      "url"
+    ],
+    where: {
+      slug: params!.slug
+    }
+  });
 
   return {
     props: {

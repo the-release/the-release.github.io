@@ -1,10 +1,10 @@
 import path from "path";
 import { promises as fs } from "fs";
 
-import { Author } from "./author.entity";
+import { Author } from "../../../entities/author.entity";
 import { exportImage } from "./author.util";
-import { slugify } from "../../utils/slugify/slugify";
-import { ORIGIN } from "../../config";
+import { slugify } from "../../../utils/slugify/slugify";
+import { ORIGIN } from "../../../config";
 
 const authorsDir = path.join(process.cwd(), "data", "authors");
 

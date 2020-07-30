@@ -4,7 +4,7 @@ import { format } from "date-fns";
 import url from "url";
 import path from "path";
 
-import { ORIGIN } from "../../config";
+import { ORIGIN } from "../../../config";
 
 export const titleSelector = ($: CheerioStatic) => {
   const titleElement = $("body > h1:first-child");
@@ -62,8 +62,17 @@ export const htmlContentSelector = async (filePath: string) => {
   return marked(markdown);
 };
 
-export const metadataSelector = async (articleDir: string) => {
+export const metadataSelector = async (
+  articleDir: string
+): Promise<{
+  category: string;
+  author: string;
+}> => {
   const metadataFilePath = path.join(articleDir, "/metadata.json");
+  const metadata = JSON.parse(await fs.readFile(metadataFilePath, "utf8"));
 
-  return JSON.parse(await fs.readFile(metadataFilePath, "utf8"));
+  if (!metadata.category) throw new Error(`Missing category`);
+  if (!metadata.author) throw new Error(`Missing author`);
+
+  return metadata;
 };

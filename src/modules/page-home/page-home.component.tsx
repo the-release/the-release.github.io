@@ -3,9 +3,9 @@ import Head from "next/head";
 
 import { Layout } from "../layout/layout.component";
 import { Heading } from "../../catalog/heading/heading.component";
-import { Article } from "../../services/article/article.entity";
-import { Category } from "../../services/category/category.entity";
-import { Author } from "../../services/author/author.entity";
+import { Article } from "../../entities/article.entity";
+import { Category } from "../../entities/category.entity";
+import { Author } from "../../entities/author.entity";
 import { SITE_NAME, SLOGAN } from "../../config";
 import { ArticleCard } from "../article-card/article-card.component";
 import { ArticleList } from "../article-list/article-list.component";

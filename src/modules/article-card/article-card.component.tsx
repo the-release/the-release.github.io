@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import styled from "styled-components";
 import { Image, StyledImage } from "../../catalog/image/image.component";
 import { Heading } from "../../catalog/heading/heading.component";
-import { Article } from "../../services/article/article.entity";
+import { Article } from "../../entities/article.entity";
 
 type ArticleCardProps = Pick<
   Article,

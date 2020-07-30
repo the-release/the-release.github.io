@@ -1,17 +1,16 @@
 import { GetStaticPaths, GetStaticProps } from "next";
 import { ParsedUrlQuery } from "querystring";
+import { getRepository } from "typeorm";
 
-import { getArticlesByCategorySlug } from "../../../services/article/article.service";
-import {
-  getCategories,
-  getCategoryBySlug
-} from "../../../services/category/category.service";
 import {
   PageCategory,
   PageCategoryProps
 } from "../../../modules/page-category/page-category.component";
 import { paginate } from "../../../utils/paginate/paginate";
 import { ITEMS_PER_PAGE } from "../../../config";
+import { dbConnection } from "../../../fs-to-db/db";
+import { Category } from "../../../entities/category.entity";
+import { getArticles } from "../../../services/article.service";
 
 interface PageCategoryParams extends ParsedUrlQuery {
   slug: string;
@@ -19,14 +18,23 @@ interface PageCategoryParams extends ParsedUrlQuery {
 }
 
 export const getStaticPaths: GetStaticPaths<PageCategoryParams> = async () => {
-  const categories = await getCategories();
+  await dbConnection();
+
+  const categories = await getRepository(Category).find();
   const paths: {
     params: { slug: string; page: string };
   }[] = [];
 
   for (const category of categories) {
-    const articles = await getArticlesByCategorySlug(category.slug);
-    const paginatedArticles = paginate(articles, ITEMS_PER_PAGE);
+    const paginatedArticles = paginate(
+      await getArticles({
+        props: [],
+        where: {
+          category: category.slug
+        }
+      }),
+      ITEMS_PER_PAGE
+    );
 
     for (const pageIndex in paginatedArticles.pages) {
       paths.push({
@@ -45,17 +53,22 @@ export const getStaticProps: GetStaticProps<
   PageCategoryProps,
   PageCategoryParams
 > = async ({ params }) => {
+  await dbConnection();
+
   const slug = params!.slug;
   const page = params!.page;
-  const category = await getCategoryBySlug(slug);
   const pageIndex = parseInt(page, 10);
+  const category = await getRepository(Category).findOneOrFail({
+    slug
+  });
+
   const { pageItems: articles, previousPageIndex, nextPageIndex } = paginate(
-    await getArticlesByCategorySlug(slug, [
-      "title",
-      "url",
-      "thumbnail",
-      "coverImageAlt"
-    ]),
+    await getArticles({
+      props: ["title", "url", "thumbnail", "coverImageAlt"],
+      where: {
+        category: slug
+      }
+    }),
     ITEMS_PER_PAGE,
     pageIndex
   );
@@ -63,7 +76,7 @@ export const getStaticProps: GetStaticProps<
   return {
     props: {
       articles,
-      category,
+      category: JSON.parse(JSON.stringify(category)),
       previousPageIndex,
       nextPageIndex
     }

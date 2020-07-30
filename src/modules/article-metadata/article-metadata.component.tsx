@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import styled from "styled-components";
-import { Category } from "../../services/category/category.entity";
-import { Author } from "../../services/author/author.entity";
+import { Category } from "../../entities/category.entity";
+import { Author } from "../../entities/author.entity";
 import { Image } from "../../catalog/image/image.component";
 
 interface ArticleMetadataProps {

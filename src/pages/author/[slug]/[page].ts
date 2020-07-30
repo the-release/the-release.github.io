@@ -1,17 +1,16 @@
 import { GetStaticPaths, GetStaticProps } from "next";
 import { ParsedUrlQuery } from "querystring";
+import { getRepository } from "typeorm";
 
-import {
-  getAuthorBySlug,
-  getAuthors
-} from "../../../services/author/author.service";
-import { getArticlesByAuthorSlug } from "../../../services/article/article.service";
 import { paginate } from "../../../utils/paginate/paginate";
 import {
   PageAuthor,
   PageAuthorProps
 } from "../../../modules/page-author/page-author.component";
 import { ITEMS_PER_PAGE } from "../../../config";
+import { dbConnection } from "../../../fs-to-db/db";
+import { Author } from "../../../entities/author.entity";
+import { getArticles } from "../../../services/article.service";
 
 interface PageAuthorParams extends ParsedUrlQuery {
   slug: string;
@@ -19,14 +18,23 @@ interface PageAuthorParams extends ParsedUrlQuery {
 }
 
 export const getStaticPaths: GetStaticPaths<PageAuthorParams> = async () => {
-  const authors = await getAuthors();
+  await dbConnection();
+
+  const authors = await getRepository(Author).find();
   const paths: {
     params: { slug: string; page: string };
   }[] = [];
 
   for (const author of authors) {
-    const articles = await getArticlesByAuthorSlug(author.slug);
-    const paginatedArticles = paginate(articles, ITEMS_PER_PAGE);
+    const paginatedArticles = paginate(
+      await getArticles({
+        props: [],
+        where: {
+          author: author.slug
+        }
+      }),
+      ITEMS_PER_PAGE
+    );
 
     for (const pageIndex in paginatedArticles.pages) {
       paths.push({
@@ -45,17 +53,22 @@ export const getStaticProps: GetStaticProps<
   PageAuthorProps,
   PageAuthorParams
 > = async ({ params }) => {
+  await dbConnection();
+
   const slug = params!.slug;
   const page = params!.page;
-  const author = await getAuthorBySlug(slug);
   const pageIndex = parseInt(page, 10);
+  const author = await getRepository(Author).findOneOrFail({
+    slug
+  });
+
   const { pageItems: articles, previousPageIndex, nextPageIndex } = paginate(
-    await getArticlesByAuthorSlug(slug, [
-      "title",
-      "url",
-      "thumbnail",
-      "coverImageAlt"
-    ]),
+    await getArticles({
+      props: ["title", "url", "thumbnail", "coverImageAlt"],
+      where: {
+        author: slug
+      }
+    }),
     ITEMS_PER_PAGE,
     pageIndex
   );
@@ -63,7 +76,7 @@ export const getStaticProps: GetStaticProps<
   return {
     props: {
       articles,
-      author,
+      author: JSON.parse(JSON.stringify(author)),
       previousPageIndex,
       nextPageIndex
     }

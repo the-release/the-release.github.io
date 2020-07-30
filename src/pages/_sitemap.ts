@@ -1,52 +1,51 @@
+import path from "path";
 import { GetStaticProps } from "next";
 import { promises as fs } from "fs";
-import path from "path";
+import { getRepository } from "typeorm";
 
 import { ORIGIN } from "../config";
-import { getArticles } from "../services/article/article.service";
-import { getCategories } from "../services/category/category.service";
-import { getAuthors } from "../services/author/author.service";
-import { Article } from "../services/article/article.entity";
-import { Category } from "../services/category/category.entity";
-import { Author } from "../services/author/author.entity";
+import { Article } from "../entities/article.entity";
+import { Category } from "../entities/category.entity";
+import { Author } from "../entities/author.entity";
+import { dbConnection } from "../fs-to-db/db";
+import { getArticles } from "../services/article.service";
 
-const sitemapPath = path.join(process.cwd(), "public", "sitemap.xml");
+const siteMapPath = path.join(process.cwd(), "public", "sitemap.xml");
 
 // TODO: add proper last modification value
-const articleEntry = (article: Article) => {
-  const articleUrl = `${ORIGIN}/article/${article.slug}`;
-
+const articleEntry = (article: Pick<Article, "url">) => {
   return `  <url>
-    <loc>${articleUrl}</loc>
+    <loc>${article.url}</loc>
     <lastmod>2020-05-04T14:26:06+00:00</lastmod>
     <priority>0.60</priority>
   </url>`;
 };
 
 const categoryEntry = (category: Category) => {
-  const categoryUrl = `${ORIGIN}/category/${category.slug}`;
-
   return `  <url>
-    <loc>${categoryUrl}</loc>
+    <loc>${category.url}</loc>
     <lastmod>2020-05-04T14:26:06+00:00</lastmod>
     <priority>0.60</priority>
   </url>`;
 };
 
 const authorEntry = (author: Author) => {
-  const authorUrl = `${ORIGIN}/author/${author.slug}`;
-
   return `  <url>
-    <loc>${authorUrl}</loc>
+    <loc>${author.url}</loc>
     <lastmod>2020-05-04T14:26:06+00:00</lastmod>
     <priority>0.60</priority>
   </url>`;
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-  const articles = await getArticles();
-  const categories = await getCategories();
-  const authors = await getAuthors();
+  await dbConnection();
+
+  const categories = await getRepository(Category).find();
+  const authors = await getRepository(Author).find();
+  const articles = await getArticles({
+    props: ["url"]
+  });
+
   let xml = `<?xml version="1.0" encoding="UTF-8"?>`;
 
   xml += `
@@ -65,7 +64,7 @@ export const getStaticProps: GetStaticProps = async () => {
   ${authors.map(authorEntry).join("\n")}
 </urlset>`;
 
-  await fs.writeFile(sitemapPath, xml, {
+  await fs.writeFile(siteMapPath, xml, {
     encoding: "utf8"
   });
 
@@ -74,6 +73,8 @@ export const getStaticProps: GetStaticProps = async () => {
   };
 };
 
-export default () => {
+const SiteMap = () => {
   return "done";
 };
+
+export default SiteMap;
