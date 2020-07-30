@@ -24,5 +24,6 @@ export const resizeImage = async ({
       console.log("----------");
       console.log(src);
       console.log(err);
+      process.exit(1);
     });
 };

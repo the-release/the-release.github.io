@@ -104,6 +104,8 @@ export const exportThumbnail = async (imagePath: string) => {
 
   if (await isFile(dest)) return newPath;
 
+  await new Promise(resolve => setTimeout(resolve, 1000));
+
   await generateThumbnail(src, dest);
 
   return newPath;
