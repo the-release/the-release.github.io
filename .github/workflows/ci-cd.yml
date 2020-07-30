@@ -21,9 +21,9 @@ jobs:
         with:
           node-version: 12.x
 
-      - name: Install libvips
-        run: sudo apt-get update -y && \
-          sudo apt-get install -y libvips
+
+      - run: sudo apt-get update -y
+      - run: sudo apt-get install -y libvips
 
       - name: Get yarn cache
         id: yarn-cache
