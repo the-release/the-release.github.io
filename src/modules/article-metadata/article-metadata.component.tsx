@@ -7,7 +7,7 @@ import { Author } from "../../entities/author.entity";
 import { Image } from "../../catalog/image/image.component";
 
 interface ArticleMetadataProps {
-  creationDate: string;
+  publishedAt: string;
   category: Category;
   author: Author;
   readingTime: string;
@@ -19,14 +19,14 @@ const StyledContainer = styled.div`
 `;
 
 export const ArticleMetadata: FC<ArticleMetadataProps> = ({
-  creationDate,
+  publishedAt,
   category,
   author,
   readingTime
 }) => {
   return (
     <StyledContainer>
-      {creationDate} •{" "}
+      {publishedAt} •{" "}
       <Link href="/category/[slug]" as={category.url}>
         <a>{category.name}</a>
       </Link>{" "}

@@ -6,12 +6,10 @@ import readingTime from "reading-time";
 import {
   coverImageSelector,
   coverImageUrlSelector,
-  creationDateSelector,
   descriptionSelector,
   htmlContentSelector,
   metadataSelector,
   plainTextSelector,
-  timestampSelector,
   titleSelector
 } from "./article.selector";
 import { Article } from "../../../entities/article.entity";
@@ -32,7 +30,15 @@ export const getArticleBySlug = async <U extends keyof Article>(
 ) => {
   const articleDir = path.join(articlesDir, slug);
   const articleFilePath = path.join(articleDir, "/article.md");
-  const { category, author } = await metadataSelector(articleDir);
+  const { category, author, publishedAt, timestamp } = await metadataSelector(
+    articleDir
+  ).catch(err => {
+    console.error(
+      err?.message || "Unable to parse metadata",
+      `article /${slug}`
+    );
+    process.exit(1);
+  });
   const htmlContent = externalLinks(
     toTitleCase(
       await exportImages(await htmlContentSelector(articleFilePath), slug)
@@ -50,8 +56,8 @@ export const getArticleBySlug = async <U extends keyof Article>(
     absoluteUrl: `${ORIGIN}/article/${slug}`,
     slug,
     htmlContent,
-    creationDate: await creationDateSelector(articleFilePath),
-    timestamp: await timestampSelector(articleFilePath),
+    publishedAt,
+    timestamp,
     title: titleSelector($),
     description: descriptionSelector($),
     readingTime: readingTime(plainText).text,

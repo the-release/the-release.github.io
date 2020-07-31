@@ -33,7 +33,7 @@ export class Article {
   thumbnail: string;
 
   @Column({ type: "varchar", length: 255 })
-  creationDate: string;
+  publishedAt: string;
 
   @Column({ type: "int" })
   timestamp: number;
@@ -63,7 +63,7 @@ export class Article {
     this.coverImageUrl = props.coverImageUrl;
     this.coverImageAlt = props.coverImageAlt;
     this.thumbnail = props.thumbnail;
-    this.creationDate = props.creationDate;
+    this.publishedAt = props.publishedAt;
     this.timestamp = props.timestamp;
     this.category = props.category;
     this.author = props.author;

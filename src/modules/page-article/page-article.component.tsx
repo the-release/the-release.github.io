@@ -13,7 +13,7 @@ export interface PageArticleProps {
     | "title"
     | "description"
     | "coverImageUrl"
-    | "creationDate"
+    | "publishedAt"
     | "category"
     | "author"
     | "htmlContent"
@@ -27,7 +27,7 @@ export const PagePost: FC<PageArticleProps> = ({
     title,
     description,
     coverImageUrl,
-    creationDate,
+    publishedAt,
     category,
     author,
     htmlContent,
@@ -63,7 +63,7 @@ export const PagePost: FC<PageArticleProps> = ({
       </Head>
       <Layout>
         <ArticleMetadata
-          creationDate={creationDate}
+          publishedAt={publishedAt}
           category={category}
           author={author}
           readingTime={readingTime}

@@ -7,6 +7,16 @@ import { Author } from "../entities/author.entity";
 import { getCategories } from "./services/category/category.service";
 import { getAuthors } from "./services/author/author.service";
 
+process.on("uncaughtException", err => {
+  console.error(err);
+  process.exit(1);
+});
+
+process.on("unhandledRejection", (err: any) => {
+  console.error(err || "An unexpected error occurred.");
+  process.exit(1);
+});
+
 createConnection(TYPEORM_CONFIG).then(async () => {
   const categoryRepository = getRepository(Category);
   const authorRepository = getRepository(Author);
@@ -49,5 +59,5 @@ createConnection(TYPEORM_CONFIG).then(async () => {
     );
   }
 
-  console.log("DONE");
+  console.log("✨ Ingested data successfully");
 });

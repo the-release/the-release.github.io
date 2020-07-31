@@ -36,7 +36,7 @@ export const getStaticProps: GetStaticProps<
       "title",
       "description",
       "coverImageUrl",
-      "creationDate",
+      "publishedAt",
       "category",
       "author",
       "htmlContent",

@@ -44,18 +44,6 @@ export const coverImageSelector = ($: CheerioStatic) => {
   };
 };
 
-export const timestampSelector = async (filePath: string) => {
-  const stats = await fs.stat(filePath);
-
-  return stats.birthtimeMs;
-};
-
-export const creationDateSelector = async (filePath: string) => {
-  const stats = await fs.stat(filePath);
-
-  return format(stats.birthtime, "MMMM dd, yyyy h:mm a");
-};
-
 export const htmlContentSelector = async (filePath: string) => {
   const markdown = (await fs.readFile(filePath, "utf8")).trim();
 
@@ -67,12 +55,23 @@ export const metadataSelector = async (
 ): Promise<{
   category: string;
   author: string;
+  publishedAt: string;
+  timestamp: number;
 }> => {
   const metadataFilePath = path.join(articleDir, "/metadata.json");
   const metadata = JSON.parse(await fs.readFile(metadataFilePath, "utf8"));
 
   if (!metadata.category) throw new Error(`Missing category`);
   if (!metadata.author) throw new Error(`Missing author`);
+  if (!metadata.publishedAt) throw new Error(`Missing publishedAt`);
 
-  return metadata;
+  const date = new Date(metadata.publishedAt);
+  const publishedAt = format(date, "MMMM dd, yyyy h:mm a");
+  const timestamp = +date;
+
+  return {
+    ...metadata,
+    publishedAt,
+    timestamp
+  };
 };
