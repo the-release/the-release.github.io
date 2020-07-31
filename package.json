@@ -2,11 +2,11 @@
   "name": "the-follower",
   "version": "1.0.0",
   "scripts": {
-    "prefs-to-db": "rm -rf /tmp/the-release/db.sqlite",
-    "fs-to-db": "ts-node --project ./tsconfig.ts-node.json ./src/fs-to-db/fs-to-db.ts",
+    "preingest": "rm -rf /tmp/the-release/db.sqlite",
+    "ingest": "ts-node --project ./tsconfig.ts-node.json src/backend/ingest.ts",
     "dev": "next -p 3000",
     "predev": "yarn cleanup && yarn",
-    "prebuild": "yarn cleanup && yarn fs-to-db",
+    "prebuild": "yarn cleanup && yarn ingest",
     "build": "next build && next export -o ./dist/out",
     "cleanup": "rm -rf dist/",
     "serve": "serve -p 3000 ./dist/out"

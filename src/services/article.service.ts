@@ -1,7 +1,7 @@
 import { FindOneOptions, getRepository } from "typeorm";
 import { Article } from "../entities/article.entity";
 import { pick } from "../utils/pick/pick";
-import { dbConnection } from "../fs-to-db/db";
+import { dbConnection } from "../backend/db";
 
 interface GetOptions<U> {
   props?: Array<U>;
