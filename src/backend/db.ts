@@ -1,5 +1,6 @@
 import { createConnection, getConnectionManager } from "typeorm";
 import { TYPEORM_CONFIG } from "../typeorm.config";
+import { Article } from "../entities/article.entity";
 
 export const dbConnection = async () => {
   try {
@@ -11,9 +12,13 @@ export const dbConnection = async () => {
 
     const connection = getConnectionManager().get("default");
 
-    await connection.close();
-    await createConnection({
-      ...TYPEORM_CONFIG
-    });
+    try {
+      connection.getRepository(Article);
+    } catch {
+      await connection.close();
+      await createConnection({
+        ...TYPEORM_CONFIG
+      });
+    }
   }
 };
