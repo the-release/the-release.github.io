@@ -5,7 +5,7 @@
     "preingest": "rm -rf /tmp/the-release/db.sqlite",
     "ingest": "ts-node --project ./tsconfig.ts-node.json src/backend/ingest.ts",
     "dev": "next -p 3000",
-    "predev": "yarn cleanup && yarn",
+    "predev": "yarn cleanup && yarn ingest && yarn",
     "prebuild": "yarn cleanup && yarn ingest",
     "build": "next build && next export -o ./dist/out",
     "cleanup": "rm -rf dist/",
