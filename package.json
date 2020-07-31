@@ -1,6 +1,7 @@
 {
   "name": "the-follower",
   "version": "1.0.0",
+  "license": "MIT",
   "scripts": {
     "preingest": "rm -rf /tmp/the-release/db.sqlite",
     "ingest": "ts-node --project ./tsconfig.ts-node.json src/backend/ingest.ts",
