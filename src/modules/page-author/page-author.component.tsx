@@ -26,7 +26,10 @@ export const PageAuthor: FC<PageAuthorProps> = ({
 }) => {
   return (
     <>
-      <MetaTags title={`${author.name} – ${SITE_NAME}`} type="contributor" />
+      <MetaTags
+        title={`${author.name} – ${SITE_NAME}`}
+        contentType="contributor"
+      />
       <Layout>
         <Heading component="h1">
           <Image alt={`A photo of ${author.name}`} src={author.thumbnail} />

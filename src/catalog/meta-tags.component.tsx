@@ -1,24 +1,31 @@
 import Head from "next/head";
 import React, { FC } from "react";
-import { ORIGIN, SITE_NAME, SLOGAN, TWITTER_HANDLE } from "../config";
+import {
+  DEFAULT_SOCIAL_IMAGE,
+  ORIGIN,
+  SITE_NAME,
+  SLOGAN,
+  TWITTER_HANDLE
+} from "../config";
 
 interface MetaTagsProps {
-  title?: string;
+  title: string;
   description?: string;
   author?: string;
   image?: string;
   url?: string;
-  type?: "homepage" | "article" | "contributor" | "category";
+  contentType?: "homepage" | "article" | "contributor" | "category";
+  ogType?: "website" | "article";
 }
 
 const defaultValues = {
-  title: `${SITE_NAME} – ${SLOGAN}`,
   description: SLOGAN,
-  image: "" // TODO: add default open graph image
+  image: DEFAULT_SOCIAL_IMAGE, // TODO: add default social image
+  ogType: "website"
 };
 
 export const MetaTags: FC<MetaTagsProps> = props => {
-  const { title, description, image, author, url, type } = {
+  const { title, description, image, author, url, contentType, ogType } = {
     ...defaultValues,
     ...props
   };
@@ -28,7 +35,7 @@ export const MetaTags: FC<MetaTagsProps> = props => {
       <title>{title}</title>
       <meta name="description" content={description} />
       {author && <meta name="author" content={author} />}
-      {type && <meta name="content-type" content={type} />}
+      {contentType && <meta name="content-type" content={contentType} />}
 
       <meta name="theme-color" content="#1b1b1b" />
       <link rel="icon" href="/favicon-v1.svg" />
@@ -41,7 +48,7 @@ export const MetaTags: FC<MetaTagsProps> = props => {
       <meta property="og:image" content={image} />
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
-      {type && <meta property="og:type" content={type} />}
+      <meta property="og:type" content={ogType} />
       {url && <meta property="og:url" content={url} />}
 
       <meta property="twitter:title" content={title} />

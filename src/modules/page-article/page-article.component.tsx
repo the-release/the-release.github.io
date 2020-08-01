@@ -43,7 +43,8 @@ export const PagePost: FC<PageArticleProps> = ({
         author={author.name}
         image={coverImageUrl}
         url={absoluteUrl}
-        type="article"
+        contentType="article"
+        ogType="article"
       />
       <Layout>
         <article>

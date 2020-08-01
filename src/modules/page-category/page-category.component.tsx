@@ -25,7 +25,10 @@ export const PageCategory: FC<PageCategoryProps> = ({
 }) => {
   return (
     <>
-      <MetaTags title={`${category.name} – ${SITE_NAME}`} type="category" />
+      <MetaTags
+        title={`${category.name} – ${SITE_NAME}`}
+        contentType="category"
+      />
       <Layout>
         <Heading component="h1">{category.name}</Heading>
         <ArticleList>
