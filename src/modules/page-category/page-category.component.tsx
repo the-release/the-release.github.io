@@ -1,14 +1,13 @@
 import React, { FC } from "react";
-import Head from "next/head";
 import Link from "next/link";
 
 import { Layout } from "../layout/layout.component";
 import { Heading } from "../../catalog/heading/heading.component";
 import { Article } from "../../entities/article.entity";
 import { Category } from "../../entities/category.entity";
-import { SITE_NAME } from "../../config";
 import { ArticleCard } from "../article-card/article-card.component";
 import { ArticleList } from "../article-list/article-list.component";
+import { MetaTags } from "../../catalog/meta-tags.component";
 
 export interface PageCategoryProps {
   articles: Pick<Article, "title" | "url" | "thumbnail" | "coverImageAlt">[];
@@ -25,16 +24,7 @@ export const PageCategory: FC<PageCategoryProps> = ({
 }) => {
   return (
     <>
-      <Head>
-        <title>
-          {category.name} – {SITE_NAME}
-        </title>
-        <meta
-          name="description"
-          key="description"
-          content="A personal website, because apparently I need one."
-        />
-      </Head>
+      <MetaTags title={category.name} />
       <Layout>
         <Heading component="h1">{category.name}</Heading>
         <ArticleList>
@@ -46,18 +36,16 @@ export const PageCategory: FC<PageCategoryProps> = ({
           <Link
             href="/category/[slug]/[page]"
             as={`${category.url}/${previousPageIndex}`}
-            rel="prev"
           >
-            <a>Previous page</a>
+            <a rel="prev">Previous page</a>
           </Link>
         )}
         {nextPageIndex !== null && (
           <Link
             href="/category/[slug]/[page]"
             as={`${category.url}/${nextPageIndex}`}
-            rel="next"
           >
-            <a>Next page</a>
+            <a rel="next">Next page</a>
           </Link>
         )}
       </Layout>

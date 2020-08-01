@@ -1,7 +1,6 @@
 import React from "react";
 import Document, { Html, Head, Main, NextScript } from "next/document";
 import { ServerStyleSheet } from "styled-components";
-import { SITE_NAME } from "../config";
 
 export default class MyDocument extends Document {
   static async getInitialProps(ctx: any) {
@@ -34,13 +33,7 @@ export default class MyDocument extends Document {
   render() {
     return (
       <Html lang="en">
-        <Head>
-          <meta name="theme-color" content="#1b1b1b" />
-          <link rel="icon" href="/favicon-v1.svg" />
-          <link rel="apple-touch-icon" href="/apple-touch-icon-v1.png" />
-          <meta name="apple-mobile-web-app-title" content={SITE_NAME} />
-          <meta name="application-name" content={SITE_NAME} />
-        </Head>
+        <Head />
         <body>
           <Main />
           <NextScript />

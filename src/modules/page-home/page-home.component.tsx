@@ -1,5 +1,4 @@
 import React, { FC } from "react";
-import Head from "next/head";
 import Link from "next/link";
 
 import { Layout } from "../layout/layout.component";
@@ -7,9 +6,10 @@ import { Heading } from "../../catalog/heading/heading.component";
 import { Article } from "../../entities/article.entity";
 import { Category } from "../../entities/category.entity";
 import { Author } from "../../entities/author.entity";
-import { SITE_NAME, SLOGAN } from "../../config";
+import { SITE_NAME } from "../../config";
 import { ArticleCard } from "../article-card/article-card.component";
 import { ArticleList } from "../article-list/article-list.component";
+import { MetaTags } from "../../catalog/meta-tags.component";
 
 export interface PageHomeProps {
   articles: Pick<Article, "title" | "url" | "thumbnail" | "coverImageAlt">[];
@@ -24,16 +24,7 @@ export const PageHome: FC<PageHomeProps> = ({
 }) => {
   return (
     <>
-      <Head>
-        <title>
-          {SITE_NAME} – {SLOGAN}
-        </title>
-        <meta
-          name="description"
-          key="description"
-          content="A personal website, because apparently I need one."
-        />
-      </Head>
+      <MetaTags />
       <Layout>
         <Heading component="h1">{SITE_NAME}</Heading>
         <Heading>Latest Articles</Heading>

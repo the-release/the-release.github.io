@@ -1,8 +1,6 @@
 import React, { FC } from "react";
-import Head from "next/head";
 import Link from "next/link";
 
-import { SITE_NAME } from "../../config";
 import { Layout } from "../layout/layout.component";
 import { Heading } from "../../catalog/heading/heading.component";
 import { Article } from "../../entities/article.entity";
@@ -10,6 +8,7 @@ import { Author } from "../../entities/author.entity";
 import { Image } from "../../catalog/image/image.component";
 import { ArticleCard } from "../article-card/article-card.component";
 import { ArticleList } from "../article-list/article-list.component";
+import { MetaTags } from "../../catalog/meta-tags.component";
 
 export interface PageAuthorProps {
   articles: Pick<Article, "title" | "url" | "thumbnail" | "coverImageAlt">[];
@@ -26,16 +25,7 @@ export const PageAuthor: FC<PageAuthorProps> = ({
 }) => {
   return (
     <>
-      <Head>
-        <title>
-          {author.name} – {SITE_NAME}
-        </title>
-        <meta
-          name="description"
-          key="description"
-          content="A personal website, because apparently I need one."
-        />
-      </Head>
+      <MetaTags title={author.name} />
       <Layout>
         <Heading component="h1">
           <Image alt={`A photo of ${author.name}`} src={author.thumbnail} />
@@ -50,18 +40,16 @@ export const PageAuthor: FC<PageAuthorProps> = ({
           <Link
             href="/author/[slug]/[page]"
             as={`${author.url}/${previousPageIndex}`}
-            rel="prev"
           >
-            <a>Previous page</a>
+            <a rel="prev">Previous page</a>
           </Link>
         )}
         {nextPageIndex !== null && (
           <Link
             href="/author/[slug]/[page]"
             as={`${author.url}/${nextPageIndex}`}
-            rel="next"
           >
-            <a>Next page</a>
+            <a rel="next">Next page</a>
           </Link>
         )}
       </Layout>
