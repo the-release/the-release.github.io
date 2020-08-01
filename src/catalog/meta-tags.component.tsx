@@ -8,7 +8,7 @@ interface MetaTagsProps {
   author?: string;
   image?: string;
   url?: string;
-  type?: string;
+  type?: "homepage" | "article" | "contributor" | "category";
 }
 
 const defaultValues = {
@@ -25,7 +25,7 @@ export const MetaTags: FC<MetaTagsProps> = props => {
 
   return (
     <Head>
-      <title>{props.title ? `${title} – ${SITE_NAME}` : title}</title>
+      <title>{title}</title>
       <meta name="description" content={description} />
       {author && <meta name="author" content={author} />}
       {type && <meta name="content-type" content={type} />}

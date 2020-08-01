@@ -8,6 +8,7 @@ import { Category } from "../../entities/category.entity";
 import { ArticleCard } from "../article-card/article-card.component";
 import { ArticleList } from "../article-list/article-list.component";
 import { MetaTags } from "../../catalog/meta-tags.component";
+import { SITE_NAME } from "../../config";
 
 export interface PageCategoryProps {
   articles: Pick<Article, "title" | "url" | "thumbnail" | "coverImageAlt">[];
@@ -24,7 +25,7 @@ export const PageCategory: FC<PageCategoryProps> = ({
 }) => {
   return (
     <>
-      <MetaTags title={category.name} />
+      <MetaTags title={`${category.name} – ${SITE_NAME}`} type="category" />
       <Layout>
         <Heading component="h1">{category.name}</Heading>
         <ArticleList>

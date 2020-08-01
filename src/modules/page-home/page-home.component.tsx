@@ -24,7 +24,7 @@ export const PageHome: FC<PageHomeProps> = ({
 }) => {
   return (
     <>
-      <MetaTags />
+      <MetaTags type="homepage" />
       <Layout>
         <Heading component="h1">{SITE_NAME}</Heading>
         <Heading>Latest Articles</Heading>

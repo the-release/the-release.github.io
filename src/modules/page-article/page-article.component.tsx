@@ -5,6 +5,7 @@ import { Markdown } from "../../catalog/markdown/markdown.component";
 import { ArticleMetadata } from "../article-metadata/article-metadata.component";
 import { Article } from "../../entities/article.entity";
 import { MetaTags } from "../../catalog/meta-tags.component";
+import { SITE_NAME } from "../../config";
 
 export interface PageArticleProps {
   article: Pick<
@@ -37,7 +38,7 @@ export const PagePost: FC<PageArticleProps> = ({
   return (
     <>
       <MetaTags
-        title={title}
+        title={`${title} – ${SITE_NAME}`}
         description={description}
         author={author.name}
         image={coverImageUrl}

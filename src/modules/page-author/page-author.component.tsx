@@ -9,6 +9,7 @@ import { Image } from "../../catalog/image/image.component";
 import { ArticleCard } from "../article-card/article-card.component";
 import { ArticleList } from "../article-list/article-list.component";
 import { MetaTags } from "../../catalog/meta-tags.component";
+import { SITE_NAME } from "../../config";
 
 export interface PageAuthorProps {
   articles: Pick<Article, "title" | "url" | "thumbnail" | "coverImageAlt">[];
@@ -25,7 +26,7 @@ export const PageAuthor: FC<PageAuthorProps> = ({
 }) => {
   return (
     <>
-      <MetaTags title={author.name} />
+      <MetaTags title={`${author.name} – ${SITE_NAME}`} type="contributor" />
       <Layout>
         <Heading component="h1">
           <Image alt={`A photo of ${author.name}`} src={author.thumbnail} />
