@@ -1,11 +1,6 @@
 import React, { FC } from "react";
 import styled from "styled-components";
 
-interface ArticleListProps {
-  // TODO: add proper typing here
-  children: any;
-}
-
 const StyledArticleList = styled.div`
   display: grid;
   grid-column-gap: 30px;
@@ -21,6 +16,6 @@ const StyledArticleList = styled.div`
   }
 `;
 
-export const ArticleList: FC<ArticleListProps> = ({ children }) => {
+export const ArticleList: FC = ({ children }) => {
   return <StyledArticleList>{children}</StyledArticleList>;
 };
