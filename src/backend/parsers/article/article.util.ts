@@ -74,6 +74,10 @@ export const externalLinks = (html: string) => {
 };
 
 const optimizeImage = async (src: string, dest: string) => {
+  // const metadata = await sharp(src).metadata();
+  //
+  // console.log(metadata);
+
   return resizeImage({
     src,
     dest,

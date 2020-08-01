@@ -39,6 +39,8 @@ export const getArticleBySlug = async <U extends keyof Article>(
     );
     process.exit(1);
   });
+
+  // TODO: convert captions to <figcaption />
   const htmlContent = externalLinks(
     toTitleCase(
       await exportImages(await htmlContentSelector(articleFilePath), slug)
