@@ -37,9 +37,24 @@ export const exportImages = async (html: string, slug: string) => {
 
   images.each((index, elem) => {
     $(elem).attr("src", exportedPaths[index]);
+    wrapWithCaption($, elem);
   });
 
   return $.html();
+};
+
+const wrapWithCaption = ($: CheerioStatic, elem: CheerioElement) => {
+  const captionElem = $(elem).next("em");
+
+  if (!$(captionElem).length) return;
+
+  const caption = $(captionElem).html();
+
+  $(elem).wrap("<figure></figure>");
+  $(elem)
+    .parent()
+    .append(`<figcaption>${caption}</figcaption>`);
+  $(captionElem).remove();
 };
 
 export const toTitleCase = (html: string) => {

@@ -70,12 +70,12 @@ const MarkdownContainer = styled.div(
     }
 
     /* Image caption */
-    p img + em {
-      display: block;
+    figure figcaption {
       font-family: ${theme.fonts.sans};
       font-size: 14px;
       color: #666;
       line-height: 1.6em;
+      font-style: italic;
     }
 
     ul,
