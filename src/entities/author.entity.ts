@@ -2,19 +2,19 @@ import { Entity, PrimaryColumn, Column } from "typeorm";
 
 @Entity("author")
 export class Author {
-  @PrimaryColumn({ type: "varchar", length: 255 })
+  @PrimaryColumn({ type: "text" })
   slug: string;
 
-  @Column({ type: "varchar", length: 255, unique: true })
+  @Column({ type: "text", unique: true })
   url: string;
 
-  @Column({ type: "varchar", length: 255, unique: true })
+  @Column({ type: "text", unique: true })
   absoluteUrl: string;
 
-  @Column({ type: "varchar", length: 255 })
+  @Column({ type: "text" })
   name: string;
 
-  @Column({ type: "varchar", length: 255 })
+  @Column({ type: "text" })
   thumbnail: string;
 
   constructor(props: Author = {} as any) {

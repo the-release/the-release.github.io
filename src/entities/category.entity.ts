@@ -2,16 +2,16 @@ import { Entity, PrimaryColumn, Column } from "typeorm";
 
 @Entity("category")
 export class Category {
-  @PrimaryColumn({ type: "varchar", length: 255 })
+  @PrimaryColumn({ type: "text" })
   slug: string;
 
-  @Column({ type: "varchar", length: 255, unique: true })
+  @Column({ type: "text", unique: true })
   url: string;
 
-  @Column({ type: "varchar", length: 255, unique: true })
+  @Column({ type: "text", unique: true })
   absoluteUrl: string;
 
-  @Column({ type: "varchar", length: 255 })
+  @Column({ type: "text" })
   name: string;
 
   constructor(props: Category = {} as any) {

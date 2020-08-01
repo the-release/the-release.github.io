@@ -4,35 +4,34 @@ import { Category } from "./category.entity";
 
 @Entity("article")
 export class Article {
-  // TODO: put proper lengths
-  @PrimaryColumn({ type: "varchar", length: 255 })
+  @PrimaryColumn({ type: "text" })
   slug: string;
 
-  @Column({ type: "varchar", length: 255, unique: true })
+  @Column({ type: "text", unique: true })
   url: string;
 
-  @Column({ type: "varchar", length: 255, unique: true })
+  @Column({ type: "text", unique: true })
   absoluteUrl: string;
 
-  @Column({ type: "varchar", length: 255 })
+  @Column({ type: "text" })
   htmlContent: string;
 
-  @Column({ type: "varchar", length: 255 })
+  @Column({ type: "text" })
   title: string;
 
-  @Column({ type: "varchar", length: 255 })
+  @Column({ type: "text" })
   description: string;
 
-  @Column({ type: "varchar", length: 255 })
+  @Column({ type: "text" })
   coverImageUrl: string;
 
-  @Column({ type: "varchar", length: 255 })
+  @Column({ type: "text" })
   coverImageAlt: string;
 
-  @Column({ type: "varchar", length: 255 })
+  @Column({ type: "text" })
   thumbnail: string;
 
-  @Column({ type: "varchar", length: 255 })
+  @Column({ type: "text" })
   publishedAt: string;
 
   @Column({ type: "int" })
@@ -50,7 +49,7 @@ export class Article {
   )
   author: Author;
 
-  @Column({ type: "varchar", length: 255 })
+  @Column({ type: "text" })
   readingTime: string;
 
   constructor(props: Article = {} as any) {
