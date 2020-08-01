@@ -1,6 +1,7 @@
 import cheerio from "cheerio";
 import path from "path";
 import { titleCase } from "title-case";
+import sharp from "sharp";
 
 import { promises as fs } from "fs";
 import { sha256 } from "../../../utils/sha256/sha256";
@@ -89,9 +90,15 @@ export const externalLinks = (html: string) => {
 };
 
 const optimizeImage = async (src: string, dest: string) => {
-  // const metadata = await sharp(src).metadata();
-  //
-  // console.log(metadata);
+  const { info } = await sharp(src).toBuffer({ resolveWithObject: true });
+
+  if (info.width <= 1920) {
+    return await resizeImage({
+      src,
+      dest,
+      quality: 50
+    });
+  }
 
   return resizeImage({
     src,
@@ -99,11 +106,6 @@ const optimizeImage = async (src: string, dest: string) => {
     width: 1920,
     quality: 50
   });
-
-  // TODO: resize only if bigger than 1920px in width
-  // if (image.getWidth() > 1920) {
-  //   await image.resize(1920, jimp.AUTO);
-  // }
 };
 
 const generateThumbnail = async (src: string, dest: string) => {

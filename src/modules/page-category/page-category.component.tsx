@@ -46,6 +46,7 @@ export const PageCategory: FC<PageCategoryProps> = ({
           <Link
             href="/category/[slug]/[page]"
             as={`${category.url}/${previousPageIndex}`}
+            rel="prev"
           >
             <a>Previous page</a>
           </Link>
@@ -54,6 +55,7 @@ export const PageCategory: FC<PageCategoryProps> = ({
           <Link
             href="/category/[slug]/[page]"
             as={`${category.url}/${nextPageIndex}`}
+            rel="next"
           >
             <a>Next page</a>
           </Link>

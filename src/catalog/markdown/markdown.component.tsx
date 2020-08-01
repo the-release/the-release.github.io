@@ -6,6 +6,7 @@ const MarkdownContainer = styled.div(
     font-family: ${theme.fonts.serif};
     font-size: 21px;
     word-break: break-word;
+    max-width: 960px;
 
     h1,
     h2,
@@ -57,7 +58,6 @@ const MarkdownContainer = styled.div(
     }
 
     p {
-      max-width: 960px;
       line-height: 1.6em;
     }
 

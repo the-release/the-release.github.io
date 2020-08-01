@@ -26,13 +26,15 @@ export const ArticleCard: FC<ArticleCardProps> = ({
   coverImageAlt
 }) => {
   return (
-    <Link href="/article/[slug]" as={url} passHref>
-      <StyledArticleCard>
-        <Image alt={coverImageAlt} src={thumbnail} />
-        <Heading component="h2" variant="h4">
-          {title}
-        </Heading>
-      </StyledArticleCard>
-    </Link>
+    <article>
+      <Link href="/article/[slug]" as={url} passHref>
+        <StyledArticleCard>
+          <Image alt={coverImageAlt} src={thumbnail} />
+          <Heading component="h2" variant="h4">
+            {title}
+          </Heading>
+        </StyledArticleCard>
+      </Link>
+    </article>
   );
 };

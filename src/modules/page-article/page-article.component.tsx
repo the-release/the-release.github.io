@@ -62,13 +62,15 @@ export const PagePost: FC<PageArticleProps> = ({
         <meta property="twitter:title" content={title} />
       </Head>
       <Layout>
-        <ArticleMetadata
-          publishedAt={publishedAt}
-          category={category}
-          author={author}
-          readingTime={readingTime}
-        />
-        <Markdown>{htmlContent}</Markdown>
+        <article>
+          <ArticleMetadata
+            publishedAt={publishedAt}
+            category={category}
+            author={author}
+            readingTime={readingTime}
+          />
+          <Markdown>{htmlContent}</Markdown>
+        </article>
       </Layout>
     </>
   );

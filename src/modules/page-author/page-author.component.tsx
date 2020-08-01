@@ -50,6 +50,7 @@ export const PageAuthor: FC<PageAuthorProps> = ({
           <Link
             href="/author/[slug]/[page]"
             as={`${author.url}/${previousPageIndex}`}
+            rel="prev"
           >
             <a>Previous page</a>
           </Link>
@@ -58,6 +59,7 @@ export const PageAuthor: FC<PageAuthorProps> = ({
           <Link
             href="/author/[slug]/[page]"
             as={`${author.url}/${nextPageIndex}`}
+            rel="next"
           >
             <a>Next page</a>
           </Link>
