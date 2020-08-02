@@ -1,4 +1,4 @@
-# Gig Economy Companies Actively Lobbying To Exclude Their On-Demand Workers From The Declaration of Human Rights
+# Gig Economy Companies Lobbying To Exclude Workers From The Declaration of Human Rights
 
 **A global group of gig economy companies petitioned the United Nations to honor their demand.**
 
