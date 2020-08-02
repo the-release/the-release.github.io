@@ -17,15 +17,11 @@ export class Category {
   @Column({ type: "text" })
   keywords: string;
 
-  @Column({ type: "text" })
-  description: string;
-
   constructor(props: Category = {} as any) {
     this.url = props.url;
     this.absoluteUrl = props.absoluteUrl;
     this.name = props.name;
     this.slug = props.slug;
     this.keywords = props.keywords;
-    this.description = props.description;
   }
 }
