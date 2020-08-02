@@ -8,6 +8,8 @@ import { MetaTags } from "../../catalog/meta-tags.component";
 import { SITE_NAME } from "../../config";
 import { ArticleCard } from "../article-card/article-card.component";
 import { ArticleList } from "../article-list/article-list.component";
+import { Heading } from "../../catalog/heading/heading.component";
+import Link from "next/link";
 
 export interface PageArticleProps {
   article: Pick<
@@ -62,12 +64,20 @@ export const PagePost: FC<PageArticleProps> = ({
             readingTime={readingTime}
           />
           <Markdown>{htmlContent}</Markdown>
+          <footer>
+            <Heading component="h3" variant="h4" gutterBottom>
+              More news about{" "}
+              <Link href="/category/[slug]" as={category.url}>
+                <a>{category.name}</a>
+              </Link>
+            </Heading>
+            <ArticleList>
+              {nextArticles.map((props, index) => (
+                <ArticleCard {...props} key={index} />
+              ))}
+            </ArticleList>
+          </footer>
         </article>
-        <ArticleList>
-          {nextArticles.map((props, index) => (
-            <ArticleCard {...props} key={index} />
-          ))}
-        </ArticleList>
       </Layout>
     </>
   );
