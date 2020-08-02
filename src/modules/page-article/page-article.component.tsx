@@ -6,6 +6,8 @@ import { ArticleMetadata } from "../article-metadata/article-metadata.component"
 import { Article } from "../../entities/article.entity";
 import { MetaTags } from "../../catalog/meta-tags.component";
 import { SITE_NAME } from "../../config";
+import { ArticleCard } from "../article-card/article-card.component";
+import { ArticleList } from "../article-list/article-list.component";
 
 export interface PageArticleProps {
   article: Pick<
@@ -20,6 +22,10 @@ export interface PageArticleProps {
     | "readingTime"
     | "absoluteUrl"
   >;
+  nextArticles: Pick<
+    Article,
+    "title" | "url" | "thumbnail" | "coverImageAlt"
+  >[];
 }
 
 export const PagePost: FC<PageArticleProps> = ({
@@ -33,7 +39,8 @@ export const PagePost: FC<PageArticleProps> = ({
     htmlContent,
     readingTime,
     absoluteUrl
-  }
+  },
+  nextArticles
 }) => {
   return (
     <>
@@ -56,6 +63,11 @@ export const PagePost: FC<PageArticleProps> = ({
           />
           <Markdown>{htmlContent}</Markdown>
         </article>
+        <ArticleList>
+          {nextArticles.map((props, index) => (
+            <ArticleCard {...props} key={index} />
+          ))}
+        </ArticleList>
       </Layout>
     </>
   );

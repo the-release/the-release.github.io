@@ -1,5 +1,6 @@
 import { GetStaticPaths, GetStaticProps } from "next";
 import { ParsedUrlQuery } from "querystring";
+import { LessThan } from "typeorm";
 
 import {
   PageArticleProps,
@@ -41,16 +42,27 @@ export const getStaticProps: GetStaticProps<
       "author",
       "htmlContent",
       "readingTime",
-      "absoluteUrl"
+      "absoluteUrl",
+      "timestamp"
     ],
     where: {
       slug: params!.slug
     }
   });
 
+  const nextArticles = await getArticles({
+    props: ["title", "url", "thumbnail", "coverImageAlt"],
+    limit: 2,
+    where: {
+      category: article.category,
+      timestamp: LessThan(article.timestamp)
+    }
+  });
+
   return {
     props: {
-      article
+      article,
+      nextArticles
     }
   };
 };
