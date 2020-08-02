@@ -26,7 +26,10 @@ export const PageCategory: FC<PageCategoryProps> = ({
   return (
     <>
       <MetaTags
-        title={`${category.name} – ${SITE_NAME}`}
+        title={`News About ${category.name}: ${category.keywords} – ${SITE_NAME}`}
+        description={category.description}
+        keywords={category.keywords}
+        url={category.absoluteUrl}
         contentType="category"
       />
       <Layout>

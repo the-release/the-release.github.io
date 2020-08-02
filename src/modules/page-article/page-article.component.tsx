@@ -23,6 +23,7 @@ export interface PageArticleProps {
     | "htmlContent"
     | "readingTime"
     | "absoluteUrl"
+    | "keywords"
   >;
   nextArticles: Pick<
     Article,
@@ -40,7 +41,8 @@ export const PagePost: FC<PageArticleProps> = ({
     author,
     htmlContent,
     readingTime,
-    absoluteUrl
+    absoluteUrl,
+    keywords
   },
   nextArticles
 }) => {
@@ -54,6 +56,7 @@ export const PagePost: FC<PageArticleProps> = ({
         url={absoluteUrl}
         contentType="article"
         ogType="article"
+        keywords={keywords}
       />
       <Layout>
         <article>
@@ -64,19 +67,21 @@ export const PagePost: FC<PageArticleProps> = ({
             readingTime={readingTime}
           />
           <Markdown>{htmlContent}</Markdown>
-          <footer>
-            <Heading component="h3" variant="h4" gutterBottom>
-              More news about{" "}
-              <Link href="/category/[slug]" as={category.url}>
-                <a>{category.name}</a>
-              </Link>
-            </Heading>
-            <ArticleList>
-              {nextArticles.map((props, index) => (
-                <ArticleCard {...props} key={index} />
-              ))}
-            </ArticleList>
-          </footer>
+          {!!nextArticles.length && (
+            <footer>
+              <Heading component="h3" variant="h4" gutterBottom>
+                More news about{" "}
+                <Link href="/category/[slug]" as={category.url}>
+                  <a>{category.name}</a>
+                </Link>
+              </Heading>
+              <ArticleList>
+                {nextArticles.map((props, index) => (
+                  <ArticleCard {...props} key={index} />
+                ))}
+              </ArticleList>
+            </footer>
+          )}
         </article>
       </Layout>
     </>

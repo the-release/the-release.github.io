@@ -16,6 +16,7 @@ interface MetaTagsProps {
   url?: string;
   contentType?: "homepage" | "article" | "contributor" | "category";
   ogType?: "website" | "article";
+  keywords?: string;
 }
 
 const defaultValues = {
@@ -25,7 +26,16 @@ const defaultValues = {
 };
 
 export const MetaTags: FC<MetaTagsProps> = props => {
-  const { title, description, image, author, url, contentType, ogType } = {
+  const {
+    title,
+    description,
+    image,
+    author,
+    url,
+    contentType,
+    ogType,
+    keywords
+  } = {
     ...defaultValues,
     ...props
   };
@@ -58,6 +68,9 @@ export const MetaTags: FC<MetaTagsProps> = props => {
       <meta property="twitter:domain" content={ORIGIN} />
       <meta property="twitter:image:src" content={image} />
       <meta property="twitter:site" content={TWITTER_HANDLE} />
+
+      {keywords && <meta name="keywords" content={keywords} />}
+      {keywords && <meta name="news_keywords" content={keywords} />}
     </Head>
   );
 };

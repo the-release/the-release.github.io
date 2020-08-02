@@ -3,6 +3,7 @@ import marked from "marked";
 import { format } from "date-fns";
 import url from "url";
 import path from "path";
+import { titleCase } from "title-case";
 
 import { ORIGIN } from "../../../config";
 
@@ -57,21 +58,30 @@ export const metadataSelector = async (
   author: string;
   publishedAt: string;
   timestamp: number;
+  keywords: string;
 }> => {
   const metadataFilePath = path.join(articleDir, "/metadata.json");
   const metadata = JSON.parse(await fs.readFile(metadataFilePath, "utf8"));
 
-  if (!metadata.category) throw new Error(`Missing category`);
-  if (!metadata.author) throw new Error(`Missing author`);
-  if (!metadata.publishedAt) throw new Error(`Missing publishedAt`);
+  if (!metadata.category?.trim()) throw new Error(`Missing category metadata`);
+  if (!metadata.author?.trim()) throw new Error(`Missing author metadata`);
+  if (!metadata.keywords?.trim()) throw new Error(`Missing keywords metadata`);
+  if (!metadata.publishedAt?.trim()) {
+    throw new Error(`Missing publishedAt metadata`);
+  }
 
   const date = new Date(metadata.publishedAt);
   const publishedAt = format(date, "MMMM dd, yyyy h:mm a");
   const timestamp = +date;
+  const keywords = metadata.keywords
+    .split(",")
+    .map((keyword: string) => titleCase(keyword.trim()))
+    .join(", ");
 
   return {
     ...metadata,
     publishedAt,
-    timestamp
+    timestamp,
+    keywords
   };
 };

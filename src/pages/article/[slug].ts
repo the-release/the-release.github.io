@@ -43,7 +43,8 @@ export const getStaticProps: GetStaticProps<
       "htmlContent",
       "readingTime",
       "absoluteUrl",
-      "timestamp"
+      "timestamp",
+      "keywords"
     ],
     where: {
       slug: params!.slug

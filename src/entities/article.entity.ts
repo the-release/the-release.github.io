@@ -34,6 +34,9 @@ export class Article {
   @Column({ type: "text" })
   publishedAt: string;
 
+  @Column({ type: "text" })
+  keywords: string;
+
   @Column({ type: "int" })
   timestamp: number;
 
@@ -63,6 +66,7 @@ export class Article {
     this.coverImageAlt = props.coverImageAlt;
     this.thumbnail = props.thumbnail;
     this.publishedAt = props.publishedAt;
+    this.keywords = props.keywords;
     this.timestamp = props.timestamp;
     this.category = props.category;
     this.author = props.author;
