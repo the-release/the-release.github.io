@@ -6,7 +6,7 @@ import { Heading } from "../../catalog/heading/heading.component";
 import { Article } from "../../entities/article.entity";
 import { Category } from "../../entities/category.entity";
 import { Author } from "../../entities/author.entity";
-import { SITE_NAME, SLOGAN } from "../../config";
+import { SITE_NAME } from "../../config";
 import { ArticleCard } from "../article-card/article-card.component";
 import { ArticleList } from "../article-list/article-list.component";
 import { MetaTags } from "../../catalog/meta-tags.component";
@@ -24,7 +24,7 @@ export const PageHome: FC<PageHomeProps> = ({
 }) => {
   return (
     <>
-      <MetaTags title={`${SITE_NAME} – ${SLOGAN}`} contentType="homepage" />
+      <MetaTags contentType="homepage" />
       <Layout>
         <Heading component="h1">{SITE_NAME}</Heading>
         <Heading>Latest Articles</Heading>

@@ -3,13 +3,14 @@ import React, { FC } from "react";
 import {
   DEFAULT_SOCIAL_IMAGE,
   ORIGIN,
+  SITE_DESCRIPTION,
   SITE_NAME,
   SLOGAN,
   TWITTER_HANDLE
 } from "../config";
 
 interface MetaTagsProps {
-  title: string;
+  title?: string;
   description?: string;
   author?: string;
   image?: string;
@@ -20,7 +21,8 @@ interface MetaTagsProps {
 }
 
 const defaultValues = {
-  description: SLOGAN,
+  title: `${SITE_NAME} – ${SLOGAN}`,
+  description: SITE_DESCRIPTION,
   image: DEFAULT_SOCIAL_IMAGE, // TODO: add default social image
   ogType: "website"
 };

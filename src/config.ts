@@ -1,5 +1,7 @@
 export const SITE_NAME = "The Release";
-export const SLOGAN = "Tech's Single Source Of Truth";
+export const SITE_DESCRIPTION =
+  "Your Daily Dose of News About The Tech Industry";
+export const SLOGAN = "Tech's Single Source of Truth";
 export const TWITTER_HANDLE = "@TheReleaseNews";
 export const ORIGIN = process.env.ORIGIN || "http://localhost:3000";
 export const DEFAULT_SOCIAL_IMAGE = `${ORIGIN}/social-image.png`;
