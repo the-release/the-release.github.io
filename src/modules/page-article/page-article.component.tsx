@@ -17,6 +17,7 @@ export interface PageArticleProps {
     | "title"
     | "description"
     | "coverImageUrl"
+    | "coverImageAlt"
     | "publishedAt"
     | "category"
     | "author"
@@ -36,6 +37,7 @@ export const PagePost: FC<PageArticleProps> = ({
     title,
     description,
     coverImageUrl,
+    coverImageAlt,
     publishedAt,
     category,
     author,
@@ -53,6 +55,7 @@ export const PagePost: FC<PageArticleProps> = ({
         description={description}
         author={author.name}
         image={coverImageUrl}
+        imageAlt={coverImageAlt}
         url={absoluteUrl}
         contentType="article"
         ogType="article"

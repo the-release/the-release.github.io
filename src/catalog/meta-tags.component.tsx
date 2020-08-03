@@ -2,6 +2,7 @@ import Head from "next/head";
 import React, { FC } from "react";
 import {
   DEFAULT_SOCIAL_IMAGE,
+  DEFAULT_SOCIAL_IMAGE_ALT,
   ORIGIN,
   SITE_DESCRIPTION,
   SITE_NAME,
@@ -14,6 +15,7 @@ interface MetaTagsProps {
   description?: string;
   author?: string;
   image?: string;
+  imageAlt?: string;
   url?: string;
   contentType?: "homepage" | "article" | "contributor" | "category";
   ogType?: "website" | "article";
@@ -23,7 +25,8 @@ interface MetaTagsProps {
 const defaultValues = {
   title: `${SITE_NAME} – ${SLOGAN}`,
   description: SITE_DESCRIPTION,
-  image: DEFAULT_SOCIAL_IMAGE, // TODO: add default social image
+  image: DEFAULT_SOCIAL_IMAGE,
+  imageAlt: DEFAULT_SOCIAL_IMAGE_ALT,
   ogType: "website"
 };
 
@@ -32,6 +35,7 @@ export const MetaTags: FC<MetaTagsProps> = props => {
     title,
     description,
     image,
+    imageAlt,
     author,
     url,
     contentType,
@@ -58,6 +62,7 @@ export const MetaTags: FC<MetaTagsProps> = props => {
 
       <meta property="og:site_name" content={SITE_NAME} />
       <meta property="og:image" content={image} />
+      <meta property="og:image:alt" content={imageAlt} />
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
       <meta property="og:type" content={ogType} />
@@ -69,6 +74,7 @@ export const MetaTags: FC<MetaTagsProps> = props => {
       <meta property="twitter:creator" content={TWITTER_HANDLE} />
       <meta property="twitter:domain" content={ORIGIN} />
       <meta property="twitter:image:src" content={image} />
+      <meta property="twitter:image:alt" content={imageAlt} />
       <meta property="twitter:site" content={TWITTER_HANDLE} />
 
       {keywords && <meta name="keywords" content={keywords} />}
