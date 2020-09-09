@@ -2,8 +2,8 @@ import React, { FC } from "react";
 import styled from "styled-components";
 import Link from "next/link";
 
-import { SITE_NAME } from "../../config";
-import { Hamburger } from "../../catalog/hamburger/hamburger.component";
+import { MainMenu } from "../main-menu/main-menu.component";
+import { Logo } from "../logo/logo.component";
 
 const StyledHeader = styled.header`
   padding: 20px 40px;
@@ -20,7 +20,7 @@ const StyledHeader = styled.header`
     padding: 20px;
   }
 
-  img {
+  svg {
     display: block;
   }
 `;
@@ -30,10 +30,10 @@ export const Header: FC = () => {
     <StyledHeader>
       <Link href="/">
         <a>
-          <img src="/the-release-logo.svg" alt={`${SITE_NAME}'s Logo`} />
+          <Logo />
         </a>
       </Link>
-      <Hamburger />
+      <MainMenu />
     </StyledHeader>
   );
 };
