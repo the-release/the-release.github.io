@@ -1,12 +1,12 @@
 import React, { FC } from "react";
 import styled from "styled-components";
+import Link from "next/link";
 
 import { GITHUB_URL, TWITTER_URL } from "../../config";
 import { CloseMenuIcon } from "./close-menu-icon/close-menu-icon.component";
 import { HamburgerIcon } from "./hamburger-icon/hamburger-icon.component";
 import { TwitterIcon } from "./twitter-icon/twitter-icon.component";
 import { GithubIcon } from "./github-icon/github-icon.component";
-import Link from "next/link";
 
 const Overlay = styled.label`
   position: fixed;
@@ -201,7 +201,7 @@ const Category: FC<{
   );
 };
 
-export const MainMenu = () => {
+export const MainMenu: FC = () => {
   return (
     <form>
       <Checkbox id="hamburger" type="checkbox" />

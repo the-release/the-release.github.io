@@ -50,6 +50,9 @@ export const getStaticProps: GetStaticProps = async () => {
   <url>
     <loc>${ORIGIN}</loc>
   </url>
+  <url>
+    <loc>${ORIGIN}/about</loc>
+  </url>
   ${articles.map(articleEntry).join("\n")}
   ${categories.map(categoryEntry).join("\n")}
   ${authors.map(authorEntry).join("\n")}
