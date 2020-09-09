@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 import styled from "styled-components";
 
 import { GITHUB_URL, TWITTER_URL } from "../../config";
@@ -6,6 +6,7 @@ import { CloseMenuIcon } from "./close-menu-icon/close-menu-icon.component";
 import { HamburgerIcon } from "./hamburger-icon/hamburger-icon.component";
 import { TwitterIcon } from "./twitter-icon/twitter-icon.component";
 import { GithubIcon } from "./github-icon/github-icon.component";
+import Link from "next/link";
 
 const Overlay = styled.label`
   position: fixed;
@@ -38,17 +39,43 @@ const Drawer = styled.nav`
 const Categories = styled.ul`
   list-style: none;
   font-size: 18px;
-  line-height: 32px;
   font-weight: bold;
   margin: 20px 40px;
+
+  &:hover {
+    a {
+      color: rgba(255, 255, 255, 0.6);
+    }
+  }
+
+  a {
+    text-decoration: none;
+    color: #fff;
+    padding: 5px 0;
+    display: block;
+    transition: color 0.25s;
+
+    &:hover {
+      color: #fff;
+    }
+  }
 `;
 
 const Misc = styled.ul`
   list-style: none;
   font-size: 14px;
-  line-height: 24px;
-  color: rgba(255, 255, 255, 0.6);
   margin: 20px 40px;
+
+  a {
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.6);
+    padding: 5px 0;
+    display: inline-block;
+
+    &:hover {
+      color: #fff;
+    }
+  }
 `;
 
 const SocialNetworks = styled.ul`
@@ -61,7 +88,6 @@ const SocialNetworks = styled.ul`
   a {
     display: block;
     opacity: 0.6;
-    transition: opacity 0.25s;
     margin-right: 10px;
     position: relative;
 
@@ -134,7 +160,6 @@ const CloseMenuButton = styled.button`
   border: none;
   -webkit-appearance: none;
   position: relative;
-  outline: none;
 
   &:after {
     content: "";
@@ -150,8 +175,7 @@ const CloseMenuButton = styled.button`
     transition: opacity 0.25s;
   }
 
-  &:hover:after,
-  &:focus:after {
+  &:hover:after {
     opacity: 1;
   }
 `;
@@ -164,6 +188,18 @@ const NavHead = styled.div`
   align-items: center;
   justify-content: flex-end;
 `;
+
+const Category: FC<{
+  href: string;
+}> = ({ href, children }) => {
+  return (
+    <li>
+      <Link href={href}>
+        <a>{children}</a>
+      </Link>
+    </li>
+  );
+};
 
 export const MainMenu = () => {
   return (
@@ -181,16 +217,24 @@ export const MainMenu = () => {
           </CloseMenuButton>
         </NavHead>
         <Categories>
-          <li>AI</li>
-          <li>Politics</li>
-          <li>Privacy</li>
-          <li>Security</li>
-          <li>Silicon Valley</li>
-          <li>Startups</li>
+          <Category href="/category/artificial-intelligence">AI</Category>
+          <Category href="/category/politics">Politics</Category>
+          <Category href="/category/privacy">Privacy</Category>
+          <Category href="/category/security">Security</Category>
+          <Category href="/category/startups">Startups</Category>
+          <Category href="/category/silicon-valley">The Valley</Category>
         </Categories>
         <Misc>
-          <li>About</li>
-          <li>Contribute</li>
+          <li>
+            <Link href="/about">
+              <a>About</a>
+            </Link>
+          </li>
+          <li>
+            <a href={GITHUB_URL} target="_blank" rel="noreferrer">
+              Contribute
+            </a>
+          </li>
         </Misc>
         <SocialNetworks>
           <li>

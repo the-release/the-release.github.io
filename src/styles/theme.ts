@@ -136,10 +136,10 @@ export const theme = {
 
 export const GlobalStyle = createGlobalStyle`
   ::selection {
-    background: #8a3af4; /* WebKit/Blink Browsers */
+    background: #8a3af4;
   }
   ::-moz-selection {
-    background: #8a3af4; /* Gecko Browsers */
+    background: #8a3af4;
   }
 
   ${({ theme }) => css`
