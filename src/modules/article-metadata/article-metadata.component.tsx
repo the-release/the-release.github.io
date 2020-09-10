@@ -55,6 +55,16 @@ const Metadata = styled(Text)(
     `
 );
 
+const CategoryLabel = styled.a`
+  background: #000;
+  color: #fff;
+  display: block;
+  padding: 3px 5px;
+  text-decoration: none;
+  border-radius: 5px;
+  display: none;
+`;
+
 export const ArticleMetadata: FC<ArticleMetadataProps> = ({
   publishedAt,
   category,
@@ -78,11 +88,9 @@ export const ArticleMetadata: FC<ArticleMetadataProps> = ({
           {publishedAt} • {readingTime}
         </Metadata>
       </div>
-      <div>
-        <Link href="/category/[slug]" as={category.url}>
-          <a>{category.name}</a>
-        </Link>{" "}
-      </div>
+      <Link href="/category/[slug]" as={category.url} passHref>
+        <CategoryLabel>{category.name}</CategoryLabel>
+      </Link>
     </StyledContainer>
   );
 };

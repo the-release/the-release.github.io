@@ -40,47 +40,51 @@ const Drawer = styled.nav(
   `
 );
 
-const Categories = styled.ul`
-  list-style: none;
-  font-size: 18px;
-  font-weight: bold;
-  margin: 20px 40px;
+const Categories = styled.ul(
+  ({ theme }) => css`
+    ${theme.typography.h2};
+    list-style: none;
+    margin: 20px 40px;
 
-  &:hover {
+    &:hover {
+      a {
+        color: rgba(255, 255, 255, 0.6);
+      }
+    }
+
     a {
+      text-decoration: none;
+      color: #fff;
+      padding: 5px 0;
+      display: block;
+      transition: color 0.25s;
+
+      &:hover {
+        color: #fff;
+      }
+    }
+  `
+);
+
+const Misc = styled.ul(
+  ({ theme }) => css`
+    ${theme.typography.h4};
+    list-style: none;
+    margin: 20px 40px;
+    font-weight: normal;
+
+    a {
+      text-decoration: none;
       color: rgba(255, 255, 255, 0.6);
+      padding: 5px 0;
+      display: inline-block;
+
+      &:hover {
+        color: #fff;
+      }
     }
-  }
-
-  a {
-    text-decoration: none;
-    color: #fff;
-    padding: 5px 0;
-    display: block;
-    transition: color 0.25s;
-
-    &:hover {
-      color: #fff;
-    }
-  }
-`;
-
-const Misc = styled.ul`
-  list-style: none;
-  font-size: 14px;
-  margin: 20px 40px;
-
-  a {
-    text-decoration: none;
-    color: rgba(255, 255, 255, 0.6);
-    padding: 5px 0;
-    display: inline-block;
-
-    &:hover {
-      color: #fff;
-    }
-  }
-`;
+  `
+);
 
 const SocialNetworks = styled.ul`
   list-style: none;
