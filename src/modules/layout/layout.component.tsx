@@ -6,7 +6,7 @@ import styled from "styled-components";
 const Main = styled.main`
   padding: 20px 40px;
 
-  @media only screen and (max-width: 375px) {
+  @media only screen and (max-width: 560px) {
     padding: 20px 30px;
   }
 

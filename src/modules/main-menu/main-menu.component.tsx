@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import Link from "next/link";
 
 import { GITHUB_URL, TWITTER_URL } from "../../config";
@@ -20,21 +20,25 @@ const Overlay = styled.label`
   transition: opacity 0.4s;
 `;
 
-const Drawer = styled.nav`
-  position: fixed;
-  top: 0;
-  right: 0;
-  height: 100vh;
-  height: -webkit-fill-available;
-  background: #000;
-  transition: transform 0.4s;
-  overflow: auto;
-  overscroll-behavior-y: contain;
+const Drawer = styled.nav(
+  ({ theme }) => css`
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    height: -webkit-fill-available;
+    background: #000;
+    transition: transform 0.4s;
+    overflow: auto;
+    overscroll-behavior-y: contain;
 
-  min-width: 320px;
-  color: #fff;
-  outline: none;
-`;
+    min-width: 320px;
+    color: #fff;
+    outline: none;
+
+    font-family: ${theme.fonts.sans};
+  `
+);
 
 const Categories = styled.ul`
   list-style: none;
@@ -187,6 +191,14 @@ const NavHead = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
+
+  @media only screen and (max-width: 560px) {
+    padding: 20px 30px;
+  }
+
+  @media only screen and (max-width: 320px) {
+    padding: 20px;
+  }
 `;
 
 const Category: FC<{

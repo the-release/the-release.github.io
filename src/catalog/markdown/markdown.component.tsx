@@ -16,7 +16,7 @@ const MarkdownContainer = styled.div(
     ol,
     p,
     pre code {
-      margin: 1.6em 0;
+      margin: 1.55em 0;
     }
 
     h1:first-child {
@@ -28,8 +28,7 @@ const MarkdownContainer = styled.div(
     /* Lede */
     h1 + p {
       margin: 0;
-      margin-bottom: 2.5em;
-      line-height: normal;
+      line-height: 1.3em;
 
       strong {
         display: block;
@@ -73,8 +72,13 @@ const MarkdownContainer = styled.div(
       background: #eee;
     }
 
+    figure img {
+      display: block;
+    }
+
     /* Image caption */
     figure figcaption {
+      margin-top: 10px;
       ${theme.typography.caption};
     }
 

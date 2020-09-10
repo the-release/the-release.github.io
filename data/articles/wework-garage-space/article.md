@@ -13,6 +13,6 @@ An exclusive leak from WeWork's head of marketing reveals the thinking behind th
 
 > "We want to bring back the narrative of founders starting a company in their garage. Founders today don't have access to traditional houses, and you can't replicate that romanticized atmosphere of a hacked-together server room in a 3rd floor loft. It's just not the same."
 
-Far from the current *[airspace](https://www.theverge.com/2016/8/3/12325104/airbnb-aesthetic-global-minimalism-startup-gentrification)* aesthetic we’re used to, WeWork's new spaces intent to «fully embrace the creative mess of tech’s early days». One interior designer even added: «We’ve just not been given the budget for it».
+Far from the current *[airspace aesthetic](https://www.theverge.com/2016/8/3/12325104/airbnb-aesthetic-global-minimalism-startup-gentrification)* we’re used to, WeWork's new spaces intent to «fully embrace the creative mess of tech’s early days». One interior designer even added: «We’ve just not been given the budget for it».
 
 Homeowners of the Valley rejoice! If you can find an alternate spot for your car and Marie-Kondo your Christmas boxes, you just found yourself a potential source of income. According to interviews with property owners who got approached by WeWork representatives, the company seems to be leveraging both pro-bono purchases as well as long term leasing of available square footage. 

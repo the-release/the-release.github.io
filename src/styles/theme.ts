@@ -32,6 +32,10 @@ const h1: any = css`
   font-size: 36px;
   font-weight: bold;
   color: ${colors.textPrimary};
+
+  @media only screen and (max-width: 560px) {
+    font-size: 24px;
+  }
 `;
 
 const h2: any = css`
@@ -39,6 +43,10 @@ const h2: any = css`
   font-size: 21px;
   font-weight: bold;
   color: ${colors.textPrimary};
+
+  @media only screen and (max-width: 560px) {
+    font-size: 18px;
+  }
 `;
 
 const h3: any = css`
@@ -46,6 +54,10 @@ const h3: any = css`
   font-size: 18px;
   font-weight: bold;
   color: ${colors.textPrimary};
+
+  @media only screen and (max-width: 560px) {
+    font-size: 16px;
+  }
 `;
 
 const h4: any = css`
@@ -53,6 +65,10 @@ const h4: any = css`
   font-size: 16px;
   font-weight: bold;
   color: ${colors.textPrimary};
+
+  @media only screen and (max-width: 560px) {
+    font-size: 14px;
+  }
 `;
 
 const h5: any = css`
@@ -60,6 +76,10 @@ const h5: any = css`
   font-size: 14px;
   font-weight: bold;
   color: ${colors.textPrimary};
+
+  @media only screen and (max-width: 560px) {
+    font-size: 12px;
+  }
 `;
 
 const h6: any = css`
@@ -67,6 +87,10 @@ const h6: any = css`
   font-size: 12px;
   font-weight: bold;
   color: ${colors.textPrimary};
+
+  @media only screen and (max-width: 560px) {
+    font-size: 10px;
+  }
 `;
 
 const body: any = css`
@@ -75,6 +99,10 @@ const body: any = css`
   font-weight: normal;
   color: ${colors.textPrimary};
   line-height: 1.55em;
+
+  @media only screen and (max-width: 560px) {
+    font-size: 16px;
+  }
 `;
 
 const caption: any = css`
@@ -91,6 +119,10 @@ const quote: any = css`
   font-weight: normal;
   font-style: italic;
   color: ${colors.textTertiary};
+
+  @media only screen and (max-width: 560px) {
+    font-size: 16px;
+  }
 `;
 
 const code: any = css`
