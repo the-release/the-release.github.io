@@ -5,6 +5,8 @@ import Link from "next/link";
 import { Category } from "../../entities/category.entity";
 import { Author } from "../../entities/author.entity";
 import { Image } from "../../catalog/image/image.component";
+import { Heading } from "../../catalog/heading/heading.component";
+import { Text } from "../../catalog/text/text.component";
 
 interface ArticleMetadataProps {
   publishedAt: string;
@@ -14,8 +16,16 @@ interface ArticleMetadataProps {
 }
 
 const StyledContainer = styled.div`
-  font-size: 16px;
   margin-bottom: 30px;
+  display: flex;
+  font-size: 16px;
+`;
+
+const AuthorImage = styled(Image)`
+  width: 40px;
+  height: 40px;
+  border-radius: 40px;
+  margin-right: 10px;
 `;
 
 export const ArticleMetadata: FC<ArticleMetadataProps> = ({
@@ -26,18 +36,25 @@ export const ArticleMetadata: FC<ArticleMetadataProps> = ({
 }) => {
   return (
     <StyledContainer>
-      {publishedAt} •{" "}
-      <Link href="/category/[slug]" as={category.url}>
-        <a>{category.name}</a>
-      </Link>{" "}
-      •{" "}
       <Link href="/author/[slug]" as={author.url}>
         <a rel="author">
-          <Image alt={`A photo of ${author.name}`} src={author.thumbnail} />
-          {author.name}
+          <AuthorImage
+            alt={`A photo of ${author.name}`}
+            src={author.thumbnail}
+          />
         </a>
-      </Link>{" "}
-      • {readingTime}
+      </Link>
+      <div>
+        <Heading component="h3">{author.name}</Heading>
+        <Text component="p">
+          {publishedAt} • {readingTime}
+        </Text>
+      </div>
+      <div>
+        <Link href="/category/[slug]" as={category.url}>
+          <a>{category.name}</a>
+        </Link>{" "}
+      </div>
     </StyledContainer>
   );
 };
