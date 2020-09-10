@@ -2,14 +2,8 @@
 
 **An unprecedented “security incident” has rocked Twitter—and scammers are making off with huge amounts of bitcoin.**
 
-## Image
-
 ![A fingerprint](image.png)
-
-## Image with Caption
-
-![A fingerprint](image.png)
-*this is a caption*
+*this is an image caption*
 
 ## Headings
 

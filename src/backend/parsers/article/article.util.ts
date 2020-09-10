@@ -47,7 +47,7 @@ export const exportImages = async (html: string, slug: string) => {
 const wrapWithCaption = ($: CheerioStatic, elem: CheerioElement) => {
   const captionElem = $(elem).next("em");
 
-  if (!$(captionElem).length) return;
+  if (!$(captionElem).length) throw new Error("Images must have captions");
 
   const caption = $(captionElem).html();
 

@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 
 import { Layout } from "../layout/layout.component";
-import { Markdown } from "../../catalog/markdown/markdown.component";
+import { ArticleMarkdown } from "../article-markdown/article-markdown.component";
 import { ArticleMetadata } from "../article-metadata/article-metadata.component";
 import { Article } from "../../entities/article.entity";
 import { MetaTags } from "../../catalog/meta-tags.component";
@@ -10,6 +10,7 @@ import { ArticleCard } from "../article-card/article-card.component";
 import { ArticleList } from "../article-list/article-list.component";
 import { Heading } from "../../catalog/heading/heading.component";
 import Link from "next/link";
+import styled from "styled-components";
 
 export interface PageArticleProps {
   article: Pick<
@@ -31,6 +32,11 @@ export interface PageArticleProps {
     "title" | "url" | "thumbnail" | "coverImageAlt"
   >[];
 }
+
+const ArticleContainer = styled.article`
+  max-width: 688px;
+  margin: 0 auto;
+`;
 
 export const PagePost: FC<PageArticleProps> = ({
   article: {
@@ -62,14 +68,14 @@ export const PagePost: FC<PageArticleProps> = ({
         keywords={keywords}
       />
       <Layout>
-        <article>
+        <ArticleContainer>
           <ArticleMetadata
             publishedAt={publishedAt}
             category={category}
             author={author}
             readingTime={readingTime}
           />
-          <Markdown>{htmlContent}</Markdown>
+          <ArticleMarkdown>{htmlContent}</ArticleMarkdown>
           {!!nextArticles.length && (
             <footer>
               <Heading component="h3" variant="h4" gutterBottom>
@@ -85,7 +91,7 @@ export const PagePost: FC<PageArticleProps> = ({
               </ArticleList>
             </footer>
           )}
-        </article>
+        </ArticleContainer>
       </Layout>
     </>
   );

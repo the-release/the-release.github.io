@@ -32,7 +32,7 @@ export const coverImageUrlSelector = (imagePath: string) => {
 };
 
 export const coverImageSelector = ($: CheerioStatic) => {
-  const coverImage = $("img").first();
+  const coverImage = $("body > h1:first-child + p + p + figure img");
   const src = coverImage.attr("src");
   const alt = coverImage.attr("alt");
 

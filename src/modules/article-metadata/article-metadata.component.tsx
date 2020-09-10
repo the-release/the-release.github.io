@@ -27,7 +27,7 @@ const StyledContainer = styled.div`
 `;
 
 const AuthorThumbnail = styled.a`
-  margin-right: 10px;
+  margin-right: 15px;
 
   img {
     width: 40px;

@@ -19,23 +19,6 @@ const MarkdownContainer = styled.div(
       margin: 1.55em 0;
     }
 
-    h1:first-child {
-      margin-top: 0;
-      margin-bottom: 0.3em;
-      ${theme.typography.h1};
-    }
-
-    /* Lede */
-    h1 + p {
-      margin: 0;
-      line-height: 1.3em;
-
-      strong {
-        display: block;
-        font-family: ${theme.fonts.sans};
-      }
-    }
-
     h1 {
       ${theme.typography.h1};
     }
@@ -64,16 +47,79 @@ const MarkdownContainer = styled.div(
       ${theme.typography.body};
     }
 
-    img {
-      width: auto;
-      height: auto;
-      max-width: 100%;
-      border-radius: 5px;
-      background: #eee;
+    h1:first-child {
+      margin-top: 0;
+      margin-bottom: 0.3em;
+      ${theme.typography.h1};
+    }
+
+    /* Lede */
+    h1 + p {
+      margin: 0;
+      line-height: 1.3em;
+
+      strong {
+        display: block;
+        font-family: ${theme.fonts.sans};
+      }
+    }
+
+    /* cover image */
+    h1:first-child + p + p + figure {
+      margin: 0 -40px;
+
+      @media only screen and (max-width: 848px) {
+        margin: 0 calc(calc(calc(100vw - 688px) / 2) * -1);
+      }
+
+      @media only screen and (max-width: 768px) {
+        margin: 0 -40px;
+      }
+
+      @media only screen and (max-width: 560px) {
+        margin: 0 -30px;
+      }
+
+      @media only screen and (max-width: 320px) {
+        margin: 0 -20px;
+      }
+
+      img {
+        width: 100%;
+
+        @media only screen and (max-width: 848px) {
+          border-radius: 0;
+        }
+      }
+
+      figcaption {
+        padding: 0 40px;
+
+        @media only screen and (max-width: 848px) {
+          padding: 0 calc(calc(100vw - 688px) / 2);
+        }
+
+        @media only screen and (max-width: 768px) {
+          padding: 0 40px;
+        }
+
+        @media only screen and (max-width: 560px) {
+          padding: 0 30px;
+        }
+
+        @media only screen and (max-width: 320px) {
+          padding: 0 20px;
+        }
+      }
     }
 
     figure img {
       display: block;
+      width: auto;
+      height: auto;
+      max-width: 100%;
+      background: #eee;
+      border-radius: 5px;
     }
 
     /* Image caption */
@@ -121,7 +167,7 @@ const MarkdownContainer = styled.div(
   `
 );
 
-export const Markdown: FC<{
+export const ArticleMarkdown: FC<{
   children: string;
 }> = ({ children, ...otherProps }) => {
   return (
