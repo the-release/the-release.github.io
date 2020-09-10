@@ -4,7 +4,7 @@ import { Footer } from "../footer/footer.component";
 import styled from "styled-components";
 
 const Main = styled.main`
-  padding: 20px 40px;
+  padding: 30px 40px;
 
   @media only screen and (max-width: 560px) {
     padding: 20px 30px;
