@@ -10,13 +10,8 @@ declare module "styled-components" {
 
 const fonts = {
   sans: "-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif",
-  serif: `Georgia, Cambria, "Times New Roman", Times, serif`
-};
-
-const fontWeights = {
-  bold: 700,
-  medium: 500,
-  regular: 400
+  serif: `Georgia, Cambria, "Times New Roman", Times, serif`,
+  mono: `monospace`
 };
 
 const colors = {
@@ -34,79 +29,80 @@ const colors = {
 
 const h1: any = css`
   font-family: ${fonts.sans};
-  font-size: 10vw;
-  font-weight: normal;
-  line-height: 0.9em;
+  font-size: 36px;
+  font-weight: bold;
   color: ${colors.textPrimary};
 `;
 
 const h2: any = css`
   font-family: ${fonts.sans};
-  font-size: 48px;
-  font-weight: normal;
-  line-height: 1em;
+  font-size: 21px;
+  font-weight: bold;
   color: ${colors.textPrimary};
 `;
 
 const h3: any = css`
   font-family: ${fonts.sans};
-  font-size: 36px;
-  font-weight: normal;
-  line-height: 1em;
+  font-size: 18px;
+  font-weight: bold;
   color: ${colors.textPrimary};
 `;
 
 const h4: any = css`
   font-family: ${fonts.sans};
-  font-size: 24px;
-  font-weight: normal;
-  line-height: 1em;
+  font-size: 16px;
+  font-weight: bold;
   color: ${colors.textPrimary};
 `;
 
 const h5: any = css`
   font-family: ${fonts.sans};
-  font-size: 18px;
-  font-weight: normal;
-  line-height: 1em;
+  font-size: 14px;
+  font-weight: bold;
   color: ${colors.textPrimary};
 `;
 
 const h6: any = css`
   font-family: ${fonts.sans};
-  font-size: 16px;
-  font-weight: normal;
-  line-height: 1em;
+  font-size: 12px;
+  font-weight: bold;
   color: ${colors.textPrimary};
 `;
 
-const button: any = css`
-  font-family: ${fonts.sans};
-  font-size: 14px;
-  font-weight: ${fontWeights.medium};
-`;
-
 const body: any = css`
-  font-family: ${fonts.sans};
-  font-size: 18px;
-  font-weight: ${fontWeights.regular};
+  font-family: ${fonts.serif};
+  font-size: 21px;
+  font-weight: normal;
+  color: ${colors.textPrimary};
+  line-height: 1.55em;
 `;
 
 const caption: any = css`
   font-family: ${fonts.sans};
   font-size: 14px;
-  font-weight: ${fontWeights.regular};
+  font-weight: normal;
+  font-style: italic;
+  color: ${colors.textTertiary};
 `;
 
-const serif: any = css`
+const quote: any = css`
   font-family: ${fonts.serif};
-  font-size: 14px;
-  font-weight: ${fontWeights.regular};
+  font-size: 21px;
+  font-weight: normal;
+  font-style: italic;
+  color: ${colors.textTertiary};
+`;
+
+const code: any = css`
+  font-family: ${fonts.mono};
+  background: #eee;
+  border-radius: 5px;
+  padding: 0 0.2em;
+  color: ${colors.textTertiary};
 `;
 
 export const theme = {
   fonts,
-  fontWeights,
   colors,
   typography: {
     h1,
@@ -117,13 +113,13 @@ export const theme = {
     h6,
     body,
     caption,
-    button,
-    serif
+    quote,
+    code
   },
   spacing: {
-    large: 30,
-    medium: 20,
-    small: 15,
+    large: 40,
+    medium: 30,
+    small: 20,
     tiny: 10
   },
   transition: {
@@ -160,15 +156,11 @@ export const GlobalStyle = createGlobalStyle`
 
     body {
       background: #fff;
-      color: ${theme.colors.textPrimary};
-      ${theme.typography.body};
       cursor: default;
       -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
       -webkit-text-size-adjust: none;
-    }
-
-    strong {
-      font-weight: ${theme.fontWeights.bold};
+      ${theme.typography.body};
+      line-height: normal;
     }
 
     a {

@@ -92,7 +92,7 @@ export const externalLinks = (html: string) => {
 const optimizeImage = async (src: string, dest: string) => {
   const { info } = await sharp(src).toBuffer({ resolveWithObject: true });
 
-  if (info.width <= 1920) {
+  if (info.width <= 1536) {
     return await resizeImage({
       src,
       dest,
@@ -103,7 +103,7 @@ const optimizeImage = async (src: string, dest: string) => {
   return resizeImage({
     src,
     dest,
-    width: 1920,
+    width: 1536,
     quality: 50
   });
 };

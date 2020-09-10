@@ -3,10 +3,8 @@ import styled, { css } from "styled-components";
 
 const MarkdownContainer = styled.div(
   ({ theme }) => css`
-    font-family: ${theme.fonts.serif};
-    font-size: 21px;
     word-break: break-word;
-    max-width: 960px;
+    max-width: 688px;
 
     h1,
     h2,
@@ -16,49 +14,55 @@ const MarkdownContainer = styled.div(
     h6,
     ul,
     ol,
-    p {
-      margin-bottom: 1.6em;
-    }
-
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-      font-family: ${theme.fonts.sans};
+    p,
+    pre code {
+      margin: 1.6em 0;
     }
 
     h1:first-child {
-      font-size: 56px;
-      line-height: 1em;
+      margin-top: 0;
       margin-bottom: 0.3em;
-      max-width: 960px;
+      ${theme.typography.h1};
     }
 
     /* Lede */
     h1 + p {
+      margin: 0;
+      margin-bottom: 2.5em;
+      line-height: normal;
+
       strong {
         display: block;
         font-family: ${theme.fonts.sans};
-        margin-bottom: 2.5em;
       }
     }
 
+    h1 {
+      ${theme.typography.h1};
+    }
+
     h2 {
-      font-size: 24px;
+      ${theme.typography.h2};
     }
 
     h3 {
-      font-size: 18px;
+      ${theme.typography.h3};
     }
 
     h4 {
-      font-size: 16px;
+      ${theme.typography.h4};
+    }
+
+    h5 {
+      ${theme.typography.h6};
+    }
+
+    h6 {
+      ${theme.typography.h6};
     }
 
     p {
-      line-height: 1.6em;
+      ${theme.typography.body};
     }
 
     img {
@@ -71,11 +75,7 @@ const MarkdownContainer = styled.div(
 
     /* Image caption */
     figure figcaption {
-      font-family: ${theme.fonts.sans};
-      font-size: 14px;
-      color: #666;
-      line-height: 1.6em;
-      font-style: italic;
+      ${theme.typography.caption};
     }
 
     ul,
@@ -99,8 +99,20 @@ const MarkdownContainer = styled.div(
     blockquote {
       padding-left: 20px;
       border-left: solid #ccc 3px;
-      font-style: italic;
-      color: #666;
+
+      p {
+        ${theme.typography.quote};
+      }
+    }
+
+    code {
+      ${theme.typography.code};
+    }
+
+    pre code {
+      ${theme.typography.code};
+      display: block;
+      padding: 20px;
     }
   `
 );
