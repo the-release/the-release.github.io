@@ -138,11 +138,9 @@ const MarkdownContainer = styled.div(
     }
 
     a {
-      transition: color 0.25s;
-
       &:focus,
       &:hover {
-        color: #8a3af4;
+        color: ${theme.colors.primary};
       }
     }
 

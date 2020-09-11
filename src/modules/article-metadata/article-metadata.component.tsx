@@ -65,9 +65,9 @@ const Metadata = styled(Text)(
 const CategoryLabel = styled.a(
   ({ theme }) => css`
     display: block;
-    padding: 3px 7px;
+    padding: 3px 5px;
     text-decoration: none;
-    border-radius: 100px;
+    border-radius: 2px;
     ${theme.typography.h6};
     color: ${theme.colors.textTertiary};
     border: solid ${theme.colors.textTertiary} 1px;
@@ -75,8 +75,8 @@ const CategoryLabel = styled.a(
 
     &:focus,
     &:hover {
-      background: #000;
-      border-color: #000;
+      background: ${theme.colors.primary};
+      border-color: ${theme.colors.primary};
       color: #fff;
     }
   `

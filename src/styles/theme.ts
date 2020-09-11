@@ -147,30 +147,18 @@ export const theme = {
     caption,
     quote,
     code
-  },
-  spacing: {
-    large: 40,
-    medium: 30,
-    small: 20,
-    tiny: 10
-  },
-  transition: {
-    slow: 0.35,
-    normal: 0.25,
-    fast: 0.15
-  },
-  cornerRadius: 4
+  }
 };
 
 export const GlobalStyle = createGlobalStyle`
-  ::selection {
-    background: #8a3af4;
-  }
-  ::-moz-selection {
-    background: #8a3af4;
-  }
-
   ${({ theme }) => css`
+    ::selection {
+      background: ${theme.colors.primary};
+    }
+    ::-moz-selection {
+      background: ${theme.colors.primary};
+    }
+
     * {
       padding: 0;
       margin: 0;

@@ -59,6 +59,7 @@ const Categories = styled.ul(
       display: block;
       transition: color 0.25s;
 
+      &:focus,
       &:hover {
         color: #fff;
       }
@@ -79,6 +80,7 @@ const Misc = styled.ul(
       padding: 5px 0;
       display: inline-block;
 
+      &:focus,
       &:hover {
         color: #fff;
       }
@@ -109,6 +111,7 @@ const SocialNetworks = styled.ul`
       margin: -5px;
     }
 
+    &:focus,
     &:hover {
       opacity: 1;
     }
