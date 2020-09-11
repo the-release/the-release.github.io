@@ -18,11 +18,18 @@ interface ArticleMetadataProps {
 const StyledContainer = styled.div`
   margin-bottom: 30px;
   display: flex;
-  font-size: 16px;
   align-items: center;
+  font-size: 16px;
+  justify-content: space-between;
 
   @media only screen and (max-width: 560px) {
     margin-bottom: 20px;
+  }
+
+  & > div {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
   }
 `;
 
@@ -55,15 +62,25 @@ const Metadata = styled(Text)(
     `
 );
 
-const CategoryLabel = styled.a`
-  background: #000;
-  color: #fff;
-  display: block;
-  padding: 3px 5px;
-  text-decoration: none;
-  border-radius: 5px;
-  display: none;
-`;
+const CategoryLabel = styled.a(
+  ({ theme }) => css`
+    display: block;
+    padding: 3px 7px;
+    text-decoration: none;
+    border-radius: 100px;
+    ${theme.typography.h6};
+    color: ${theme.colors.textTertiary};
+    border: solid ${theme.colors.textTertiary} 1px;
+    white-space: nowrap;
+
+    &:focus,
+    &:hover {
+      background: #000;
+      border-color: #000;
+      color: #fff;
+    }
+  `
+);
 
 export const ArticleMetadata: FC<ArticleMetadataProps> = ({
   publishedAt,
@@ -73,20 +90,22 @@ export const ArticleMetadata: FC<ArticleMetadataProps> = ({
 }) => {
   return (
     <StyledContainer>
-      <Link href="/author/[slug]" as={author.url} passHref>
-        <AuthorThumbnail rel="author">
-          <Image alt={`A photo of ${author.name}`} src={author.thumbnail} />
-        </AuthorThumbnail>
-      </Link>
       <div>
-        <AuthorName component="h3" variant="h4">
-          <Link href="/author/[slug]" as={author.url} passHref>
-            <AuthorThumbnail rel="author">{author.name}</AuthorThumbnail>
-          </Link>
-        </AuthorName>
-        <Metadata component="p" variant="h4">
-          {publishedAt} • {readingTime}
-        </Metadata>
+        <Link href="/author/[slug]" as={author.url} passHref>
+          <AuthorThumbnail rel="author">
+            <Image alt={`A photo of ${author.name}`} src={author.thumbnail} />
+          </AuthorThumbnail>
+        </Link>
+        <div>
+          <AuthorName component="h3" variant="h4">
+            <Link href="/author/[slug]" as={author.url} passHref>
+              <AuthorThumbnail rel="author">{author.name}</AuthorThumbnail>
+            </Link>
+          </AuthorName>
+          <Metadata component="p" variant="h4">
+            {publishedAt} • {readingTime}
+          </Metadata>
+        </div>
       </div>
       <Link href="/category/[slug]" as={category.url} passHref>
         <CategoryLabel>{category.name}</CategoryLabel>
