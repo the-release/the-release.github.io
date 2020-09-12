@@ -2,7 +2,7 @@
 
 **WeWork explores a nostalgic niche to leave their recent IPO disaster behind.**
 
-![a door is opened on a garage which has been converted into an office](open-garage-door-converted-to-office.jpg)
+![a door is opened on a garage which has been converted into an office](wework-garage-space.jpg)
 *The spaces will be minimally furnished to preserve the authentic feeling of the startup garage.*
 
 Following their [2019 IPO fiasco](https://www.forbes.com/sites/greatspeculations/2019/08/27/wework-is-the-most-ridiculous-ipo-of-2019/#646b9ccb1ad6), commercial real estate giant WeWork faces an urgent need to pivot. Our reporters have uncovered that The We Company's flagship brand has been eyeing a very specific type of space: home garages. Their property research and acquisition efforts target the Palo Alto suburban area and go back to as early as fall 2019. 
