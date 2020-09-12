@@ -20,6 +20,7 @@ const Thumbnail = styled(Image)`
   border-radius: 5px;
   width: 100%;
   margin-bottom: 25px;
+  margin-top: 5px;
 `;
 
 const Description = styled(Text)(
