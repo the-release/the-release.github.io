@@ -28,7 +28,8 @@ function shuffle(array: any) {
 const Title = styled(Heading)(
   ({ theme }) => css`
     font-size: 24px;
-    height: 300px;
+    height: 18vw;
+    min-height: 200px;
     margin-bottom: 30px;
     font-family: ${theme.fonts.serif};
     font-weight: normal;
