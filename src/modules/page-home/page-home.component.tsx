@@ -9,6 +9,8 @@ import { Author } from "../../entities/author.entity";
 import { ArticleCard } from "../article-card/article-card.component";
 import { MetaTags } from "../../catalog/meta-tags.component";
 import { ArticleGrid } from "./article-grid/article-grid.component";
+import styled, { css } from "styled-components";
+import { SLOGAN } from "../../config";
 
 export interface PageHomeProps {
   articles: Pick<
@@ -19,6 +21,24 @@ export interface PageHomeProps {
   authors: Author[];
 }
 
+function shuffle(array: any) {
+  return array.sort(() => Math.random() - 0.5);
+}
+
+const Title = styled(Heading)(
+  ({ theme }) => css`
+    font-size: 24px;
+    height: 300px;
+    margin-bottom: 30px;
+    font-family: ${theme.fonts.serif};
+    font-weight: normal;
+    font-style: italic;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  `
+);
+
 export const PageHome: FC<PageHomeProps> = ({
   articles,
   categories,
@@ -28,10 +48,13 @@ export const PageHome: FC<PageHomeProps> = ({
     <>
       <MetaTags contentType="homepage" />
       <Layout>
+        <Title component="h1" align="center">
+          {SLOGAN}
+        </Title>
         <ArticleGrid>
-          {[...articles, ...articles, ...articles]
+          {shuffle([...articles, ...articles, ...articles])
             .slice(0, 16)
-            .map((props, index) => (
+            .map((props: any, index: any) => (
               <ArticleCard {...props} key={index} />
             ))}
         </ArticleGrid>

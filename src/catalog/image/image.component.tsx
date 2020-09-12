@@ -5,7 +5,7 @@ interface ImageProps extends ImgHTMLAttributes<HTMLImageElement> {
   alt: string;
 }
 
-export const StyledImage = styled.img`
+const StyledImage = styled.img`
   background: #eee;
   width: auto;
   height: auto;

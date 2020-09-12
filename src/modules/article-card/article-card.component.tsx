@@ -1,8 +1,8 @@
 import React, { FC } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import Link from "next/link";
 
-import { Image, StyledImage } from "../../catalog/image/image.component";
+import { Image } from "../../catalog/image/image.component";
 import { Heading } from "../../catalog/heading/heading.component";
 import { Article } from "../../entities/article.entity";
 import { Text } from "../../catalog/text/text.component";
@@ -14,11 +14,22 @@ type ArticleCardProps = Pick<
 
 const StyledArticleCard = styled.a`
   text-decoration: none;
-
-  ${StyledImage} {
-    width: 100%;
-  }
 `;
+
+const Thumbnail = styled(Image)`
+  border-radius: 5px;
+  width: 100%;
+  margin-bottom: 25px;
+`;
+
+const Description = styled(Text)(
+  ({ theme }) => css`
+    border-radius: 5px;
+    font-family: ${theme.fonts.serif};
+    color: ${theme.colors.textSecondary};
+    font-weight: normal;
+  `
+);
 
 export const ArticleCard: FC<ArticleCardProps> = ({
   title,
@@ -31,13 +42,13 @@ export const ArticleCard: FC<ArticleCardProps> = ({
     <article>
       <Link href="/article/[slug]" as={url} passHref>
         <StyledArticleCard>
-          <Heading component="h2" variant="h2" gutterBottom>
+          <Heading component="h2" variant="h3" gutterBottom>
             {title}
           </Heading>
-          <Text component="p" gutterBottom>
+          <Description component="p" gutterBottom variant="h4">
             {description}
-          </Text>
-          <Image alt={coverImageAlt} src={thumbnail} />
+          </Description>
+          <Thumbnail alt={coverImageAlt} src={thumbnail} />
         </StyledArticleCard>
       </Link>
     </article>
