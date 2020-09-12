@@ -19,8 +19,8 @@ const StyledArticleCard = styled.a`
 const Thumbnail = styled(Image)`
   border-radius: 5px;
   width: 100%;
-  margin-bottom: 25px;
   margin-top: 5px;
+  display: block;
 `;
 
 const Description = styled(Text)(

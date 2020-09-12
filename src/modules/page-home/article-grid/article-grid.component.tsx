@@ -13,6 +13,7 @@ const Grid = styled.div`
   article {
     page-break-inside: avoid;
     break-inside: avoid;
+    margin-bottom: 30px;
   }
 `;
 
