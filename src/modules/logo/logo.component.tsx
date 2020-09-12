@@ -1,8 +1,16 @@
 import React from "react";
+import { SITE_NAME } from "../../config";
 
 export const Logo = () => {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="144" height="40" fill="none">
+    <svg
+      role="img"
+      xmlns="http://www.w3.org/2000/svg"
+      width="144"
+      height="40"
+      fill="none"
+    >
+      <title>{`${SITE_NAME} Logo`}</title>
       <path fill="#000" d="M0 0h40v40H0z" />
       <path
         fill="#fff"

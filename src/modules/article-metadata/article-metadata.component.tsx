@@ -97,12 +97,12 @@ export const ArticleMetadata: FC<ArticleMetadataProps> = ({
           </AuthorThumbnail>
         </Link>
         <div>
-          <AuthorName component="h3" variant="h4">
+          <AuthorName component="h3" variant="h5">
             <Link href="/author/[slug]" as={author.url} passHref>
               <AuthorThumbnail rel="author">{author.name}</AuthorThumbnail>
             </Link>
           </AuthorName>
-          <Metadata component="p" variant="h4">
+          <Metadata component="p" variant="h5">
             {publishedAt} • {readingTime}
           </Metadata>
         </div>

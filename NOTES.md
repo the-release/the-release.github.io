@@ -1,0 +1,2 @@
+- Support dat protocol with `.well-known/dat`
+- Serve multiple image sizes based on the viewport `srcset`
