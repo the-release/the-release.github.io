@@ -177,6 +177,10 @@ export const GlobalStyle = createGlobalStyle`
     #__next {
       display: flex;
       flex-direction: column;
+
+      & > * {
+        flex-shrink: 0;
+      }
     }
 
     body {
