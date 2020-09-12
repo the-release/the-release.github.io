@@ -35,7 +35,9 @@ export const PageCategory: FC<PageCategoryProps> = ({
         contentType="category"
       />
       <Layout>
-        <Heading component="h1">{category.name}</Heading>
+        <Heading component="h1" gutterBottom>
+          {category.name}
+        </Heading>
         <ArticleList>
           {articles.map((props, index) => (
             <ArticleCard {...props} key={index} />

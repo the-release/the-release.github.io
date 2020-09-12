@@ -54,7 +54,7 @@ export const getStaticProps: GetStaticProps<
 
   const nextArticles = await getArticles({
     props: ["title", "description", "url", "thumbnail", "coverImageAlt"],
-    limit: 2,
+    limit: 3,
     where: {
       category: article.category,
       timestamp: LessThan(article.timestamp)

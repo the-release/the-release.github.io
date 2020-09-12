@@ -174,6 +174,11 @@ export const GlobalStyle = createGlobalStyle`
       min-width: 320px;
     }
 
+    #__next {
+      display: flex;
+      flex-direction: column;
+    }
+
     body {
       background: #fff;
       cursor: default;

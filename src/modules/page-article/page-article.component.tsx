@@ -76,22 +76,22 @@ export const PagePost: FC<PageArticleProps> = ({
             readingTime={readingTime}
           />
           <ArticleMarkdown>{htmlContent}</ArticleMarkdown>
-          {!!nextArticles.length && (
-            <footer>
-              <Heading component="h3" variant="h4" gutterBottom>
-                More news about{" "}
-                <Link href="/category/[slug]" as={category.url}>
-                  <a>{category.name}</a>
-                </Link>
-              </Heading>
-              <ArticleList>
-                {nextArticles.map((props, index) => (
-                  <ArticleCard {...props} key={index} />
-                ))}
-              </ArticleList>
-            </footer>
-          )}
         </ArticleContainer>
+        {!!nextArticles.length && (
+          <>
+            <Heading component="h3" variant="h2" gutterBottom>
+              More news about{" "}
+              <Link href="/category/[slug]" as={category.url}>
+                <a>{category.name}</a>
+              </Link>
+            </Heading>
+            <ArticleList>
+              {nextArticles.map((props, index) => (
+                <ArticleCard {...props} key={index} />
+              ))}
+            </ArticleList>
+          </>
+        )}
       </Layout>
     </>
   );

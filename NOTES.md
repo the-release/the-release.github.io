@@ -2,3 +2,4 @@
 - Serve multiple image sizes based on the viewport `srcset`
 - Extract and set image dimensions
 - Support drafts with hidden folders
+- hover effect article-card
