@@ -5,10 +5,11 @@ import Link from "next/link";
 import { Image, StyledImage } from "../../catalog/image/image.component";
 import { Heading } from "../../catalog/heading/heading.component";
 import { Article } from "../../entities/article.entity";
+import { Text } from "../../catalog/text/text.component";
 
 type ArticleCardProps = Pick<
   Article,
-  "title" | "url" | "thumbnail" | "coverImageAlt"
+  "title" | "description" | "url" | "thumbnail" | "coverImageAlt"
 >;
 
 const StyledArticleCard = styled.a`
@@ -21,6 +22,7 @@ const StyledArticleCard = styled.a`
 
 export const ArticleCard: FC<ArticleCardProps> = ({
   title,
+  description,
   url,
   thumbnail,
   coverImageAlt
@@ -29,10 +31,13 @@ export const ArticleCard: FC<ArticleCardProps> = ({
     <article>
       <Link href="/article/[slug]" as={url} passHref>
         <StyledArticleCard>
-          <Image alt={coverImageAlt} src={thumbnail} />
-          <Heading component="h2" variant="h4">
+          <Heading component="h2" variant="h2" gutterBottom>
             {title}
           </Heading>
+          <Text component="p" gutterBottom>
+            {description}
+          </Text>
+          <Image alt={coverImageAlt} src={thumbnail} />
         </StyledArticleCard>
       </Link>
     </article>
