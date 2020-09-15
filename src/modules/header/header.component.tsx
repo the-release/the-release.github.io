@@ -1,38 +1,73 @@
-import React, { FC } from "react";
-import styled from "styled-components";
+import React, { FC, useEffect, useRef, useState } from "react";
+import styled, { css } from "styled-components";
 import Link from "next/link";
+import throttle from "lodash/throttle";
 
 import { MainMenu } from "../main-menu/main-menu.component";
 import { Logo } from "../logo/logo.component";
 
-const StyledHeader = styled.header`
-  padding: 20px 40px;
-  box-shadow: rgba(0, 0, 0, 0.08) 0 1px 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: #fff;
-  position: sticky;
-  top: 0;
-  right: 0;
-  left: 0;
+const StyledHeader = styled.header<{ shouldShowMenu: boolean }>(
+  ({ shouldShowMenu }) => css`
+    padding: 20px 40px;
+    box-shadow: rgba(0, 0, 0, 0.08) 0 1px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #fff;
+    position: sticky;
+    top: 0;
+    right: 0;
+    left: 0;
+    transition: transform 0.35s;
 
-  @media only screen and (max-width: 560px) {
-    padding: 20px 30px;
-  }
+    ${!shouldShowMenu &&
+      css`
+        transform: translateY(-100%);
+      `};
 
-  @media only screen and (max-width: 320px) {
-    padding: 20px;
-  }
+    @media only screen and (max-width: 560px) {
+      padding: 20px 30px;
+    }
 
-  svg {
-    display: block;
-  }
-`;
+    @media only screen and (max-width: 320px) {
+      padding: 20px;
+    }
+
+    svg {
+      display: block;
+    }
+  `
+);
 
 export const Header: FC = () => {
+  const scrollOffset = useRef(0);
+  const [shouldShowMenu, setShouldShowMenu] = useState(true);
+  const scrollThreshold = 30;
+
+  const handleScroll = throttle(() => {
+    const offset = scrollOffset.current;
+
+    if (window.pageYOffset <= 0) return;
+
+    if (window.pageYOffset > offset + scrollThreshold) {
+      setShouldShowMenu(false);
+    } else if (window.pageYOffset < offset - scrollThreshold) {
+      setShouldShowMenu(true);
+    }
+
+    scrollOffset.current = window.pageYOffset;
+  }, 100);
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
-    <StyledHeader>
+    <StyledHeader shouldShowMenu={shouldShowMenu}>
       <Link href="/">
         <a>
           <Logo />
