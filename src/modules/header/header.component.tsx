@@ -46,17 +46,18 @@ export const Header: FC = () => {
 
   const handleScroll = throttle(() => {
     const offset = scrollOffset.current;
+    const currentOffset = window.pageYOffset;
 
-    if (window.pageYOffset <= 0) return;
-
-    if (window.pageYOffset > offset + scrollThreshold) {
-      setShouldShowMenu(false);
-    } else if (window.pageYOffset < offset - scrollThreshold) {
+    if (currentOffset <= 80) {
       setShouldShowMenu(true);
+    } else if (currentOffset < offset - scrollThreshold) {
+      setShouldShowMenu(true);
+    } else if (currentOffset > offset + 10) {
+      setShouldShowMenu(false);
     }
 
-    scrollOffset.current = window.pageYOffset;
-  }, 100);
+    scrollOffset.current = currentOffset;
+  }, 60);
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll, { passive: true });
