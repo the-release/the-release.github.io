@@ -242,7 +242,7 @@ const Category: FC<{
 }> = ({ href, children }) => {
   return (
     <li>
-      <Link href={href}>
+      <Link href="/category/[slug]" as={href}>
         <a>{children}</a>
       </Link>
     </li>
