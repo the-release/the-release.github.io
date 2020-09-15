@@ -29,23 +29,24 @@ const colors = {
 
 const h1: any = css`
   font-family: ${fonts.sans};
+  font-size: 48px;
+  font-weight: bold;
+  color: ${colors.textPrimary};
+  line-height: 1.1em;
+
+  @media only screen and (max-width: 560px) {
+    font-size: 28px;
+  }
+`;
+
+const h2: any = css`
+  font-family: ${fonts.sans};
   font-size: 36px;
   font-weight: bold;
   color: ${colors.textPrimary};
 
   @media only screen and (max-width: 560px) {
     font-size: 24px;
-  }
-`;
-
-const h2: any = css`
-  font-family: ${fonts.sans};
-  font-size: 21px;
-  font-weight: bold;
-  color: ${colors.textPrimary};
-
-  @media only screen and (max-width: 560px) {
-    font-size: 18px;
   }
 `;
 

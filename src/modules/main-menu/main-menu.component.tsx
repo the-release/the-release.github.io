@@ -32,11 +32,16 @@ const Drawer = styled.nav(
     overflow: auto;
     overscroll-behavior-y: contain;
 
-    min-width: 320px;
+    min-width: 560px;
     color: #fff;
     outline: none;
 
     font-family: ${theme.fonts.sans};
+
+    @media only screen and (max-width: 560px) {
+      min-width: 0;
+      width: 100%;
+    }
   `
 );
 
@@ -55,7 +60,6 @@ const Categories = styled.ul(
     a {
       text-decoration: none;
       color: #fff;
-      padding: 5px 0;
       display: block;
       transition: color 0.25s;
 
@@ -63,6 +67,10 @@ const Categories = styled.ul(
       &:hover {
         color: #fff;
       }
+    }
+
+    @media only screen and (max-width: 560px) {
+      font-size: 36px;
     }
   `
 );
