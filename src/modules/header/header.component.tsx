@@ -7,10 +7,15 @@ import { Logo } from "../logo/logo.component";
 
 const StyledHeader = styled.header`
   padding: 20px 40px;
-  border-bottom: solid #eee 1px;
+  box-shadow: rgba(0, 0, 0, 0.08) 0 1px 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background: #fff;
+  position: sticky;
+  top: 0;
+  right: 0;
+  left: 0;
 
   @media only screen and (max-width: 560px) {
     padding: 20px 30px;

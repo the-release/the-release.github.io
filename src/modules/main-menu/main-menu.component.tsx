@@ -17,7 +17,7 @@ const Overlay = styled.label`
   background: rgba(255, 255, 255, 0.5);
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.4s;
+  transition: opacity 0.35s;
 `;
 
 const Drawer = styled.nav(
@@ -28,7 +28,7 @@ const Drawer = styled.nav(
     height: 100vh;
     height: -webkit-fill-available;
     background: #000;
-    transition: transform 0.4s;
+    transition: transform 0.35s;
     overflow: auto;
     overscroll-behavior-y: contain;
 
@@ -70,7 +70,12 @@ const Categories = styled.ul(
     }
 
     @media only screen and (max-width: 560px) {
+      margin: 20px 30px;
       font-size: 36px;
+    }
+
+    @media only screen and (max-width: 320px) {
+      margin: 20px;
     }
   `
 );
@@ -92,6 +97,14 @@ const Misc = styled.ul(
       &:hover {
         color: #fff;
       }
+    }
+
+    @media only screen and (max-width: 560px) {
+      margin: 20px 30px;
+    }
+
+    @media only screen and (max-width: 320px) {
+      margin: 20px;
     }
   `
 );
@@ -124,6 +137,14 @@ const SocialNetworks = styled.ul`
       opacity: 1;
     }
   }
+
+  @media only screen and (max-width: 560px) {
+    margin: 20px 30px;
+  }
+
+  @media only screen and (max-width: 320px) {
+    margin: 20px;
+  }
 `;
 
 const OpenMenuButton = styled.label`
@@ -155,8 +176,8 @@ const Checkbox = styled.input`
   position: absolute;
   pointer-events: none;
   opacity: 0;
-  top: -100px;
-  right: -100px;
+  top: 0;
+  right: 0;
 
   &:not(:checked) ~ ${Drawer} {
     transform: translateX(100%);
