@@ -6,7 +6,19 @@ import throttle from "lodash/throttle";
 import { MainMenu } from "../main-menu/main-menu.component";
 import { Logo } from "../logo/logo.component";
 
-const StyledHeader = styled.header<{ shouldShowMenu: boolean }>(
+const StickyHeader = styled.header`
+  position: sticky;
+  top: 0;
+  right: 0;
+  left: 0;
+  pointer-events: none;
+
+  & > * {
+    pointer-events: auto;
+  }
+`;
+
+const StyledHeader = styled.div<{ shouldShowMenu: boolean }>(
   ({ shouldShowMenu }) => css`
     padding: 20px 40px;
     box-shadow: rgba(0, 0, 0, 0.08) 0 1px 0;
@@ -14,10 +26,6 @@ const StyledHeader = styled.header<{ shouldShowMenu: boolean }>(
     justify-content: space-between;
     align-items: center;
     background: #fff;
-    position: sticky;
-    top: 0;
-    right: 0;
-    left: 0;
     transition: transform 0.35s;
 
     ${!shouldShowMenu &&
@@ -67,14 +75,19 @@ export const Header: FC = () => {
     };
   }, []);
 
+  const { toggleButton, drawer } = MainMenu();
+
   return (
-    <StyledHeader shouldShowMenu={shouldShowMenu}>
-      <Link href="/">
-        <a>
-          <Logo />
-        </a>
-      </Link>
-      <MainMenu />
-    </StyledHeader>
+    <StickyHeader>
+      <StyledHeader shouldShowMenu={shouldShowMenu}>
+        <Link href="/">
+          <a>
+            <Logo />
+          </a>
+        </Link>
+        {toggleButton}
+      </StyledHeader>
+      {drawer}
+    </StickyHeader>
   );
 };

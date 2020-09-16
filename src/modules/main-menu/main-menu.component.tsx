@@ -243,54 +243,58 @@ const Category: FC<{
   );
 };
 
-export const MainMenu: FC = () => {
-  return (
-    <form>
-      <Checkbox id="hamburger" type="checkbox" />
+export const MainMenu = () => {
+  return {
+    toggleButton: (
       <OpenMenuButton htmlFor="hamburger">
         <HamburgerIcon /> Open Menu
       </OpenMenuButton>
-      <Overlay htmlFor="hamburger" />
-      <Drawer>
-        <NavHead>
-          <CloseMenuButton type="reset">
-            <CloseMenuIcon />
-            Close Menu
-          </CloseMenuButton>
-        </NavHead>
-        <Categories>
-          <Category href="/category/artificial-intelligence">AI</Category>
-          <Category href="/category/politics">Politics</Category>
-          <Category href="/category/privacy">Privacy</Category>
-          <Category href="/category/security">Security</Category>
-          <Category href="/category/startups">Startups</Category>
-          <Category href="/category/silicon-valley">The Valley</Category>
-        </Categories>
-        <Misc>
-          <li>
-            <Link href="/about">
-              <a>About</a>
-            </Link>
-          </li>
-          <li>
-            <a href={GITHUB_URL} target="_blank" rel="noreferrer">
-              Contribute
-            </a>
-          </li>
-        </Misc>
-        <SocialNetworks>
-          <li>
-            <a href={TWITTER_URL} target="_blank" rel="noreferrer">
-              <TwitterIcon /> Twitter
-            </a>
-          </li>
-          <li>
-            <a href={GITHUB_URL} target="_blank" rel="noreferrer">
-              <GithubIcon /> GitHub
-            </a>
-          </li>
-        </SocialNetworks>
-      </Drawer>
-    </form>
-  );
+    ),
+    drawer: (
+      <form>
+        <Checkbox id="hamburger" type="checkbox" />
+        <Overlay htmlFor="hamburger" />
+        <Drawer>
+          <NavHead>
+            <CloseMenuButton type="reset">
+              <CloseMenuIcon />
+              Close Menu
+            </CloseMenuButton>
+          </NavHead>
+          <Categories>
+            <Category href="/category/artificial-intelligence">AI</Category>
+            <Category href="/category/politics">Politics</Category>
+            <Category href="/category/privacy">Privacy</Category>
+            <Category href="/category/security">Security</Category>
+            <Category href="/category/startups">Startups</Category>
+            <Category href="/category/silicon-valley">The Valley</Category>
+          </Categories>
+          <Misc>
+            <li>
+              <Link href="/about">
+                <a>About</a>
+              </Link>
+            </li>
+            <li>
+              <a href={GITHUB_URL} target="_blank" rel="noreferrer">
+                Contribute
+              </a>
+            </li>
+          </Misc>
+          <SocialNetworks>
+            <li>
+              <a href={TWITTER_URL} target="_blank" rel="noreferrer">
+                <TwitterIcon /> Twitter
+              </a>
+            </li>
+            <li>
+              <a href={GITHUB_URL} target="_blank" rel="noreferrer">
+                <GithubIcon /> GitHub
+              </a>
+            </li>
+          </SocialNetworks>
+        </Drawer>
+      </form>
+    )
+  };
 };
