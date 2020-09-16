@@ -11,8 +11,8 @@ import { GithubIcon } from "./github-icon/github-icon.component";
 const Overlay = styled.label`
   position: fixed;
   top: 0;
-  left: 0;
   right: 0;
+  left: 0;
   height: 100vh;
   background: rgba(255, 255, 255, 0.5);
   opacity: 0;
@@ -34,7 +34,6 @@ const Drawer = styled.nav(
     width: 100%;
     max-width: 560px;
     color: #fff;
-    outline: none;
     font-family: ${theme.fonts.sans};
   `
 );
