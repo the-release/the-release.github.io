@@ -38,6 +38,21 @@ const Drawer = styled.nav(
   `
 );
 
+/**
+ * We're using a separate element for the Drawer's background
+ * because of a bug in iOS Safari where the height of the Drawer
+ * does not resize gracefully when scrolling */
+const Pane = styled.div`
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  background: #000;
+  transition: transform 0.35s;
+  width: 100%;
+  max-width: 560px;
+`;
+
 const Categories = styled.ul(
   ({ theme }) => css`
     ${theme.typography.h2};
@@ -172,7 +187,7 @@ const Checkbox = styled.input`
   top: 0;
   right: 0;
 
-  &:not(:checked) ~ ${Drawer} {
+  &:not(:checked) ~ ${Drawer}, &:not(:checked) ~ ${Pane} {
     transform: translateX(100%);
   }
 
@@ -253,6 +268,7 @@ export const MainMenu = () => {
       <form>
         <Checkbox id="hamburger" type="checkbox" />
         <Overlay htmlFor="hamburger" />
+        <Pane />
         <Drawer>
           <NavHead>
             <CloseMenuButton type="reset">
