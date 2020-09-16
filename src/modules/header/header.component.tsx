@@ -52,7 +52,7 @@ export const Header: FC = () => {
       setShouldShowMenu(true);
     } else if (currentOffset < offset - scrollThreshold) {
       setShouldShowMenu(true);
-    } else if (currentOffset > offset + 10) {
+    } else if (currentOffset > offset + 5) {
       setShouldShowMenu(false);
     }
 

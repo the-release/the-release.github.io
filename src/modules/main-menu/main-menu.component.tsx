@@ -31,17 +31,11 @@ const Drawer = styled.nav(
     transition: transform 0.35s;
     overflow: auto;
     overscroll-behavior-y: contain;
-
-    min-width: 560px;
+    width: 100%;
+    max-width: 560px;
     color: #fff;
     outline: none;
-
     font-family: ${theme.fonts.sans};
-
-    @media only screen and (max-width: 560px) {
-      min-width: 0;
-      width: 100%;
-    }
   `
 );
 
