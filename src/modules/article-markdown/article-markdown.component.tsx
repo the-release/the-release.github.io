@@ -15,7 +15,8 @@ const MarkdownContainer = styled.div(
     ul,
     ol,
     p,
-    pre code {
+    pre code,
+    figure {
       margin: 1.55em 0;
 
       ul,
@@ -60,7 +61,7 @@ const MarkdownContainer = styled.div(
 
     /* Lede */
     h1 + p {
-      margin: 0;
+      margin-top: 0;
       line-height: 1.3em;
 
       strong {
@@ -70,23 +71,28 @@ const MarkdownContainer = styled.div(
     }
 
     /* cover image */
-    h1:first-child + p + p + figure {
-      margin: 0 -40px;
+    h1:first-child + p + figure {
+      margin-left: -40px;
+      margin-right: -40px;
 
       @media only screen and (max-width: 848px) {
-        margin: 0 calc(calc(calc(100vw - 688px) / 2) * -1);
+        margin-left: calc(calc(calc(100vw - 688px) / 2) * -1);
+        margin-right: calc(calc(calc(100vw - 688px) / 2) * -1);
       }
 
       @media only screen and (max-width: 768px) {
-        margin: 0 -40px;
+        margin-left: -40px;
+        margin-right: -40px;
       }
 
       @media only screen and (max-width: 560px) {
-        margin: 0 -30px;
+        margin-left: -30px;
+        margin-right: -30px;
       }
 
       @media only screen and (max-width: 320px) {
-        margin: 0 -20px;
+        margin-left: -20px;
+        margin-right: -20px;
       }
 
       img {

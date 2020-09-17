@@ -1,5 +1,7 @@
 import { promises as fs } from "fs";
-import marked from "marked";
+import remark from "remark";
+import remarkHtml from "remark-html";
+// import remarkOEmbed from "remark-oembed";
 import { format } from "date-fns";
 import url from "url";
 import path from "path";
@@ -32,7 +34,7 @@ export const coverImageUrlSelector = (imagePath: string) => {
 };
 
 export const coverImageSelector = ($: CheerioStatic) => {
-  const coverImage = $("body > h1:first-child + p + p + figure img");
+  const coverImage = $("body > h1:first-child + p + figure img");
   const src = coverImage.attr("src");
   const alt = coverImage.attr("alt");
 
@@ -48,7 +50,12 @@ export const coverImageSelector = ($: CheerioStatic) => {
 export const htmlContentSelector = async (filePath: string) => {
   const markdown = (await fs.readFile(filePath, "utf8")).trim();
 
-  return marked(markdown);
+  const { contents } = await remark()
+    // .use(remarkOEmbed)
+    .use(remarkHtml)
+    .process(markdown);
+
+  return contents.toString();
 };
 
 export const metadataSelector = async (

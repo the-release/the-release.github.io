@@ -55,6 +55,11 @@ const wrapWithCaption = ($: CheerioStatic, elem: CheerioElement) => {
 
   const caption = $(captionElem).html();
 
+  // Unwrap image from paragraph
+  $(elem)
+    .parent()
+    .replaceWith(elem);
+
   $(elem).wrap("<figure></figure>");
   $(elem)
     .parent()
