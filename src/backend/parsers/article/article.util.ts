@@ -15,12 +15,12 @@ export const isAbsoluteUrl = (url: string) => {
 export const exportImages = async (html: string, slug: string) => {
   const $ = cheerio.load(html);
   const basePath = path.join("/article", slug);
-  const absolutePaths: string[] = [];
-  const exportedPaths: string[] = [];
-  const images = $("img");
+  const imageElements: CheerioElement[] = [];
 
-  images.each((index, elem) => {
-    const src = $(elem).attr("src");
+  $("img").each((index, elem) => imageElements.push(elem));
+
+  for (const imageElement of imageElements) {
+    const src = $(imageElement).attr("src");
 
     if (!src) throw new Error("Missing image URL");
 
@@ -28,16 +28,11 @@ export const exportImages = async (html: string, slug: string) => {
       throw new Error("Image URLs should not be absolute");
     }
 
-    absolutePaths.push(path.join(basePath, src));
-  });
+    const absolutePath = path.join(basePath, src);
+    const exportedPath = await exportImage(absolutePath);
 
-  for (const absolutePath of absolutePaths) {
-    exportedPaths.push(await exportImage(absolutePath));
+    $(imageElement).attr("src", exportedPath);
   }
-
-  images.each((index, elem) => {
-    $(elem).attr("src", exportedPaths[index]);
-  });
 
   return $.html();
 };
