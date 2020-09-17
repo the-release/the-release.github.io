@@ -25,3 +25,9 @@ Simply add a dot `.` at the beginning of the article's slug
 #### Automatic Title Case Conversion
 
 #### External links open in new tabs
+
+#### Accessible emojis
+
+#### Works even if JavaScript is disabled
+
+#### Anchors headings using GitHub’s algorithm

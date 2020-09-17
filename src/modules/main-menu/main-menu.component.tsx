@@ -260,14 +260,14 @@ const Category: FC<{
 export const MainMenu = () => {
   return {
     toggleButton: (
-      <OpenMenuButton htmlFor="hamburger">
+      <OpenMenuButton htmlFor="main-menu-checkbox">
         <HamburgerIcon /> Open Menu
       </OpenMenuButton>
     ),
     drawer: (
       <form>
-        <Checkbox id="hamburger" type="checkbox" />
-        <Overlay htmlFor="hamburger" />
+        <Checkbox id="main-menu-checkbox" type="checkbox" />
+        <Overlay htmlFor="main-menu-checkbox" />
         <Pane />
         <Drawer>
           <NavHead>

@@ -41,6 +41,10 @@ If you'd like to quote someone, use the `>` character before the line:
 2. Two
 3. Three
 
+## Emojis
+
+Accessible emojis: 👍
+
 ## Unordered list
 
 Sometimes you want bullet points:
