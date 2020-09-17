@@ -13,24 +13,26 @@ export const getCategories = async (): Promise<Category[]> => {
 
   return await Promise.all(
     folders.map(async ({ name: slug }) => {
-      const categoryDir = path.join(categoriesDir, slug);
-      const { name, keywords } = await metadataSelector(categoryDir).catch(
-        err => {
-          console.error(
-            err?.message || "Unable to parse metadata",
-            `for category /${slug}`
-          );
-          process.exit(1);
-        }
-      );
+      try {
+        const categoryDir = path.join(categoriesDir, slug);
+        const { name, keywords } = await metadataSelector(categoryDir);
 
-      return {
-        url: `/category/${slug}`,
-        absoluteUrl: `${ORIGIN}/category/${slug}`,
-        slug,
-        name,
-        keywords
-      };
+        return {
+          url: `/category/${slug}`,
+          absoluteUrl: `${ORIGIN}/category/${slug}`,
+          slug,
+          name,
+          keywords
+        };
+      } catch (err) {
+        console.error(
+          "Error:",
+          err?.message ||
+            "An unexpected error occurred while parsing the category"
+        );
+        console.error(`Category: ${slug}`);
+        process.exit(1);
+      }
     })
   );
 };
