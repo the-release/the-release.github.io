@@ -17,7 +17,7 @@ const MarkdownContainer = styled.div(
     p,
     pre code,
     figure {
-      margin: 1.55em 0;
+      margin: 1.8rem 0;
 
       ul,
       ol {
