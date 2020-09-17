@@ -21,12 +21,8 @@ export const exportImages = async (html: string, slug: string) => {
 
   images.each((index, elem) => {
     const src = $(elem).attr("src");
-    const alt = $(elem).attr("alt");
 
     if (!src) throw new Error("Missing image URL");
-    if (!alt?.trim()) {
-      throw new Error(`Missing image alt tag \nImage source: ${src}`);
-    }
 
     if (isAbsoluteUrl(src)) {
       throw new Error("Image URLs should not be absolute");
@@ -41,29 +37,52 @@ export const exportImages = async (html: string, slug: string) => {
 
   images.each((index, elem) => {
     $(elem).attr("src", exportedPaths[index]);
-    wrapWithCaption($, elem);
   });
 
   return $.html();
 };
 
-const wrapWithCaption = ($: CheerioStatic, elem: CheerioElement) => {
-  const captionElem = $(elem).next("em");
+export const enforceImageAltTags = (html: string) => {
+  const $ = cheerio.load(html);
 
-  if (!$(captionElem).length) throw new Error("Images must have captions");
+  $("img").each((index, elem) => {
+    const src = $(elem).attr("src");
+    const alt = $(elem).attr("alt");
 
-  const caption = $(captionElem).html();
+    if (!alt?.trim()) {
+      throw new Error(`Missing image alt tag \nImage source: ${src}`);
+    }
+  });
 
-  // Unwrap image from paragraph
-  $(elem)
-    .parent()
-    .replaceWith(elem);
+  return $.html();
+};
 
-  $(elem).wrap("<figure></figure>");
-  $(elem)
-    .parent()
-    .append(`<figcaption>${caption}</figcaption>`);
-  $(captionElem).remove();
+export const addImageCaptions = (html: string) => {
+  const $ = cheerio.load(html);
+
+  $("img").each((index, elem) => {
+    const captionElem = $(elem).next("em");
+
+    if (!$(captionElem).length) {
+      throw new Error("Images must be followed by a caption");
+    }
+
+    const caption = $(captionElem).html();
+
+    // Unwrap image from paragraph
+    $(elem)
+      .parent()
+      .replaceWith(elem);
+
+    $(elem).wrap("<figure></figure>");
+    $(elem)
+      .parent()
+      .append(`<figcaption>${caption}</figcaption>`);
+
+    $(captionElem).remove();
+  });
+
+  return $.html();
 };
 
 export const externalLinks = (html: string) => {

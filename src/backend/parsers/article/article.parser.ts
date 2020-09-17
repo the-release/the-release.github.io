@@ -11,7 +11,13 @@ import {
   plainTextSelector,
   titleSelector
 } from "./article.selector";
-import { exportThumbnail, exportImages, externalLinks } from "./article.util";
+import {
+  exportThumbnail,
+  exportImages,
+  externalLinks,
+  addImageCaptions,
+  enforceImageAltTags
+} from "./article.util";
 import { ORIGIN } from "../../../config";
 import { parseMarkDown } from "../markdown/markdown.parser";
 
@@ -24,8 +30,12 @@ export const getArticleBySlug = async (slug: string) => {
     const articleFilePath = path.join(articleDir, "/article.md");
     const metadata = await metadataSelector(articleDir);
 
-    const htmlContent = externalLinks(
-      await exportImages(await parseMarkDown(articleFilePath), slug)
+    const htmlContent = enforceImageAltTags(
+      externalLinks(
+        addImageCaptions(
+          await exportImages(await parseMarkDown(articleFilePath), slug)
+        )
+      )
     );
 
     const $ = cheerio.load(htmlContent);
