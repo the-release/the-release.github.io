@@ -1,8 +1,9 @@
 # Google’s Home Assistant will soon be getting a sense of smell
+
 **Your home assistant will soon be getting an update ... as Google unveil a new and improved version of their smart home assistant.**
 
-![Add an alt tag to your image](google-home-sense-of-smell.jpg)
-*The caption of the image.*
+![Google Home in kitchen](google-home-sense-of-smell.jpg)
+_Photograph: Jonas Leupe [@jonasleupe](https://unsplash.com/@jonasleupe)_
 
 Bob tiersy, director of Google hardware said in a statement that «In an effort to harvest as much data as we can from our users, the next logical thing to do was to not just be able to hear and see what’s going on in people’s home but also be able to smell».
 
