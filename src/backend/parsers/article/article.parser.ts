@@ -12,12 +12,7 @@ import {
   plainTextSelector,
   titleSelector
 } from "./article.selector";
-import {
-  exportThumbnail,
-  exportImages,
-  toTitleCase,
-  externalLinks
-} from "./article.util";
+import { exportThumbnail, exportImages, externalLinks } from "./article.util";
 import { ORIGIN } from "../../../config";
 
 const articlesDir = path.join(process.cwd(), "data", "articles");
@@ -36,9 +31,7 @@ export const getArticleBySlug = async (slug: string) => {
     } = await metadataSelector(articleDir);
 
     const htmlContent = externalLinks(
-      toTitleCase(
-        await exportImages(await htmlContentSelector(articleFilePath), slug)
-      )
+      await exportImages(await htmlContentSelector(articleFilePath), slug)
     );
 
     const $ = cheerio.load(htmlContent);

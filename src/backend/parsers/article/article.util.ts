@@ -1,6 +1,6 @@
 import cheerio from "cheerio";
 import path from "path";
-import { titleCase } from "title-case";
+import titleCase from "title";
 import sharp from "sharp";
 
 import { promises as fs } from "fs";
@@ -65,18 +65,6 @@ const wrapWithCaption = ($: CheerioStatic, elem: CheerioElement) => {
     .parent()
     .append(`<figcaption>${caption}</figcaption>`);
   $(captionElem).remove();
-};
-
-export const toTitleCase = (html: string) => {
-  const $ = cheerio.load(html);
-
-  $("h1,h2,h3,h4,h5,h6").each((index, elem) => {
-    const title = $(elem).text();
-
-    $(elem).text(titleCase(title));
-  });
-
-  return $.html();
 };
 
 export const externalLinks = (html: string) => {

@@ -7,11 +7,12 @@ import remarkLint from "remark-preset-lint-recommended";
 import a11yEmoji from "@fec/remark-a11y-emoji";
 import remarkHtml from "remark-html";
 import remarkSlug from "remark-slug";
+import remarkCapitalize from "remark-capitalize";
 
 import { format } from "date-fns";
 import url from "url";
 import path from "path";
-import { titleCase } from "title-case";
+import titleCase from "title";
 
 import { ORIGIN } from "../../../config";
 
@@ -60,6 +61,7 @@ export const htmlContentSelector = async (filePath: string) => {
     .use(remarkLint)
     .use(a11yEmoji)
     .use(remarkSlug)
+    .use(remarkCapitalize)
     .use(remarkHtml)
     .process(markdown);
 
