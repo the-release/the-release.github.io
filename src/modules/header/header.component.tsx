@@ -48,6 +48,10 @@ const StyledHeader = styled.div<{ shouldShowMenu: boolean }>(
   `
 );
 
+const HomePageLink = styled.a`
+  font-size: 0;
+`;
+
 export const Header: FC = () => {
   const scrollOffset = useRef(0);
   const [shouldShowMenu, setShouldShowMenu] = useState(true);
@@ -81,10 +85,10 @@ export const Header: FC = () => {
   return (
     <StickyHeader>
       <StyledHeader shouldShowMenu={shouldShowMenu}>
-        <Link href="/">
-          <a>
-            <Logo />
-          </a>
+        <Link href="/" passHref>
+          <HomePageLink>
+            <Logo /> Go to homepage
+          </HomePageLink>
         </Link>
         {toggleButton}
       </StyledHeader>
