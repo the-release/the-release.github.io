@@ -21,7 +21,7 @@ You can use one `#` all the way up to `######` six for different heading sizes:
 
 ##### h5
 
-##### h6
+###### h6
 
 Headings will be automatically converted to Title Case.
 

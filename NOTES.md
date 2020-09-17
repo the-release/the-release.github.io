@@ -6,6 +6,7 @@
 - [ ] hover effect article-card
 - [ ] relative time (8 hours ago) on home page and plain date in category
 - [ ] Short date in category, full date in article
+- [ ] Lint markdown with remark-preset-lint-recommended
 
 # Features
 
