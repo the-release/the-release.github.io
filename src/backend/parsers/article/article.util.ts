@@ -56,10 +56,13 @@ export const addImageCaptions = (html: string) => {
   const $ = cheerio.load(html);
 
   $("img").each((index, elem) => {
+    const src = $(elem).attr("src");
     const captionElem = $(elem).next("em");
 
     if (!$(captionElem).length) {
-      throw new Error("Images must be followed by a caption");
+      throw new Error(
+        `Images must be followed by a caption \nImage source: ${src}`
+      );
     }
 
     const caption = $(captionElem).html();
