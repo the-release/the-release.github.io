@@ -6,8 +6,11 @@ import path from "path";
 import titleCase from "title";
 
 import { ORIGIN } from "../../../config";
+import cheerio from "cheerio";
+import readingTime from "reading-time";
 
-export const titleSelector = ($: CheerioStatic) => {
+export const titleSelector = (html: string) => {
+  const $ = cheerio.load(html);
   const titleElement = $("body > h1:first-child");
 
   if (!titleElement.length) throw new Error("Missing title");
@@ -15,7 +18,8 @@ export const titleSelector = ($: CheerioStatic) => {
   return titleElement.text();
 };
 
-export const descriptionSelector = ($: CheerioStatic) => {
+export const descriptionSelector = (html: string) => {
+  const $ = cheerio.load(html);
   const descriptionElement = $("body > h1:first-child + p > strong:only-child");
 
   if (!descriptionElement.length) throw new Error("Missing lede");
@@ -23,15 +27,20 @@ export const descriptionSelector = ($: CheerioStatic) => {
   return descriptionElement.text();
 };
 
-export const plainTextSelector = ($: CheerioStatic) => {
+const plainTextSelector = (html: string) => {
+  const $ = cheerio.load(html);
+
   return $("body").text();
 };
 
-export const coverImageUrlSelector = (imagePath: string) => {
-  return url.resolve(ORIGIN, imagePath || "");
+export const readingTimeSelector = (html: string) => {
+  const plainText = plainTextSelector(html);
+
+  return readingTime(plainText).text;
 };
 
-export const coverImageSelector = ($: CheerioStatic) => {
+export const coverImageSelector = (html: string) => {
+  const $ = cheerio.load(html);
   const coverImage = $("body > h1:first-child + p + figure img");
   const src = coverImage.attr("src");
   const alt = coverImage.attr("alt");
@@ -40,6 +49,7 @@ export const coverImageSelector = ($: CheerioStatic) => {
   if (!alt) throw new Error(`Missing alt text on cover image`);
 
   return {
+    url: url.resolve(ORIGIN, src),
     src,
     alt
   };

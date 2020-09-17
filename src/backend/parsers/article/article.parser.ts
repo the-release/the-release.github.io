@@ -1,14 +1,11 @@
 import path from "path";
 import { promises as fs } from "fs";
-import cheerio from "cheerio";
-import readingTime from "reading-time";
 
 import {
   coverImageSelector,
-  coverImageUrlSelector,
   descriptionSelector,
   metadataSelector,
-  plainTextSelector,
+  readingTimeSelector,
   titleSelector
 } from "./article.selector";
 import {
@@ -38,9 +35,11 @@ export const getArticleBySlug = async (slug: string) => {
       )
     );
 
-    const $ = cheerio.load(htmlContent);
-    const plainText = plainTextSelector($);
-    const { src: coverImageSrc, alt: coverImageAlt } = coverImageSelector($);
+    const {
+      url: coverImageUrl,
+      src: coverImageSrc,
+      alt: coverImageAlt
+    } = coverImageSelector(htmlContent);
 
     return {
       url: `/article/${slug}`,
@@ -51,10 +50,10 @@ export const getArticleBySlug = async (slug: string) => {
       timestamp: metadata.timestamp,
       isDraft,
       keywords: metadata.keywords,
-      title: titleSelector($),
-      description: descriptionSelector($),
-      readingTime: readingTime(plainText).text,
-      coverImageUrl: coverImageUrlSelector(coverImageSrc),
+      title: titleSelector(htmlContent),
+      description: descriptionSelector(htmlContent),
+      readingTime: readingTimeSelector(htmlContent),
+      coverImageUrl,
       coverImageAlt,
       thumbnail: await exportThumbnail(coverImageSrc),
       category: metadata.category,
