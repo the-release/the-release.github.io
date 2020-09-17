@@ -3,7 +3,6 @@ import { promises as fs } from "fs";
 // Remark plugins:
 // https://github.com/remarkjs/remark/blob/main/doc/plugins.md
 import remark from "remark";
-import remarkLint from "remark-preset-lint-recommended";
 import a11yEmoji from "@fec/remark-a11y-emoji";
 import remarkHtml from "remark-html";
 import remarkSlug from "remark-slug";
@@ -58,7 +57,6 @@ export const htmlContentSelector = async (filePath: string) => {
   const markdown = (await fs.readFile(filePath, "utf8")).trim();
 
   const { contents } = await remark()
-    .use(remarkLint)
     .use(a11yEmoji)
     .use(remarkSlug)
     .use(remarkCapitalize)
