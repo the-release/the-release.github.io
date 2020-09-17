@@ -1,6 +1,6 @@
-# Markdown demo
+# Markdown Demo
 
-**An unprecedented “security incident” has rocked Twitter—and scammers are making off with huge amounts of bitcoin.**
+**This is a lede**
 
 ![A fingerprint](image.png)
 *this is an image caption*
@@ -23,13 +23,15 @@ You can use one `#` all the way up to `######` six for different heading sizes:
 
 ##### h6
 
+Headings will be automatically converted to Title Case.
+
 ## Text
 
 It's very easy to make some words **bold** and other words *italic* with Markdown. You can even add [links](http://google.com)! Links pointing to external website will automatically open in a new tab.
 
 ## Quote
 
-If you'd like to quote someone, use the > character before the line:
+If you'd like to quote someone, use the `>` character before the line:
 
 > We want to bring back the narrative of founders starting a company in their garage. Founders today don't have access to traditional houses, and you can't replicate that romanticized atmosphere of a hacked-together server room in a 3rd floor loft. It's just not the same.
 
@@ -43,12 +45,12 @@ If you'd like to quote someone, use the > character before the line:
 
 Sometimes you want bullet points:
 
-* Start a line with a star (*)
+* Start a line with a star `*`
 * Profit!
 
 Alternatively,
 
-- Dashes work just as well (-)
+- Dashes work just as well `-`
 - And if you have sub points, put two spaces before the dash or star:
   - Like this
   - And thiss

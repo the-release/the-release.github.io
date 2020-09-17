@@ -1,7 +1,7 @@
 - [ ] Support dat protocol with `.well-known/dat`
 - [ ] Serve multiple image sizes based on the viewport `srcset`
 - [ ] Extract and set image dimensions
-- [ ] Support drafts with hidden folders
+- [x] Support drafts with hidden folders
 - [ ] hover effect article-card
 - [ ] relative time (8 hours ago) on home page and plain date in category
 - [ ] Short date in category, full date in article
