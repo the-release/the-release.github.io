@@ -11,6 +11,4 @@ This new update will allow Google to target people based on their dietary habits
 
 This new capability is made possible by their newly developed olfactory sensor.
 
-https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstleyVEVO
-
 Devices released after may 2015 are already equipped with this capability. An over the air update will soon be released to enable the feature. The company says it will pay customers with older devices to receive the upgrade.
