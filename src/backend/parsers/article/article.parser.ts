@@ -7,13 +7,13 @@ import {
   coverImageSelector,
   coverImageUrlSelector,
   descriptionSelector,
-  htmlContentSelector,
   metadataSelector,
   plainTextSelector,
   titleSelector
 } from "./article.selector";
 import { exportThumbnail, exportImages, externalLinks } from "./article.util";
 import { ORIGIN } from "../../../config";
+import { parseMarkDown } from "../markdown/markdown.parser";
 
 const articlesDir = path.join(process.cwd(), "data", "articles");
 
@@ -22,16 +22,10 @@ export const getArticleBySlug = async (slug: string) => {
     const isDraft = slug.startsWith(".") ? 1 : 0;
     const articleDir = path.join(articlesDir, slug);
     const articleFilePath = path.join(articleDir, "/article.md");
-    const {
-      category,
-      author,
-      publishedAt,
-      timestamp,
-      keywords
-    } = await metadataSelector(articleDir);
+    const metadata = await metadataSelector(articleDir);
 
     const htmlContent = externalLinks(
-      await exportImages(await htmlContentSelector(articleFilePath), slug)
+      await exportImages(await parseMarkDown(articleFilePath), slug)
     );
 
     const $ = cheerio.load(htmlContent);
@@ -43,18 +37,18 @@ export const getArticleBySlug = async (slug: string) => {
       absoluteUrl: `${ORIGIN}/article/${slug}`,
       slug,
       htmlContent,
-      publishedAt,
-      timestamp,
+      publishedAt: metadata.publishedAt,
+      timestamp: metadata.timestamp,
       isDraft,
-      keywords,
+      keywords: metadata.keywords,
       title: titleSelector($),
       description: descriptionSelector($),
       readingTime: readingTime(plainText).text,
       coverImageUrl: coverImageUrlSelector(coverImageSrc),
       coverImageAlt,
       thumbnail: await exportThumbnail(coverImageSrc),
-      category,
-      author
+      category: metadata.category,
+      author: metadata.author
     };
   } catch (err) {
     console.error(

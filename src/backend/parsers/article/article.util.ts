@@ -1,6 +1,5 @@
 import cheerio from "cheerio";
 import path from "path";
-import titleCase from "title";
 import sharp from "sharp";
 
 import { promises as fs } from "fs";

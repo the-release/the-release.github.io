@@ -1,13 +1,5 @@
 import { promises as fs } from "fs";
 
-// Remark plugins:
-// https://github.com/remarkjs/remark/blob/main/doc/plugins.md
-import remark from "remark";
-import a11yEmoji from "@fec/remark-a11y-emoji";
-import remarkHtml from "remark-html";
-import remarkSlug from "remark-slug";
-import remarkCapitalize from "remark-capitalize";
-
 import { format } from "date-fns";
 import url from "url";
 import path from "path";
@@ -51,19 +43,6 @@ export const coverImageSelector = ($: CheerioStatic) => {
     src,
     alt
   };
-};
-
-export const htmlContentSelector = async (filePath: string) => {
-  const markdown = (await fs.readFile(filePath, "utf8")).trim();
-
-  const { contents } = await remark()
-    .use(a11yEmoji)
-    .use(remarkSlug)
-    .use(remarkCapitalize)
-    .use(remarkHtml)
-    .process(markdown);
-
-  return contents.toString();
 };
 
 export const metadataSelector = async (
