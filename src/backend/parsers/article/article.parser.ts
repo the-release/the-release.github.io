@@ -50,6 +50,7 @@ export const getArticleBySlug = async (slug: string) => {
   const { src: coverImageSrc, alt: coverImageAlt } = coverImageSelector($);
   const coverImageUrl = coverImageUrlSelector(coverImageSrc);
   const thumbnail = await exportThumbnail(coverImageSrc);
+  const isDraft = slug.startsWith(".") ? 1 : 0;
 
   return {
     url: `/article/${slug}`,
@@ -58,6 +59,7 @@ export const getArticleBySlug = async (slug: string) => {
     htmlContent,
     publishedAt,
     timestamp,
+    isDraft,
     keywords,
     title: titleSelector($),
     description: descriptionSelector($),

@@ -40,6 +40,9 @@ export class Article {
   @Column({ type: "int" })
   timestamp: number;
 
+  @Column({ type: "int" })
+  isDraft: number;
+
   @ManyToOne(
     () => Category,
     category => category.slug
@@ -68,6 +71,7 @@ export class Article {
     this.publishedAt = props.publishedAt;
     this.keywords = props.keywords;
     this.timestamp = props.timestamp;
+    this.isDraft = props.isDraft;
     this.category = props.category;
     this.author = props.author;
     this.readingTime = props.readingTime;

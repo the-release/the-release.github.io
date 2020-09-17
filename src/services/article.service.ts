@@ -2,6 +2,7 @@ import { FindOneOptions, getRepository } from "typeorm";
 import { Article } from "../entities/article.entity";
 import { pick } from "../utils/pick/pick";
 import { dbConnection } from "../backend/db";
+import { NODE_ENV } from "../config";
 
 interface GetOptions<U> {
   props?: Array<U>;
@@ -20,12 +21,20 @@ export const getArticles = async <U extends keyof Article>({
       timestamp: "DESC"
     },
     relations: ["category", "author"],
-    select: props ? [...props, "slug", "timestamp"] : undefined,
+    select: props ? [...props, "slug", "timestamp", "isDraft"] : undefined,
     take: limit,
     where
   });
 
-  const jsonsifiedArticles: Article[] = JSON.parse(JSON.stringify(articles));
+  const filteredArticles = articles.filter(({ isDraft }) => {
+    const isDev = NODE_ENV === "development";
+
+    return !(!isDev && isDraft);
+  });
+
+  const jsonsifiedArticles: Article[] = JSON.parse(
+    JSON.stringify(filteredArticles)
+  );
 
   if (!props) return jsonsifiedArticles;
 

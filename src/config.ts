@@ -1,3 +1,4 @@
+export const NODE_ENV = process.env.NODE_ENV;
 export const SITE_NAME = "The Release";
 export const SITE_DESCRIPTION =
   "Your Daily Dose of News About The Tech Industry";
