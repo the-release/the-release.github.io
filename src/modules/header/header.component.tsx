@@ -11,6 +11,7 @@ const StickyHeader = styled.header`
   top: 0;
   right: 0;
   left: 0;
+  z-index: 999;
   pointer-events: none;
 
   & > * {

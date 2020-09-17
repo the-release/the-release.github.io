@@ -13,7 +13,8 @@ import {
   exportImages,
   externalLinks,
   addImageCaptions,
-  enforceImageAltTags
+  enforceImageAltTags,
+  makeImageResponsive
 } from "./article.util";
 import { ORIGIN } from "../../../config";
 import { parseMarkDown } from "../markdown/markdown.parser";
@@ -29,8 +30,10 @@ export const getArticleBySlug = async (slug: string) => {
 
     const htmlContent = enforceImageAltTags(
       externalLinks(
-        addImageCaptions(
-          await exportImages(await parseMarkDown(articleFilePath), slug)
+        makeImageResponsive(
+          addImageCaptions(
+            await exportImages(await parseMarkDown(articleFilePath), slug)
+          )
         )
       )
     );

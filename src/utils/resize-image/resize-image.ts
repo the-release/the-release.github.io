@@ -18,6 +18,7 @@ export const resizeImage = async ({
   await fs.mkdir(path.parse(dest).dir, { recursive: true });
   const { info, data } = await sharp(src)
     .resize(width, height)
+    .flatten({ background: { r: 255, g: 255, b: 255 } })
     .jpeg({ quality })
     .toBuffer({ resolveWithObject: true });
 

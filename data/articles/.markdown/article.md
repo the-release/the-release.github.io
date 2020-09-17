@@ -59,6 +59,16 @@ Alternatively,
   - Like this
   - And thiss
   
+# Images
+
+![A cat looking up](cat.jpg)  
+*Copyright or caption*
+
+PNGs are flattened to jpeg with a white background. 
+
+![A splash of paint](transparent.png)  
+*Copyright or caption*
+  
 ## Code block
 
 ```

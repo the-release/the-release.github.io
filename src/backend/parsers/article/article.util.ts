@@ -60,7 +60,7 @@ export const addImageCaptions = (html: string) => {
 
   $("img").each((index, elem) => {
     const src = $(elem).attr("src");
-    const captionElem = $(elem).next("em");
+    const captionElem = $(elem).nextAll("em, br + em");
 
     if (!$(captionElem).length) {
       throw new Error(
@@ -75,12 +75,29 @@ export const addImageCaptions = (html: string) => {
       .parent()
       .replaceWith(elem);
 
-    $(elem).wrap("<figure></figure>");
     $(elem)
-      .parent()
+      .wrap(`<figure></figure>`)
+      .closest("figure")
       .append(`<figcaption>${caption}</figcaption>`);
 
     $(captionElem).remove();
+  });
+
+  return $.html();
+};
+
+export const makeImageResponsive = (html: string) => {
+  const $ = cheerio.load(html);
+
+  $("img").each((index, elem) => {
+    const width = parseInt($(elem).attr("width") || "0", 10);
+    const height = parseInt($(elem).attr("height") || "0", 10);
+    const imageRatio = (height / width) * 100;
+
+    $(elem)
+      .wrap(`<div style="padding-top: ${imageRatio}%"></div>`)
+      .closest("figure")
+      .css("max-width", `${width}px`);
   });
 
   return $.html();

@@ -124,19 +124,25 @@ const MarkdownContainer = styled.div(
       }
     }
 
-    figure img {
-      display: block;
-      width: auto;
-      height: auto;
-      max-width: 100%;
-      background: #eee;
-      border-radius: 5px;
-    }
+    figure {
+      div {
+        display: block;
+        position: relative;
+      }
 
-    /* Image caption */
-    figure figcaption {
-      margin-top: 10px;
-      ${theme.typography.caption};
+      img {
+        position: absolute;
+        top: 0;
+        background: #eee;
+        border-radius: 5px;
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+      }
+      figcaption {
+        margin-top: 10px;
+        ${theme.typography.caption};
+      }
     }
 
     ul,
