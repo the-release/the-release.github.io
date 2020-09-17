@@ -29,9 +29,12 @@ export const exportImages = async (html: string, slug: string) => {
     }
 
     const absolutePath = path.join(basePath, src);
-    const exportedPath = await exportImage(absolutePath);
+    const { exportPath, width, height } = await exportImage(absolutePath);
 
-    $(imageElement).attr("src", exportedPath);
+    $(imageElement)
+      .attr("src", exportPath)
+      .attr("width", `${width}`)
+      .attr("height", `${height}`);
   }
 
   return $.html();
@@ -132,13 +135,13 @@ export const exportThumbnail = async (imagePath: string) => {
   const src = path.join(publicDir, imagePath);
   const { dir, name } = path.parse(imagePath);
   const dest = path.join(publicDir, dir, `${name}.thumb.jpg`);
-  const newPath = path.join(dir, `${name}.thumb.jpg`);
+  const exportPath = path.join(dir, `${name}.thumb.jpg`);
 
-  if (await isFile(dest)) return newPath;
+  if (await isFile(dest)) return exportPath;
 
   await generateThumbnail(src, dest);
 
-  return newPath;
+  return exportPath;
 };
 
 const exportImage = async (absolutePath: string) => {
@@ -147,12 +150,26 @@ const exportImage = async (absolutePath: string) => {
   const src = path.join(articlesDir, absolutePath.replace(/^\/article/, ""));
   const hash = sha256(await fs.readFile(src));
   const { dir, name } = path.parse(absolutePath);
-  const newPath = path.join(dir, `${name}-${hash}.jpg`);
-  const dest = path.join(publicDir, newPath);
+  const exportPath = path.join(dir, `${name}-${hash}.jpg`);
+  const dest = path.join(publicDir, exportPath);
 
-  if (await isFile(dest)) return newPath;
+  if (await isFile(dest)) {
+    const { info } = await sharp(dest).toBuffer({
+      resolveWithObject: true
+    });
 
-  await optimizeImage(src, dest);
+    return {
+      width: info.width,
+      height: info.height,
+      exportPath
+    };
+  }
 
-  return newPath;
+  const { width, height } = await optimizeImage(src, dest);
+
+  return {
+    width,
+    height,
+    exportPath
+  };
 };

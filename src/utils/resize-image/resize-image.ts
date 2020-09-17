@@ -16,10 +16,15 @@ export const resizeImage = async ({
   quality?: number;
 }) => {
   await fs.mkdir(path.parse(dest).dir, { recursive: true });
-  const buffer = await sharp(src)
+  const { info, data } = await sharp(src)
     .resize(width, height)
     .jpeg({ quality })
-    .toBuffer();
+    .toBuffer({ resolveWithObject: true });
 
-  await fs.writeFile(dest, buffer);
+  await fs.writeFile(dest, data);
+
+  return {
+    width: info.width,
+    height: info.height
+  };
 };
