@@ -22,8 +22,12 @@ export const exportImages = async (html: string, slug: string) => {
 
   images.each((index, elem) => {
     const src = $(elem).attr("src");
+    const alt = $(elem).attr("alt");
 
     if (!src) throw new Error("Missing image URL");
+    if (!alt?.trim()) {
+      throw new Error(`Missing image alt tag \nImage source: ${src}`);
+    }
 
     if (isAbsoluteUrl(src)) {
       throw new Error("Image URLs should not be absolute");
@@ -76,7 +80,7 @@ export const externalLinks = (html: string) => {
   $("a").each((index, elem) => {
     const href = $(elem).attr("href");
 
-    if (!href) throw new Error("empty link");
+    if (!href) throw new Error("Empty link");
     if (!isAbsoluteUrl(href)) return;
     if (href.startsWith(ORIGIN)) {
       throw new Error("Internal links should not be absolute");

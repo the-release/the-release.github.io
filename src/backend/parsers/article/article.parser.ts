@@ -23,53 +23,54 @@ import { ORIGIN } from "../../../config";
 const articlesDir = path.join(process.cwd(), "data", "articles");
 
 export const getArticleBySlug = async (slug: string) => {
-  const articleDir = path.join(articlesDir, slug);
-  const articleFilePath = path.join(articleDir, "/article.md");
-  const {
-    category,
-    author,
-    publishedAt,
-    timestamp,
-    keywords
-  } = await metadataSelector(articleDir).catch(err => {
-    console.error(
-      err?.message || "Unable to parse metadata",
-      `for article /${slug}`
+  try {
+    const isDraft = slug.startsWith(".") ? 1 : 0;
+    const articleDir = path.join(articlesDir, slug);
+    const articleFilePath = path.join(articleDir, "/article.md");
+    const {
+      category,
+      author,
+      publishedAt,
+      timestamp,
+      keywords
+    } = await metadataSelector(articleDir);
+
+    const htmlContent = externalLinks(
+      toTitleCase(
+        await exportImages(await htmlContentSelector(articleFilePath), slug)
+      )
     );
+
+    const $ = cheerio.load(htmlContent);
+    const plainText = plainTextSelector($);
+    const { src: coverImageSrc, alt: coverImageAlt } = coverImageSelector($);
+
+    return {
+      url: `/article/${slug}`,
+      absoluteUrl: `${ORIGIN}/article/${slug}`,
+      slug,
+      htmlContent,
+      publishedAt,
+      timestamp,
+      isDraft,
+      keywords,
+      title: titleSelector($),
+      description: descriptionSelector($),
+      readingTime: readingTime(plainText).text,
+      coverImageUrl: coverImageUrlSelector(coverImageSrc),
+      coverImageAlt,
+      thumbnail: await exportThumbnail(coverImageSrc),
+      category,
+      author
+    };
+  } catch (err) {
+    console.error(
+      "Error:",
+      err?.message || "An unexpected error occurred while parsing the article"
+    );
+    console.error(`Article: ${slug}`);
     process.exit(1);
-  });
-
-  const htmlContent = externalLinks(
-    toTitleCase(
-      await exportImages(await htmlContentSelector(articleFilePath), slug)
-    )
-  );
-
-  const $ = cheerio.load(htmlContent);
-  const plainText = plainTextSelector($);
-  const { src: coverImageSrc, alt: coverImageAlt } = coverImageSelector($);
-  const coverImageUrl = coverImageUrlSelector(coverImageSrc);
-  const thumbnail = await exportThumbnail(coverImageSrc);
-  const isDraft = slug.startsWith(".") ? 1 : 0;
-
-  return {
-    url: `/article/${slug}`,
-    absoluteUrl: `${ORIGIN}/article/${slug}`,
-    slug,
-    htmlContent,
-    publishedAt,
-    timestamp,
-    isDraft,
-    keywords,
-    title: titleSelector($),
-    description: descriptionSelector($),
-    readingTime: readingTime(plainText).text,
-    coverImageUrl,
-    coverImageAlt,
-    thumbnail,
-    category,
-    author
-  };
+  }
 };
 
 export const getArticles = async () => {
