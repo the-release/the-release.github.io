@@ -1,42 +1,26 @@
 import React, { FC } from "react";
-import styled from "styled-components";
 import { Header } from "../header/header.component";
 import { Footer } from "../footer/footer.component";
+import styled from "styled-components";
 
-const StyledLayout = styled.div`
-  min-height: 100%;
-  display: flex;
-  flex-flow: column;
-  padding: 75px 100px;
+const Main = styled.main`
+  padding: 30px 40px;
 
-  @media only screen and (max-width: 1080px) {
-    padding: 30px 40px;
-  }
-
-  @media only screen and (max-width: 375px) {
-    padding: 30px 35px;
+  @media only screen and (max-width: 560px) {
+    padding: 20px 30px;
   }
 
   @media only screen and (max-width: 320px) {
-    padding: 30px;
+    padding: 20px;
   }
 `;
 
-const Content = styled.main`
-  flex-grow: 1;
-  display: flex;
-  align-items: center;
-  padding: 60px 0;
-`;
-
-export const Layout: FC = ({ children, ...otherProps }) => {
+export const Layout: FC = ({ children }) => {
   return (
-    <StyledLayout {...otherProps}>
+    <>
       <Header />
-      <Content>
-        <div>{children}</div>
-      </Content>
+      <Main>{children}</Main>
       <Footer />
-    </StyledLayout>
+    </>
   );
 };

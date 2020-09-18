@@ -1,74 +1,97 @@
 import React, { FC } from "react";
-import Head from "next/head";
 
 import { Layout } from "../layout/layout.component";
-import { Markdown } from "../../catalog/markdown/markdown.component";
-import { ArticleMetadata } from "./article-metadata/article-metadata.component";
-import { Article } from "../../services/article/article.entity";
-import { ORIGIN, SITE_NAME, TWITTER_HANDLE } from "../../config";
+import { ArticleMarkdown } from "../article-markdown/article-markdown.component";
+import { ArticleMetadata } from "../article-metadata/article-metadata.component";
+import { Article } from "../../entities/article.entity";
+import { MetaTags } from "../../catalog/meta-tags.component";
+import { SITE_NAME } from "../../config";
+import { ArticleCard } from "../article-card/article-card.component";
+import { ArticleList } from "../article-list/article-list.component";
+import { Heading } from "../../catalog/heading/heading.component";
+import Link from "next/link";
+import styled from "styled-components";
 
 export interface PageArticleProps {
   article: Pick<
     Article,
     | "title"
-    | "description"
+    | "lede"
     | "coverImageUrl"
-    | "creationDate"
+    | "coverImageAlt"
+    | "publishedAt"
     | "category"
     | "author"
     | "htmlContent"
     | "readingTime"
-    | "url"
+    | "absoluteUrl"
+    | "keywords"
   >;
+  nextArticles: Pick<
+    Article,
+    "title" | "lede" | "url" | "thumbnailUrl" | "coverImageAlt"
+  >[];
 }
+
+const ArticleContainer = styled.article`
+  max-width: 688px;
+  margin: 0 auto;
+`;
 
 export const PagePost: FC<PageArticleProps> = ({
   article: {
     title,
-    description,
+    lede,
     coverImageUrl,
-    creationDate,
+    coverImageAlt,
+    publishedAt,
     category,
     author,
     htmlContent,
     readingTime,
-    url
-  }
+    absoluteUrl,
+    keywords
+  },
+  nextArticles
 }) => {
   return (
     <>
-      <Head>
-        <title>
-          {title} | {SITE_NAME}
-        </title>
-
-        <meta name="author" content={author.name} />
-        <meta name="description" content={description} />
-        <meta name="content-type" content="article" />
-
-        <meta property="og:image" content={coverImageUrl} />
-        <meta property="og:site_name" content={SITE_NAME} />
-        <meta property="og:title" content={title} />
-        <meta property="og:description" content={description} />
-        <meta property="og:type" content="article" />
-        <meta property="og:url" content={url} />
-
-        <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:creator" content={TWITTER_HANDLE} />
-        <meta property="twitter:description" content={description} />
-        <meta property="twitter:domain" content={ORIGIN} />
-        <meta property="twitter:image:src" content={coverImageUrl} />
-        <meta property="twitter:site" content={TWITTER_HANDLE} />
-        <meta property="twitter:title" content={title} />
-      </Head>
+      <MetaTags
+        title={`${title} – ${SITE_NAME}`}
+        description={lede}
+        author={author.name}
+        image={coverImageUrl}
+        imageAlt={coverImageAlt}
+        url={absoluteUrl}
+        contentType="article"
+        ogType="article"
+        keywords={keywords}
+      />
       <Layout>
-        <ArticleMetadata
-          creationDate={creationDate}
-          category={category}
-          author={author}
-          readingTime={readingTime}
-        />
-        <Markdown>{htmlContent}</Markdown>
+        <ArticleContainer>
+          <ArticleMetadata
+            publishedAt={publishedAt}
+            category={category}
+            author={author}
+            readingTime={readingTime}
+          />
+          <ArticleMarkdown>{htmlContent}</ArticleMarkdown>
+        </ArticleContainer>
+        {!!nextArticles.length && (
+          <>
+            <Heading component="h3" variant="h2" gutterBottom>
+              More news about{" "}
+              <Link href="/category/[slug]" as={category.url}>
+                <a>{category.name}</a>
+              </Link>
+            </Heading>
+            <ArticleList>
+              {nextArticles.map((props, index) => (
+                <ArticleCard {...props} key={index} />
+              ))}
+            </ArticleList>
+          </>
+        )}
       </Layout>
     </>
   );

@@ -1,71 +1,64 @@
+import path from "path";
 import { GetStaticProps } from "next";
 import { promises as fs } from "fs";
-import path from "path";
 
 import { ORIGIN } from "../config";
-import { getArticles } from "../services/article/article.service";
-import { getCategories } from "../services/category/category.service";
-import { getAuthors } from "../services/author/author.service";
-import { Article } from "../services/article/article.entity";
-import { Category } from "../services/category/category.entity";
-import { Author } from "../services/author/author.entity";
+import { Article } from "../entities/article.entity";
+import { Category } from "../entities/category.entity";
+import { Author } from "../entities/author.entity";
+import { getArticles } from "../services/article.service";
+import { getCategories } from "../services/category.service";
+import { getAuthors } from "../services/author.service";
 
-const sitemapPath = path.join(process.cwd(), "public", "sitemap.xml");
+const siteMapPath = path.join(process.cwd(), "public", "sitemap.xml");
 
-// TODO: add proper last modification value
-const articleEntry = (article: Article) => {
-  const articleUrl = `${ORIGIN}/article/${article.slug}`;
-
+const articleEntry = (article: Pick<Article, "absoluteUrl">) => {
   return `  <url>
-    <loc>${articleUrl}</loc>
-    <lastmod>2020-05-04T14:26:06+00:00</lastmod>
-    <priority>0.60</priority>
+    <loc>${article.absoluteUrl}</loc>
   </url>`;
 };
 
-const categoryEntry = (category: Category) => {
-  const categoryUrl = `${ORIGIN}/category/${category.slug}`;
-
+const categoryEntry = (category: Pick<Category, "absoluteUrl">) => {
   return `  <url>
-    <loc>${categoryUrl}</loc>
-    <lastmod>2020-05-04T14:26:06+00:00</lastmod>
-    <priority>0.60</priority>
+    <loc>${category.absoluteUrl}</loc>
   </url>`;
 };
 
-const authorEntry = (author: Author) => {
-  const authorUrl = `${ORIGIN}/author/${author.slug}`;
-
+const authorEntry = (author: Pick<Author, "absoluteUrl">) => {
   return `  <url>
-    <loc>${authorUrl}</loc>
-    <lastmod>2020-05-04T14:26:06+00:00</lastmod>
-    <priority>0.60</priority>
+    <loc>${author.absoluteUrl}</loc>
   </url>`;
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-  const articles = await getArticles();
-  const categories = await getCategories();
-  const authors = await getAuthors();
+  const articles = await getArticles({
+    props: ["absoluteUrl"]
+  });
+
+  const categories = await getCategories({
+    props: ["absoluteUrl"]
+  });
+
+  const authors = await getAuthors({
+    props: ["absoluteUrl"]
+  });
+
   let xml = `<?xml version="1.0" encoding="UTF-8"?>`;
 
   xml += `
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>${ORIGIN}</loc>
-    <lastmod>2020-05-04T14:26:06+00:00</lastmod>
-    <priority>1.00</priority>
   </url>
   <url>
     <loc>${ORIGIN}/about</loc>
-    <priority>0.80</priority>
   </url>
   ${articles.map(articleEntry).join("\n")}
   ${categories.map(categoryEntry).join("\n")}
   ${authors.map(authorEntry).join("\n")}
 </urlset>`;
 
-  await fs.writeFile(sitemapPath, xml, {
+  await fs.writeFile(siteMapPath, xml, {
     encoding: "utf8"
   });
 
@@ -74,6 +67,8 @@ export const getStaticProps: GetStaticProps = async () => {
   };
 };
 
-export default () => {
+const SiteMap = () => {
   return "done";
 };
+
+export default SiteMap;

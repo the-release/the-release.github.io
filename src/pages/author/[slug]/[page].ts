@@ -1,17 +1,14 @@
 import { GetStaticPaths, GetStaticProps } from "next";
 import { ParsedUrlQuery } from "querystring";
 
-import {
-  getAuthorBySlug,
-  getAuthors
-} from "../../../services/author/author.service";
-import { getArticlesByAuthorSlug } from "../../../services/article/article.service";
 import { paginate } from "../../../utils/paginate/paginate";
 import {
   PageAuthor,
   PageAuthorProps
 } from "../../../modules/page-author/page-author.component";
 import { ITEMS_PER_PAGE } from "../../../config";
+import { getArticles } from "../../../services/article.service";
+import { getAuthors } from "../../../services/author.service";
 
 interface PageAuthorParams extends ParsedUrlQuery {
   slug: string;
@@ -19,16 +16,23 @@ interface PageAuthorParams extends ParsedUrlQuery {
 }
 
 export const getStaticPaths: GetStaticPaths<PageAuthorParams> = async () => {
-  const authors = await getAuthors();
+  const authors = await getAuthors({ props: ["slug"] });
   const paths: {
     params: { slug: string; page: string };
   }[] = [];
 
   for (const author of authors) {
-    const articles = await getArticlesByAuthorSlug(author.slug);
-    const paginatedArticles = paginate(articles, ITEMS_PER_PAGE);
+    const { pages } = paginate(
+      await getArticles({
+        props: [],
+        where: {
+          author: author.slug
+        }
+      }),
+      ITEMS_PER_PAGE
+    );
 
-    for (const pageIndex in paginatedArticles.pages) {
+    for (const pageIndex in pages) {
       paths.push({
         params: { slug: author.slug, page: pageIndex.toString() }
       });
@@ -46,16 +50,20 @@ export const getStaticProps: GetStaticProps<
   PageAuthorParams
 > = async ({ params }) => {
   const slug = params!.slug;
-  const page = params!.page;
-  const author = await getAuthorBySlug(slug);
-  const pageIndex = parseInt(page, 10);
+  const pageIndex = parseInt(params!.page, 10);
+  const [author] = await getAuthors({
+    where: {
+      slug
+    }
+  });
+
   const { pageItems: articles, previousPageIndex, nextPageIndex } = paginate(
-    await getArticlesByAuthorSlug(slug, [
-      "title",
-      "url",
-      "thumbnail",
-      "coverImageAlt"
-    ]),
+    await getArticles({
+      props: ["title", "lede", "url", "thumbnailUrl", "coverImageAlt"],
+      where: {
+        author: slug
+      }
+    }),
     ITEMS_PER_PAGE,
     pageIndex
   );

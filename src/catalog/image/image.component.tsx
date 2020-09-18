@@ -1,13 +1,11 @@
-import React, { FC } from "react";
+import React, { FC, ImgHTMLAttributes } from "react";
 import styled from "styled-components";
 
-interface ImageProps {
-  src: string;
+interface ImageProps extends ImgHTMLAttributes<HTMLImageElement> {
   alt: string;
 }
 
-export const StyledImage = styled.img`
-  border-radius: 5px;
+const StyledImage = styled.img`
   background: #eee;
   width: auto;
   height: auto;

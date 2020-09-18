@@ -10,13 +10,8 @@ declare module "styled-components" {
 
 const fonts = {
   sans: "-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif",
-  serif: `Georgia, Cambria, "Times New Roman", Times, serif`
-};
-
-const fontWeights = {
-  bold: 700,
-  medium: 500,
-  regular: 400
+  serif: `Georgia, Cambria, "Times New Roman", Times, serif`,
+  mono: `monospace`
 };
 
 const colors = {
@@ -24,8 +19,8 @@ const colors = {
   secondary: "#000",
   tertiary: "#2AA1A1",
   textPrimary: "#000",
-  textSecondary: "#999",
-  textTertiary: "#666",
+  textSecondary: "#666",
+  textTertiary: "#999",
   error: "#f44336",
   warning: "#ff9800",
   info: "#2196f3",
@@ -34,79 +29,113 @@ const colors = {
 
 const h1: any = css`
   font-family: ${fonts.sans};
-  font-size: 10vw;
-  font-weight: normal;
-  line-height: 0.9em;
+  font-size: 48px;
+  font-weight: bold;
   color: ${colors.textPrimary};
+  line-height: 1.1em;
+
+  @media only screen and (max-width: 560px) {
+    font-size: 28px;
+  }
 `;
 
 const h2: any = css`
   font-family: ${fonts.sans};
-  font-size: 48px;
-  font-weight: normal;
-  line-height: 1em;
+  font-size: 36px;
+  font-weight: bold;
   color: ${colors.textPrimary};
+
+  @media only screen and (max-width: 560px) {
+    font-size: 24px;
+  }
 `;
 
 const h3: any = css`
   font-family: ${fonts.sans};
-  font-size: 36px;
-  font-weight: normal;
-  line-height: 1em;
+  font-size: 18px;
+  font-weight: bold;
   color: ${colors.textPrimary};
+
+  @media only screen and (max-width: 560px) {
+    font-size: 16px;
+  }
 `;
 
 const h4: any = css`
   font-family: ${fonts.sans};
-  font-size: 24px;
-  font-weight: normal;
-  line-height: 1em;
+  font-size: 16px;
+  font-weight: bold;
   color: ${colors.textPrimary};
+
+  @media only screen and (max-width: 560px) {
+    font-size: 14px;
+  }
 `;
 
 const h5: any = css`
   font-family: ${fonts.sans};
-  font-size: 18px;
-  font-weight: normal;
-  line-height: 1em;
+  font-size: 14px;
+  font-weight: bold;
   color: ${colors.textPrimary};
+
+  @media only screen and (max-width: 560px) {
+    font-size: 12px;
+  }
 `;
 
 const h6: any = css`
   font-family: ${fonts.sans};
-  font-size: 16px;
-  font-weight: normal;
-  line-height: 1em;
+  font-size: 12px;
+  font-weight: bold;
   color: ${colors.textPrimary};
-`;
 
-const button: any = css`
-  font-family: ${fonts.sans};
-  font-size: 14px;
-  font-weight: ${fontWeights.medium};
+  @media only screen and (max-width: 560px) {
+    font-size: 10px;
+  }
 `;
 
 const body: any = css`
-  font-family: ${fonts.sans};
-  font-size: 18px;
-  font-weight: ${fontWeights.regular};
+  font-family: ${fonts.serif};
+  font-size: 21px;
+  font-weight: normal;
+  color: ${colors.textPrimary};
+  line-height: 1.55em;
+
+  @media only screen and (max-width: 560px) {
+    font-size: 16px;
+  }
 `;
 
 const caption: any = css`
   font-family: ${fonts.sans};
   font-size: 14px;
-  font-weight: ${fontWeights.regular};
+  font-weight: normal;
+  font-style: italic;
+  color: ${colors.textTertiary};
 `;
 
-const serif: any = css`
+const quote: any = css`
   font-family: ${fonts.serif};
-  font-size: 14px;
-  font-weight: ${fontWeights.regular};
+  font-size: 21px;
+  font-weight: normal;
+  font-style: italic;
+  color: ${colors.textTertiary};
+
+  @media only screen and (max-width: 560px) {
+    font-size: 16px;
+  }
+`;
+
+const code: any = css`
+  font-family: ${fonts.mono};
+  background: #eee;
+  border-radius: 5px;
+  padding: 0 0.2em;
+  color: ${colors.textTertiary};
 `;
 
 export const theme = {
   fonts,
-  fontWeights,
   colors,
   typography: {
     h1,
@@ -117,32 +146,20 @@ export const theme = {
     h6,
     body,
     caption,
-    button,
-    serif
-  },
-  spacing: {
-    large: 30,
-    medium: 20,
-    small: 15,
-    tiny: 10
-  },
-  transition: {
-    slow: 0.35,
-    normal: 0.25,
-    fast: 0.15
-  },
-  cornerRadius: 4
+    quote,
+    code
+  }
 };
 
 export const GlobalStyle = createGlobalStyle`
-  ::selection {
-    background: #8a3af4; /* WebKit/Blink Browsers */
-  }
-  ::-moz-selection {
-    background: #8a3af4; /* Gecko Browsers */
-  }
-
   ${({ theme }) => css`
+    ::selection {
+      background: ${theme.colors.primary};
+    }
+    ::-moz-selection {
+      background: ${theme.colors.primary};
+    }
+
     * {
       padding: 0;
       margin: 0;
@@ -154,21 +171,26 @@ export const GlobalStyle = createGlobalStyle`
     html,
     body,
     #__next {
-      height: 100%;
+      min-height: 100vh;
       min-width: 320px;
+    }
+
+    #__next {
+      display: flex;
+      flex-direction: column;
+
+      & > * {
+        flex-shrink: 0;
+      }
     }
 
     body {
       background: #fff;
-      color: ${theme.colors.textPrimary};
-      ${theme.typography.body};
       cursor: default;
       -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
       -webkit-text-size-adjust: none;
-    }
-
-    strong {
-      font-weight: ${theme.fontWeights.bold};
+      ${theme.typography.body};
+      line-height: normal;
     }
 
     a {

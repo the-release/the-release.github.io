@@ -6,6 +6,9 @@ module.exports = () => {
     distDir: "./dist/.next",
     devIndicators: {
       autoPrerender: false
+    },
+    env: {
+      ORIGIN: process.env.ORIGIN
     }
   };
 

@@ -1,21 +1,21 @@
 import { GetStaticPaths, GetStaticProps } from "next";
 import { ParsedUrlQuery } from "querystring";
+import { LessThan } from "typeorm";
 
 import {
   PageArticleProps,
   PagePost
 } from "../../modules/page-article/page-article.component";
-import {
-  getArticleBySlug,
-  getArticles
-} from "../../services/article/article.service";
+import { getArticles } from "../../services/article.service";
 
 interface PageArticleParams extends ParsedUrlQuery {
   slug: string;
 }
 
 export const getStaticPaths: GetStaticPaths<PageArticleParams> = async () => {
-  const articles = await getArticles();
+  const articles = await getArticles({
+    props: ["slug"]
+  });
   const paths = articles.map(({ slug }) => {
     return {
       params: { slug }
@@ -32,21 +32,39 @@ export const getStaticProps: GetStaticProps<
   PageArticleProps,
   PageArticleParams
 > = async ({ params }) => {
-  const article = await getArticleBySlug(params!.slug, [
-    "title",
-    "description",
-    "coverImageUrl",
-    "creationDate",
-    "category",
-    "author",
-    "htmlContent",
-    "readingTime",
-    "url"
-  ]);
+  const [article] = await getArticles({
+    props: [
+      "title",
+      "lede",
+      "coverImageUrl",
+      "coverImageAlt",
+      "publishedAt",
+      "category",
+      "author",
+      "htmlContent",
+      "readingTime",
+      "absoluteUrl",
+      "timestamp",
+      "keywords"
+    ],
+    where: {
+      slug: params!.slug
+    }
+  });
+
+  const nextArticles = await getArticles({
+    props: ["title", "lede", "url", "thumbnailUrl", "coverImageAlt"],
+    limit: 3,
+    where: {
+      category: article.category,
+      timestamp: LessThan(article.timestamp)
+    }
+  });
 
   return {
     props: {
-      article
+      article,
+      nextArticles
     }
   };
 };

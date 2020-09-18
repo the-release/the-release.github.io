@@ -1,24 +1,21 @@
 import { GetStaticPaths, GetStaticProps } from "next";
 import { ParsedUrlQuery } from "querystring";
 
-import { getArticlesByCategorySlug } from "../../services/article/article.service";
-import {
-  getCategories,
-  getCategoryBySlug
-} from "../../services/category/category.service";
 import {
   PageCategory,
   PageCategoryProps
 } from "../../modules/page-category/page-category.component";
 import { paginate } from "../../utils/paginate/paginate";
 import { ITEMS_PER_PAGE } from "../../config";
+import { getArticles } from "../../services/article.service";
+import { getCategories } from "../../services/category.service";
 
 interface PageCategoryParams extends ParsedUrlQuery {
   slug: string;
 }
 
 export const getStaticPaths: GetStaticPaths<PageCategoryParams> = async () => {
-  const categories = await getCategories();
+  const categories = await getCategories({ props: ["slug"] });
   const paths = categories.map(({ slug }) => {
     return {
       params: { slug }
@@ -36,14 +33,19 @@ export const getStaticProps: GetStaticProps<
   PageCategoryParams
 > = async ({ params }) => {
   const slug = params!.slug;
-  const category = await getCategoryBySlug(slug);
+  const [category] = await getCategories({
+    where: {
+      slug
+    }
+  });
+
   const { pageItems: articles, previousPageIndex, nextPageIndex } = paginate(
-    await getArticlesByCategorySlug(slug, [
-      "title",
-      "url",
-      "thumbnail",
-      "coverImageAlt"
-    ]),
+    await getArticles({
+      props: ["title", "lede", "url", "thumbnailUrl", "coverImageAlt"],
+      where: {
+        category: slug
+      }
+    }),
     ITEMS_PER_PAGE
   );
 
