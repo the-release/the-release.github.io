@@ -1,6 +1,7 @@
-import React, { FC } from "react";
+import React, { FC, useEffect, useRef } from "react";
 import styled, { css } from "styled-components";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 import { GITHUB_URL, TWITTER_URL } from "../../config";
 import { CloseMenuIcon } from "./close-menu-icon/close-menu-icon.component";
@@ -258,6 +259,21 @@ const Category: FC<{
 };
 
 export const MainMenu = () => {
+  const checkboxRef = useRef<HTMLInputElement>(null);
+  const router = useRouter();
+
+  useEffect(() => {
+    const handleRouteChange = () => {
+      checkboxRef.current!.checked = false;
+    };
+
+    router.events.on("routeChangeStart", handleRouteChange);
+
+    return () => {
+      router.events.off("routeChangeStart", handleRouteChange);
+    };
+  }, []);
+
   return {
     toggleButton: (
       <OpenMenuButton htmlFor="main-menu-checkbox">
@@ -266,7 +282,7 @@ export const MainMenu = () => {
     ),
     drawer: (
       <form>
-        <Checkbox id="main-menu-checkbox" type="checkbox" />
+        <Checkbox ref={checkboxRef} id="main-menu-checkbox" type="checkbox" />
         <Overlay htmlFor="main-menu-checkbox" />
         <Pane />
         <Drawer>

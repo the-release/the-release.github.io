@@ -29,7 +29,9 @@ srcset
 
 #### External links open in new tabs
 
-#### Accessible emojis
+#### Accessibility
+
+emojis, contrast, tabbing
 
 #### Works even if JavaScript is disabled
 
