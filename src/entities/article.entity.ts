@@ -29,7 +29,7 @@ export class Article {
   coverImageAlt: string;
 
   @Column({ type: "text" })
-  thumbnail: string;
+  thumbnailUrl: string;
 
   @Column({ type: "text" })
   publishedAt: string;
@@ -67,7 +67,7 @@ export class Article {
     this.description = props.description;
     this.coverImageUrl = props.coverImageUrl;
     this.coverImageAlt = props.coverImageAlt;
-    this.thumbnail = props.thumbnail;
+    this.thumbnailUrl = props.thumbnailUrl;
     this.publishedAt = props.publishedAt;
     this.keywords = props.keywords;
     this.timestamp = props.timestamp;

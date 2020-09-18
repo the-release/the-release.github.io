@@ -1,5 +1,5 @@
 - [ ] Support dat protocol with `.well-known/dat`
-- [ ] Serve multiple image sizes based on the viewport `srcset`
+- [x] Serve multiple image sizes based on the viewport `srcset`
 - [x] Extract and set image dimensions
 - [ ] Embed fake tweets
 - [x] Support drafts with hidden folders
@@ -11,7 +11,7 @@
 
 # Features
 
-#### Markdown
+#### Pure Markdown
 
 #### Drafts
 
@@ -20,6 +20,10 @@ Simply add a dot `.` at the beginning of the article's slug
 #### Embeds?
 
 #### Automatic Image Optimisation
+
+srcset
+
+#### Image lazy loading
 
 #### Correctly capitalizes your titles as per [The Chicago Manual of Style](http://www.chicagomanualofstyle.org/home.html).
 

@@ -2,22 +2,22 @@ import path from "path";
 import { promises as fs } from "fs";
 
 import {
-  coverImageSelector,
+  coverImageAltSelector,
   descriptionSelector,
   metadataSelector,
   readingTimeSelector,
   titleSelector
 } from "./article.selector";
 import {
-  exportThumbnail,
   exportImages,
   externalLinks,
   addImageCaptions,
-  enforceImageAltTags,
+  lazyLoadImages,
   makeImageResponsive
 } from "./article.util";
 import { ORIGIN } from "../../../config";
 import { parseMarkDown } from "../markdown/markdown.parser";
+import { coverImageLinter, imageAltLinter } from "./article.linter";
 
 const articlesDir = path.join(process.cwd(), "data", "articles");
 
@@ -27,22 +27,21 @@ export const getArticleBySlug = async (slug: string) => {
     const articleDir = path.join(articlesDir, slug);
     const articleFilePath = path.join(articleDir, "/article.md");
     const metadata = await metadataSelector(articleDir);
+    let htmlContent = await parseMarkDown(articleFilePath);
 
-    const htmlContent = enforceImageAltTags(
-      externalLinks(
-        makeImageResponsive(
-          addImageCaptions(
-            await exportImages(await parseMarkDown(articleFilePath), slug)
-          )
-        )
-      )
-    );
+    imageAltLinter(htmlContent);
 
     const {
-      url: coverImageUrl,
-      src: coverImageSrc,
-      alt: coverImageAlt
-    } = coverImageSelector(htmlContent);
+      html,
+      images: [coverImage]
+    } = await exportImages(htmlContent, slug);
+
+    coverImageLinter(html);
+
+    htmlContent = addImageCaptions(html);
+    htmlContent = lazyLoadImages(htmlContent);
+    htmlContent = externalLinks(htmlContent);
+    htmlContent = makeImageResponsive(htmlContent);
 
     return {
       url: `/article/${slug}`,
@@ -56,9 +55,9 @@ export const getArticleBySlug = async (slug: string) => {
       title: titleSelector(htmlContent),
       description: descriptionSelector(htmlContent),
       readingTime: readingTimeSelector(htmlContent),
-      coverImageUrl,
-      coverImageAlt,
-      thumbnail: await exportThumbnail(coverImageSrc),
+      coverImageUrl: coverImage.large.absoluteUrl,
+      coverImageAlt: coverImageAltSelector(htmlContent),
+      thumbnailUrl: coverImage.small.url,
       category: metadata.category,
       author: metadata.author
     };

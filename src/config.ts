@@ -11,3 +11,6 @@ export const HOMEPAGE_MAX_ITEMS = 20;
 export const TWITTER_HANDLE = "@TheReleaseNews";
 export const TWITTER_URL = "https://twitter.com/TheReleaseNews";
 export const GITHUB_URL = "https://github.com/the-release/";
+export const SMALL_IMAGE_WIDTH = 300;
+export const MEDIUM_IMAGE_WIDTH = 768;
+export const LARGE_IMAGE_WIDTH = 768 * 2;

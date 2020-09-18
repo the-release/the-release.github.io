@@ -14,7 +14,7 @@ import { SITE_NAME } from "../../config";
 export interface PageAuthorProps {
   articles: Pick<
     Article,
-    "title" | "description" | "url" | "thumbnail" | "coverImageAlt"
+    "title" | "description" | "url" | "thumbnailUrl" | "coverImageAlt"
   >[];
   author: Author;
   previousPageIndex: number | null;

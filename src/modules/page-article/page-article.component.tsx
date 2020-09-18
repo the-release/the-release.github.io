@@ -29,7 +29,7 @@ export interface PageArticleProps {
   >;
   nextArticles: Pick<
     Article,
-    "title" | "description" | "url" | "thumbnail" | "coverImageAlt"
+    "title" | "description" | "url" | "thumbnailUrl" | "coverImageAlt"
   >[];
 }
 

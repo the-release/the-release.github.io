@@ -15,7 +15,7 @@ import { SLOGAN } from "../../config";
 export interface PageHomeProps {
   articles: Pick<
     Article,
-    "title" | "description" | "url" | "thumbnail" | "coverImageAlt"
+    "title" | "description" | "url" | "thumbnailUrl" | "coverImageAlt"
   >[];
   categories: Category[];
   authors: Author[];

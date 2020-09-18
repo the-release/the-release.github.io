@@ -13,7 +13,7 @@ export const getStaticProps: GetStaticProps<PageHomeProps> = async () => {
   const categories = await getCategories();
   const authors = await getAuthors();
   const articles = await getArticles({
-    props: ["title", "description", "url", "thumbnail", "coverImageAlt"],
+    props: ["title", "description", "url", "thumbnailUrl", "coverImageAlt"],
     limit: HOMEPAGE_MAX_ITEMS
   });
 

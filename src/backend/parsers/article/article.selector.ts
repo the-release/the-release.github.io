@@ -1,11 +1,8 @@
 import { promises as fs } from "fs";
 
 import { format } from "date-fns";
-import url from "url";
 import path from "path";
 import titleCase from "title";
-
-import { ORIGIN } from "../../../config";
 import cheerio from "cheerio";
 import readingTime from "reading-time";
 
@@ -39,20 +36,14 @@ export const readingTimeSelector = (html: string) => {
   return readingTime(plainText).text;
 };
 
-export const coverImageSelector = (html: string) => {
+export const coverImageAltSelector = (html: string) => {
   const $ = cheerio.load(html);
   const coverImage = $("body > h1:first-child + p + figure img");
-  const src = coverImage.attr("src");
   const alt = coverImage.attr("alt");
 
-  if (!src) throw new Error(`Missing cover image`);
   if (!alt) throw new Error(`Missing alt text on cover image`);
 
-  return {
-    url: url.resolve(ORIGIN, src),
-    src,
-    alt
-  };
+  return alt;
 };
 
 export const metadataSelector = async (
