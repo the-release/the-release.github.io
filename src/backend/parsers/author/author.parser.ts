@@ -16,14 +16,14 @@ export const getAuthors = async (): Promise<Author[]> => {
     files.map(async ({ name: filename }) => {
       const name = path.parse(filename).name;
       const slug = slugify(name);
-      const thumbnail = await exportImage(filename);
+      const thumbnailUrl = await exportImage(filename);
 
       return {
         url: `/author/${slug}`,
         absoluteUrl: `${ORIGIN}/author/${slug}`,
         slug,
         name,
-        thumbnail
+        thumbnailUrl
       };
     })
   );

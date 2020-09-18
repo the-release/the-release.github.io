@@ -35,7 +35,7 @@ export const PageAuthor: FC<PageAuthorProps> = ({
       />
       <Layout>
         <Heading component="h1">
-          <Image alt={`A photo of ${author.name}`} src={author.thumbnail} />
+          <Image alt={`A photo of ${author.name}`} src={author.thumbnailUrl} />
           {author.name}
         </Heading>
         <ArticleList>

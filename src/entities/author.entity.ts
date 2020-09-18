@@ -15,13 +15,13 @@ export class Author {
   name: string;
 
   @Column({ type: "text" })
-  thumbnail: string;
+  thumbnailUrl: string;
 
   constructor(props: Author = {} as any) {
     this.url = props.url;
     this.absoluteUrl = props.absoluteUrl;
     this.name = props.name;
     this.slug = props.slug;
-    this.thumbnail = props.thumbnail;
+    this.thumbnailUrl = props.thumbnailUrl;
   }
 }
