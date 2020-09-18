@@ -93,7 +93,10 @@ export const ArticleMetadata: FC<ArticleMetadataProps> = ({
       <div>
         <Link href="/author/[slug]" as={author.url} passHref>
           <AuthorThumbnail rel="author">
-            <Image alt={`A photo of ${author.name}`} src={author.thumbnailUrl} />
+            <Image
+              alt={`A photo of ${author.name}`}
+              src={author.thumbnailUrl}
+            />
           </AuthorThumbnail>
         </Link>
         <div>
