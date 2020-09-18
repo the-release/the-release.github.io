@@ -59,7 +59,7 @@ export const getStaticProps: GetStaticProps<
 
   const { pageItems: articles, previousPageIndex, nextPageIndex } = paginate(
     await getArticles({
-      props: ["title", "description", "url", "thumbnailUrl", "coverImageAlt"],
+      props: ["title", "lede", "url", "thumbnailUrl", "coverImageAlt"],
       where: {
         author: slug
       }

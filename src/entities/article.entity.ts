@@ -20,7 +20,7 @@ export class Article {
   title: string;
 
   @Column({ type: "text" })
-  description: string;
+  lede: string;
 
   @Column({ type: "text" })
   coverImageUrl: string;
@@ -64,7 +64,7 @@ export class Article {
     this.slug = props.slug;
     this.htmlContent = props.htmlContent;
     this.title = props.title;
-    this.description = props.description;
+    this.lede = props.lede;
     this.coverImageUrl = props.coverImageUrl;
     this.coverImageAlt = props.coverImageAlt;
     this.thumbnailUrl = props.thumbnailUrl;

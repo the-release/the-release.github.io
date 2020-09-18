@@ -3,7 +3,7 @@ import { promises as fs } from "fs";
 
 import {
   coverImageAltSelector,
-  descriptionSelector,
+  ledeSelector,
   metadataSelector,
   readingTimeSelector,
   titleSelector
@@ -53,7 +53,7 @@ export const getArticleBySlug = async (slug: string) => {
       isDraft,
       keywords: metadata.keywords,
       title: titleSelector(htmlContent),
-      description: descriptionSelector(htmlContent),
+      lede: ledeSelector(htmlContent),
       readingTime: readingTimeSelector(htmlContent),
       coverImageUrl: coverImage.large.absoluteUrl,
       coverImageAlt: coverImageAltSelector(htmlContent),

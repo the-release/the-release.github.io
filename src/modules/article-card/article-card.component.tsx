@@ -9,7 +9,7 @@ import { Text } from "../../catalog/text/text.component";
 
 type ArticleCardProps = Pick<
   Article,
-  "title" | "description" | "url" | "thumbnailUrl" | "coverImageAlt"
+  "title" | "lede" | "url" | "thumbnailUrl" | "coverImageAlt"
 >;
 
 const StyledArticleCard = styled.a`
@@ -34,7 +34,7 @@ const Description = styled(Text)(
 
 export const ArticleCard: FC<ArticleCardProps> = ({
   title,
-  description,
+  lede,
   url,
   thumbnailUrl,
   coverImageAlt
@@ -47,7 +47,7 @@ export const ArticleCard: FC<ArticleCardProps> = ({
             {title}
           </Heading>
           <Description component="p" gutterBottom variant="h4">
-            {description}
+            {lede}
           </Description>
           <Thumbnail alt={coverImageAlt} src={thumbnailUrl} />
         </StyledArticleCard>

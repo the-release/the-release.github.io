@@ -13,7 +13,7 @@ import { SITE_NAME } from "../../config";
 export interface PageCategoryProps {
   articles: Pick<
     Article,
-    "title" | "description" | "url" | "thumbnailUrl" | "coverImageAlt"
+    "title" | "lede" | "url" | "thumbnailUrl" | "coverImageAlt"
   >[];
   category: Category;
   previousPageIndex: number | null;

@@ -15,13 +15,13 @@ export const titleSelector = (html: string) => {
   return titleElement.text();
 };
 
-export const descriptionSelector = (html: string) => {
+export const ledeSelector = (html: string) => {
   const $ = cheerio.load(html);
-  const descriptionElement = $("body > h1:first-child + p > strong:only-child");
+  const ledeElement = $("body > h1:first-child + p > strong:only-child");
 
-  if (!descriptionElement.length) throw new Error("Missing lede");
+  if (!ledeElement.length) throw new Error("Missing lede");
 
-  return descriptionElement.text();
+  return ledeElement.text();
 };
 
 const plainTextSelector = (html: string) => {
