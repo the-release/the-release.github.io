@@ -1,8 +1,0 @@
-node_modules
-.idea
-coverage
-yarn-error.log
-dist
-public/article
-public/author
-sitemap.xml

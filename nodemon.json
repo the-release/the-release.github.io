@@ -1,8 +1,0 @@
-{
-  "watch": [
-    "data/"
-  ],
-  "exec": "yarn ingest && next -p 3000",
-  "delay": 500,
-  "ext": "md, jpg, jpeg, png, json"
-}
