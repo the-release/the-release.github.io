@@ -65,8 +65,8 @@ export const exportImages = async (html: string, slug: string) => {
     $(imageElement)
       .attr("src", medium.url)
       .attr("srcset", `${medium.url} 768w, ${large.url} 1536w`)
-      .attr("width", `${large.width}px`)
-      .attr("height", `${large.height}px`);
+      .attr("width", `${large.width}`)
+      .attr("height", `${large.height}`);
   }
 
   return {
