@@ -1,8 +1,8 @@
-- [ ] Support dat protocol with `.well-known/dat`
 - [x] Serve multiple image sizes based on the viewport `srcset`
 - [x] Extract and set image dimensions
-- [ ] Embed fake tweets
 - [x] Support drafts with hidden folders
+- [ ] Support dat protocol with `.well-known/dat`
+- [ ] Embed fake tweets
 - [ ] hover effect article-card
 - [ ] relative time (8 hours ago) on home page and plain date in category
 - [ ] Short date in category, full date in article
