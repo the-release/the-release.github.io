@@ -198,8 +198,8 @@ const exportImage = async (absolutePath: string): Promise<ExportedImage> => {
   const destLarge = path.join(publicDir, exportPathLarge);
 
   const absoluteUrlSmall = url.resolve(ORIGIN, exportPathSmall);
-  const absoluteUrlMedium = url.resolve(ORIGIN, exportPathSmall);
-  const absoluteUrlLarge = url.resolve(ORIGIN, exportPathSmall);
+  const absoluteUrlMedium = url.resolve(ORIGIN, exportPathMedium);
+  const absoluteUrlLarge = url.resolve(ORIGIN, exportPathLarge);
 
   return {
     small: {
