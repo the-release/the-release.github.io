@@ -1,4 +1,5 @@
 # How To Contribute
+
 ## Proposing a Change
 
 ### Proposing an article
@@ -46,10 +47,11 @@ Before submitting a pull request, please make sure the following is done:
 - Have *y* version of *z* or later
 
 ### Style Guide
-How we write code\
-Linter and stuff
+- How we write code
+- Linter and stuff
 
 # Codebase Overview
+
 ## Top-Level Folders
 - `data`
 	- `articles`
