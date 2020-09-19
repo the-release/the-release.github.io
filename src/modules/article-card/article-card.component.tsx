@@ -64,6 +64,8 @@ export const ArticleCard: FC<ArticleCardProps> = ({
                 width: coverImage.sizes.large.width
               }
             ]}
+            width={coverImage.sizes.medium.width}
+            height={coverImage.sizes.medium.height}
           />
         </StyledArticleCard>
       </Link>
