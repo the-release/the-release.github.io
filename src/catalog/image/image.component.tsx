@@ -46,17 +46,17 @@ export const Image: FC<ImageProps> = ({
 
   useEffect(() => {
     if (imageRef.current!.complete) {
-      setTimeout(() => setHasLoaded(true), 10);
+      setTimeout(() => setHasLoaded(true), 1);
     }
   }, []);
 
   return (
     <StyledImage
+      {...otherProps}
       ref={imageRef}
       src={src}
       loading="lazy"
       alt={alt}
-      {...otherProps}
       onLoad={() => setHasLoaded(true)}
       hasLoaded={hasLoaded}
       srcSet={srcset}

@@ -215,9 +215,7 @@ export const ArticleMarkdown: FC<{
 
     images.forEach(elem => {
       if (elem.complete) {
-        return setTimeout(() => {
-          elem.classList.add("hasLoaded");
-        }, 10);
+        return setTimeout(() => elem.classList.add("hasLoaded"), 1);
       }
 
       elem.onload = () => {
