@@ -14,7 +14,7 @@ interface ImageProps
   src: string;
   srcSet?: {
     src: string;
-    viewportWidth: number;
+    width: number;
   }[];
 }
 
@@ -42,9 +42,7 @@ export const Image: FC<ImageProps> = ({
 }) => {
   const imageRef = useRef<HTMLImageElement>(null);
   const [hasLoaded, setHasLoaded] = useState(false);
-  const srcset = srcSet
-    ?.map(({ src, viewportWidth }) => `${src} ${viewportWidth}w`)
-    .join(", ");
+  const srcset = srcSet?.map(({ src, width }) => `${src} ${width}w`).join(", ");
 
   useEffect(() => {
     if (imageRef.current!.complete) {

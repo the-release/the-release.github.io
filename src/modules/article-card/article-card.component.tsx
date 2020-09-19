@@ -53,15 +53,15 @@ export const ArticleCard: FC<ArticleCardProps> = ({
             srcSet={[
               {
                 src: coverImage.sizes.small.url,
-                viewportWidth: 300
+                width: coverImage.sizes.small.width
               },
               {
                 src: coverImage.sizes.medium.url,
-                viewportWidth: 768
+                width: coverImage.sizes.medium.width
               },
               {
                 src: coverImage.sizes.small.url,
-                viewportWidth: 1536
+                width: coverImage.sizes.large.width
               }
             ]}
           />
