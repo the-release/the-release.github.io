@@ -150,7 +150,7 @@ const MarkdownContainer = styled.div(
           height: 100%;
 
           &.fadeInOnLoad {
-            transition: opacity 0.75s ${easeInOutQuart};
+            transition: opacity 0.5s ${easeInOutQuart};
 
             &:not(.hasLoaded) {
               opacity: 0;
