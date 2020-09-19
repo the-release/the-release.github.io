@@ -196,30 +196,36 @@ const exportImage = async (
   const absoluteUrlMedium = url.resolve(ORIGIN, exportPathMedium);
   const absoluteUrlLarge = url.resolve(ORIGIN, exportPathLarge);
 
+  const imageSizeSmall = {
+    ...(await optimizeImage(src, destSmall, SMALL_IMAGE_WIDTH)),
+    url: exportPathSmall,
+    absoluteUrl: absoluteUrlSmall
+  };
+
+  const imageSizeMedium = {
+    ...(await optimizeImage(src, destMedium, MEDIUM_IMAGE_WIDTH)),
+    url: exportPathMedium,
+    absoluteUrl: absoluteUrlMedium
+  };
+
+  const imageSizeLarge = {
+    ...(await optimizeImage(src, destLarge, LARGE_IMAGE_WIDTH)),
+    url: exportPathLarge,
+    absoluteUrl: absoluteUrlLarge
+  };
+
   const {
     dominant: { r, g, b }
-  } = await sharp(src).stats();
+  } = await sharp(destSmall).stats();
   const dominantColor = `rgb(${[r, g, b].join(",")})`;
 
   return {
     alt,
     dominantColor,
     sizes: {
-      small: {
-        ...(await optimizeImage(src, destSmall, SMALL_IMAGE_WIDTH)),
-        url: exportPathSmall,
-        absoluteUrl: absoluteUrlSmall
-      },
-      medium: {
-        ...(await optimizeImage(src, destMedium, MEDIUM_IMAGE_WIDTH)),
-        url: exportPathMedium,
-        absoluteUrl: absoluteUrlMedium
-      },
-      large: {
-        ...(await optimizeImage(src, destLarge, LARGE_IMAGE_WIDTH)),
-        url: exportPathLarge,
-        absoluteUrl: absoluteUrlLarge
-      }
+      small: imageSizeSmall,
+      medium: imageSizeMedium,
+      large: imageSizeLarge
     }
   };
 };
