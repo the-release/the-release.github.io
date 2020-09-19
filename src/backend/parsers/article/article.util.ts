@@ -52,7 +52,8 @@ export const exportImages = async (html: string, slug: string) => {
       .attr("srcset", `${medium.url} 768w, ${large.url} 1536w`)
       .attr("width", `${large.width}`)
       .attr("height", `${large.height}`)
-      .css("background-color", dominantColor);
+      .css("background-color", dominantColor)
+      .addClass("fadeInOnLoad");
   }
 
   return {
@@ -68,9 +69,14 @@ export const makeImageResponsive = (html: string) => {
     const width = parseInt($(elem).attr("width") || "0", 10);
     const height = parseInt($(elem).attr("height") || "0", 10);
     const imageRatio = (height / width) * 100;
+    const dominantColor = $(elem).css("background-color");
+
+    $(elem).css("background-color", "");
 
     $(elem)
-      .wrap(`<div style="padding-top: ${imageRatio}%"></div>`)
+      .wrap(
+        `<div style="padding-top: ${imageRatio}%; background-color: ${dominantColor};"></div>`
+      )
       .closest("figure")
       .css("max-width", `${width}px`);
   });

@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useEffect, useRef } from "react";
 import styled, { css } from "styled-components";
 
 const MarkdownContainer = styled.div(
@@ -95,8 +95,10 @@ const MarkdownContainer = styled.div(
         margin-right: -20px;
       }
 
-      img {
-        width: 100%;
+      div {
+        img {
+          width: 100%;
+        }
 
         @media only screen and (max-width: 848px) {
           border-radius: 0;
@@ -128,17 +130,34 @@ const MarkdownContainer = styled.div(
       div {
         display: block;
         position: relative;
-      }
-
-      img {
-        position: absolute;
-        top: 0;
+        overflow: hidden;
         background: #eee;
         border-radius: 5px;
-        object-fit: cover;
-        width: 100%;
-        height: 100%;
+
+        /**
+         * Fix Safari overflow hidden + border-radius bug
+         * https://stackoverflow.com/a/16681137/1123556
+         */
+        -webkit-backface-visibility: hidden;
+        -webkit-transform: translate3d(0, 0, 0);
+
+        img {
+          position: absolute;
+          top: 0;
+          object-fit: cover;
+          width: 100%;
+          height: 100%;
+
+          &.fadeInOnLoad {
+            transition: opacity 0.75s;
+
+            &:not(.hasLoaded) {
+              opacity: 0;
+            }
+          }
+        }
       }
+
       figcaption {
         margin-top: 10px;
         ${theme.typography.caption};
@@ -185,8 +204,35 @@ const MarkdownContainer = styled.div(
 export const ArticleMarkdown: FC<{
   children: string;
 }> = ({ children, ...otherProps }) => {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const images = containerRef.current!.querySelectorAll<HTMLImageElement>(
+      "img.fadeInOnLoad"
+    );
+
+    images.forEach(elem => {
+      if (elem.complete) {
+        return setTimeout(() => {
+          elem.classList.add("hasLoaded");
+        }, 10);
+      }
+
+      elem.onload = () => {
+        elem.classList.add("hasLoaded");
+      };
+    });
+
+    return () => {
+      images.forEach(elem => {
+        elem.onload = null;
+      });
+    };
+  }, []);
+
   return (
     <MarkdownContainer
+      ref={containerRef}
       {...otherProps}
       dangerouslySetInnerHTML={{ __html: children }}
     />
