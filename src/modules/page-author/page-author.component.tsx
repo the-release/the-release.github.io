@@ -12,10 +12,7 @@ import { MetaTags } from "../../catalog/meta-tags.component";
 import { SITE_NAME } from "../../config";
 
 export interface PageAuthorProps {
-  articles: Pick<
-    Article,
-    "title" | "lede" | "url" | "thumbnailUrl" | "coverImageAlt"
-  >[];
+  articles: Pick<Article, "title" | "lede" | "url" | "images">[];
   author: Author;
   previousPageIndex: number | null;
   nextPageIndex: number | null;

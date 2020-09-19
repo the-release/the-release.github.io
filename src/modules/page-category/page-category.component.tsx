@@ -11,10 +11,7 @@ import { MetaTags } from "../../catalog/meta-tags.component";
 import { SITE_NAME } from "../../config";
 
 export interface PageCategoryProps {
-  articles: Pick<
-    Article,
-    "title" | "lede" | "url" | "thumbnailUrl" | "coverImageAlt"
-  >[];
+  articles: Pick<Article, "title" | "lede" | "url" | "images">[];
   category: Category;
   previousPageIndex: number | null;
   nextPageIndex: number | null;

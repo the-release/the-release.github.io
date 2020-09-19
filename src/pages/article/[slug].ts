@@ -36,8 +36,7 @@ export const getStaticProps: GetStaticProps<
     props: [
       "title",
       "lede",
-      "coverImageUrl",
-      "coverImageAlt",
+      "images",
       "publishedAt",
       "category",
       "author",
@@ -53,7 +52,7 @@ export const getStaticProps: GetStaticProps<
   });
 
   const nextArticles = await getArticles({
-    props: ["title", "lede", "url", "thumbnailUrl", "coverImageAlt"],
+    props: ["title", "lede", "url", "images"],
     limit: 3,
     where: {
       category: article.category,

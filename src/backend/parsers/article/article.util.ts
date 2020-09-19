@@ -13,27 +13,7 @@ import {
 } from "../../../config";
 import { resizeImage } from "../../../utils/resize-image/resize-image";
 import url from "url";
-
-interface ExportedImage {
-  small: {
-    width: number;
-    height: number;
-    url: string;
-    absoluteUrl: string;
-  };
-  medium: {
-    width: number;
-    height: number;
-    url: string;
-    absoluteUrl: string;
-  };
-  large: {
-    width: number;
-    height: number;
-    url: string;
-    absoluteUrl: string;
-  };
-}
+import { Image } from "../../../entities/article.entity";
 
 export const isAbsoluteUrl = (url: string) => {
   return new RegExp(/^https?:\/\/|^\/\//i, "i").test(url);
@@ -43,22 +23,27 @@ export const exportImages = async (html: string, slug: string) => {
   const $ = cheerio.load(html);
   const basePath = path.join("/article", slug);
   const imageElements: CheerioElement[] = [];
-  const images: ExportedImage[] = [];
+  const images: Image[] = [];
 
   $("img").each((index, elem) => imageElements.push(elem));
 
   for (const imageElement of imageElements) {
     const src = $(imageElement).attr("src");
+    const alt = $(imageElement).attr("alt");
 
     if (!src) throw new Error("Missing image URL");
+    if (!alt?.trim()) {
+      throw new Error(`Missing image alt tag \nImage source: ${src}`);
+    }
 
     if (isAbsoluteUrl(src)) {
       throw new Error("Image URLs should not be absolute");
     }
 
     const absolutePath = path.join(basePath, src);
-    const exportedImage = await exportImage(absolutePath);
-    const { large, medium } = exportedImage;
+    const exportedImage = await exportImage(absolutePath, alt);
+    const { sizes, dominantColor } = exportedImage;
+    const { medium, large } = sizes;
 
     images.push(exportedImage);
 
@@ -66,7 +51,8 @@ export const exportImages = async (html: string, slug: string) => {
       .attr("src", medium.url)
       .attr("srcset", `${medium.url} 768w, ${large.url} 1536w`)
       .attr("width", `${large.width}`)
-      .attr("height", `${large.height}`);
+      .attr("height", `${large.height}`)
+      .css("background-color", dominantColor);
   }
 
   return {
@@ -182,7 +168,10 @@ const optimizeImage = async (src: string, dest: string, width: number) => {
   });
 };
 
-const exportImage = async (absolutePath: string): Promise<ExportedImage> => {
+const exportImage = async (
+  absolutePath: string,
+  alt: string
+): Promise<Image> => {
   const articlesDir = path.join(process.cwd(), "data", "articles");
   const publicDir = path.join(process.cwd(), "public");
   const src = path.join(articlesDir, absolutePath.replace(/^\/article/, ""));
@@ -201,21 +190,30 @@ const exportImage = async (absolutePath: string): Promise<ExportedImage> => {
   const absoluteUrlMedium = url.resolve(ORIGIN, exportPathMedium);
   const absoluteUrlLarge = url.resolve(ORIGIN, exportPathLarge);
 
+  const {
+    dominant: { r, g, b }
+  } = await sharp(destSmall).stats();
+  const dominantColor = `rgb(${[r, g, b].join(",")})`;
+
   return {
-    small: {
-      ...(await optimizeImage(src, destSmall, SMALL_IMAGE_WIDTH)),
-      url: exportPathSmall,
-      absoluteUrl: absoluteUrlSmall
-    },
-    medium: {
-      ...(await optimizeImage(src, destMedium, MEDIUM_IMAGE_WIDTH)),
-      url: exportPathMedium,
-      absoluteUrl: absoluteUrlMedium
-    },
-    large: {
-      ...(await optimizeImage(src, destLarge, LARGE_IMAGE_WIDTH)),
-      url: exportPathLarge,
-      absoluteUrl: absoluteUrlLarge
+    alt,
+    dominantColor,
+    sizes: {
+      small: {
+        ...(await optimizeImage(src, destSmall, SMALL_IMAGE_WIDTH)),
+        url: exportPathSmall,
+        absoluteUrl: absoluteUrlSmall
+      },
+      medium: {
+        ...(await optimizeImage(src, destMedium, MEDIUM_IMAGE_WIDTH)),
+        url: exportPathMedium,
+        absoluteUrl: absoluteUrlMedium
+      },
+      large: {
+        ...(await optimizeImage(src, destLarge, LARGE_IMAGE_WIDTH)),
+        url: exportPathLarge,
+        absoluteUrl: absoluteUrlLarge
+      }
     }
   };
 };

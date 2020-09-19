@@ -13,10 +13,7 @@ import styled, { css } from "styled-components";
 import { SLOGAN } from "../../config";
 
 export interface PageHomeProps {
-  articles: Pick<
-    Article,
-    "title" | "lede" | "url" | "thumbnailUrl" | "coverImageAlt"
-  >[];
+  articles: Pick<Article, "title" | "lede" | "url" | "images">[];
   categories: Category[];
   authors: Author[];
 }

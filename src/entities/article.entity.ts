@@ -2,6 +2,31 @@ import { Entity, PrimaryColumn, Column, ManyToOne } from "typeorm";
 import { Author } from "./author.entity";
 import { Category } from "./category.entity";
 
+export interface Image {
+  alt: string;
+  dominantColor: string;
+  sizes: {
+    small: {
+      width: number;
+      height: number;
+      url: string;
+      absoluteUrl: string;
+    };
+    medium: {
+      width: number;
+      height: number;
+      url: string;
+      absoluteUrl: string;
+    };
+    large: {
+      width: number;
+      height: number;
+      url: string;
+      absoluteUrl: string;
+    };
+  };
+}
+
 @Entity("article")
 export class Article {
   @PrimaryColumn({ type: "text" })
@@ -22,14 +47,8 @@ export class Article {
   @Column({ type: "text" })
   lede: string;
 
-  @Column({ type: "text" })
-  coverImageUrl: string;
-
-  @Column({ type: "text" })
-  coverImageAlt: string;
-
-  @Column({ type: "text" })
-  thumbnailUrl: string;
+  @Column({ type: "simple-json" })
+  images: Image[];
 
   @Column({ type: "text" })
   publishedAt: string;
@@ -65,9 +84,7 @@ export class Article {
     this.htmlContent = props.htmlContent;
     this.title = props.title;
     this.lede = props.lede;
-    this.coverImageUrl = props.coverImageUrl;
-    this.coverImageAlt = props.coverImageAlt;
-    this.thumbnailUrl = props.thumbnailUrl;
+    this.images = props.images;
     this.publishedAt = props.publishedAt;
     this.keywords = props.keywords;
     this.timestamp = props.timestamp;

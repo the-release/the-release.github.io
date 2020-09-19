@@ -13,16 +13,3 @@ export const coverImageLinter = (html: string) => {
     throw new Error(`Cover image must be at least ${LARGE_IMAGE_WIDTH}px wide`);
   }
 };
-
-export const imageAltLinter = (html: string) => {
-  const $ = cheerio.load(html);
-
-  $("img").each((index, elem) => {
-    const src = $(elem).attr("src");
-    const alt = $(elem).attr("alt");
-
-    if (!alt?.trim()) {
-      throw new Error(`Missing image alt tag \nImage source: ${src}`);
-    }
-  });
-};

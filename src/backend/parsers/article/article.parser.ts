@@ -17,7 +17,7 @@ import {
 } from "./article.util";
 import { ORIGIN } from "../../../config";
 import { parseMarkDown } from "../markdown/markdown.parser";
-import { coverImageLinter, imageAltLinter } from "./article.linter";
+import { coverImageLinter } from "./article.linter";
 
 const articlesDir = path.join(process.cwd(), "data", "articles");
 
@@ -29,12 +29,8 @@ export const getArticleBySlug = async (slug: string) => {
     const metadata = await metadataSelector(articleDir);
     let htmlContent = await parseMarkDown(articleFilePath);
 
-    imageAltLinter(htmlContent);
-
-    const {
-      html,
-      images: [coverImage]
-    } = await exportImages(htmlContent, slug);
+    const { html, images } = await exportImages(htmlContent, slug);
+    const [coverImage] = images;
 
     coverImageLinter(html);
 
@@ -54,10 +50,11 @@ export const getArticleBySlug = async (slug: string) => {
       keywords: metadata.keywords,
       title: titleSelector(htmlContent),
       lede: ledeSelector(htmlContent),
+      images,
       readingTime: readingTimeSelector(htmlContent),
-      coverImageUrl: coverImage.large.absoluteUrl,
+      coverImageUrl: coverImage.sizes.large.absoluteUrl,
       coverImageAlt: coverImageAltSelector(htmlContent),
-      thumbnailUrl: coverImage.small.url,
+      thumbnailUrl: coverImage.sizes.small.url,
       category: metadata.category,
       author: metadata.author
     };

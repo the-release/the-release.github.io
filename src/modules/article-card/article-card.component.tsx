@@ -7,10 +7,7 @@ import { Heading } from "../../catalog/heading/heading.component";
 import { Article } from "../../entities/article.entity";
 import { Text } from "../../catalog/text/text.component";
 
-type ArticleCardProps = Pick<
-  Article,
-  "title" | "lede" | "url" | "thumbnailUrl" | "coverImageAlt"
->;
+type ArticleCardProps = Pick<Article, "title" | "lede" | "url" | "images">;
 
 const StyledArticleCard = styled.a`
   text-decoration: none;
@@ -36,9 +33,10 @@ export const ArticleCard: FC<ArticleCardProps> = ({
   title,
   lede,
   url,
-  thumbnailUrl,
-  coverImageAlt
+  images
 }) => {
+  const [coverImage] = images;
+
   return (
     <article>
       <Link href="/article/[slug]" as={url} passHref>
@@ -49,7 +47,8 @@ export const ArticleCard: FC<ArticleCardProps> = ({
           <Description component="p" gutterBottom variant="h4">
             {lede}
           </Description>
-          <Thumbnail alt={coverImageAlt} src={thumbnailUrl} />
+          {/* TODO: use srcset here */}
+          <Thumbnail alt={coverImage.alt} src={coverImage.sizes.small.url} />
         </StyledArticleCard>
       </Link>
     </article>
