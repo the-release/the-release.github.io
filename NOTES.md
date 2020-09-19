@@ -1,6 +1,7 @@
 - [x] Serve multiple image sizes based on the viewport `srcset`
 - [x] Extract and set image dimensions
 - [x] Support drafts with hidden folders
+- [ ] Retrieve categories programmatically (main menu)
 - [ ] Support dat protocol with `.well-known/dat`
 - [ ] Embed fake tweets
 - [ ] hover effect article-card

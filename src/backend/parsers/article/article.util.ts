@@ -198,7 +198,7 @@ const exportImage = async (
 
   const {
     dominant: { r, g, b }
-  } = await sharp(destSmall).stats();
+  } = await sharp(src).stats();
   const dominantColor = `rgb(${[r, g, b].join(",")})`;
 
   return {
