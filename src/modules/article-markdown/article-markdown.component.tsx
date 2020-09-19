@@ -1,5 +1,6 @@
 import React, { FC, useEffect, useRef } from "react";
 import styled, { css } from "styled-components";
+import { easeInOutQuart } from "../../styles/easing";
 
 const MarkdownContainer = styled.div(
   ({ theme }) => css`
@@ -149,7 +150,7 @@ const MarkdownContainer = styled.div(
           height: 100%;
 
           &.fadeInOnLoad {
-            transition: opacity 0.75s;
+            transition: opacity 0.75s ${easeInOutQuart};
 
             &:not(.hasLoaded) {
               opacity: 0;

@@ -9,6 +9,7 @@
 - [ ] Short date in category, full date in article
 - [ ] Lint markdown with remark-preset-lint-recommended?
 - [ ] Strip HTML Comments
+- [ ] weird favicon iOS Safari
 
 # Features
 
