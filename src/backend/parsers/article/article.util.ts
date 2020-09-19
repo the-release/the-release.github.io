@@ -19,6 +19,10 @@ export const isAbsoluteUrl = (url: string) => {
   return new RegExp(/^https?:\/\/|^\/\//i, "i").test(url);
 };
 
+export const convertRgbToRgba = (rgb: string, alpha: number) => {
+  return rgb.replace("rgb", "rgba").replace(")", `, ${alpha})`);
+};
+
 export const exportImages = async (html: string, slug: string) => {
   const $ = cheerio.load(html);
   const basePath = path.join("/article", slug);
@@ -70,12 +74,13 @@ export const makeImageResponsive = (html: string) => {
     const height = parseInt($(elem).attr("height") || "0", 10);
     const imageRatio = (height / width) * 100;
     const dominantColor = $(elem).css("background-color");
+    const dominantColorRgba = convertRgbToRgba(dominantColor, 0.5);
 
     $(elem).css("background-color", "");
 
     $(elem)
       .wrap(
-        `<div style="padding-top: ${imageRatio}%; background-color: ${dominantColor};"></div>`
+        `<div style="padding-top: ${imageRatio}%; background-color: ${dominantColorRgba};"></div>`
       )
       .closest("figure")
       .css("max-width", `${width}px`);
