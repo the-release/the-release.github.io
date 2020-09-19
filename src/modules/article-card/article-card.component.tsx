@@ -47,8 +47,24 @@ export const ArticleCard: FC<ArticleCardProps> = ({
           <Description component="p" gutterBottom variant="h4">
             {lede}
           </Description>
-          {/* TODO: use srcset here */}
-          <Thumbnail alt={coverImage.alt} src={coverImage.sizes.small.url} />
+          <Thumbnail
+            alt={coverImage.alt}
+            src={coverImage.sizes.small.url}
+            srcSet={[
+              {
+                src: coverImage.sizes.small.url,
+                viewportWidth: 300
+              },
+              {
+                src: coverImage.sizes.medium.url,
+                viewportWidth: 768
+              },
+              {
+                src: coverImage.sizes.small.url,
+                viewportWidth: 1536
+              }
+            ]}
+          />
         </StyledArticleCard>
       </Link>
     </article>
