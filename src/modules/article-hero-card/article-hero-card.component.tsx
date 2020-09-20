@@ -10,15 +10,20 @@ import { Text } from "../../catalog/text/text.component";
 type ArticleCardProps = Pick<Article, "title" | "lede" | "url" | "images">;
 
 const StyledArticleLink = styled.a`
+  display: grid;
+  grid-column-gap: 30px;
+  grid-row-gap: 30px;
+  grid-template-columns: 1fr 1fr 1fr;
   text-decoration: none;
-  display: block;
-  height: 100%;
+  max-width: 1200px;
+  margin: 0 auto 30px auto;
+
+  @media only screen and (max-width: 1400px) {
+    grid-template-columns: 1fr 1fr;
+  }
 
   @media only screen and (max-width: 768px) {
-    display: grid;
-    grid-column-gap: 30px;
-    grid-row-gap: 30px;
-    grid-template-columns: 1fr 2fr;
+    grid-template-columns: 1fr;
   }
 `;
 
@@ -26,34 +31,28 @@ const Thumbnail = styled(Image)`
   width: 100%;
   height: auto;
   display: block;
+  grid-area: 1 / span 2;
 
-  @media only screen and (max-width: 768px) {
-    &:before {
-      padding-top: 100%;
-    }
+  @media only screen and (max-width: 1400px) {
+    grid-area: 1 / span 1;
   }
 `;
 
 const ArticleInformation = styled.div`
-  padding: 30px 0;
+  padding: 60px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 
   @media only screen and (max-width: 768px) {
     padding: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    max-width: 560px;
   }
 `;
 
 const Title = styled(Heading)`
-  font-size: 24px;
-
-  @media only screen and (max-width: 1400px) {
-    font-size: 21px;
-  }
-
-  @media only screen and (max-width: 560px) {
-    font-size: 18px;
+  @media only screen and (max-width: 960px) {
+    font-size: 32px;
   }
 `;
 
@@ -66,7 +65,7 @@ const Lede = styled(Text)(
   `
 );
 
-export const ArticleCard: FC<ArticleCardProps> = ({
+export const ArticleHeroCard: FC<ArticleCardProps> = ({
   title,
   lede,
   url,
@@ -103,12 +102,10 @@ export const ArticleCard: FC<ArticleCardProps> = ({
             <Heading component="h3" variant="h5" gutterBottom>
               Silicon Valley
             </Heading>
-            <Title component="h2" gutterBottom>
+            <Title component="h2" variant="h1" gutterBottom>
               {title}
             </Title>
-            <Lede component="p" variant="h3">
-              {lede}
-            </Lede>
+            <Lede component="p">{lede}</Lede>
           </ArticleInformation>
         </StyledArticleLink>
       </Link>

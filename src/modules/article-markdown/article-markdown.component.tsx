@@ -97,12 +97,6 @@ const MarkdownContainer = styled.div(
         margin-right: -20px;
       }
 
-      div {
-        @media only screen and (max-width: 848px) {
-          border-radius: 0;
-        }
-      }
-
       figcaption {
         padding: 0 40px;
 
@@ -130,7 +124,6 @@ const MarkdownContainer = styled.div(
         position: relative;
         overflow: hidden;
         background: #eee;
-        border-radius: 5px;
 
         /**
          * Fix Safari overflow hidden + border-radius bug
