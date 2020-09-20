@@ -16,6 +16,7 @@ const StyledArticleCard = styled.a`
 const Thumbnail = styled(Image)`
   border-radius: 5px;
   width: 100%;
+  height: auto;
   margin-top: 5px;
   display: block;
 `;
@@ -64,8 +65,9 @@ export const ArticleCard: FC<ArticleCardProps> = ({
                 width: coverImage.sizes.large.width
               }
             ]}
-            width={coverImage.sizes.medium.width}
-            height={coverImage.sizes.medium.height}
+            width={100}
+            height={100}
+            dominantColor={coverImage.dominantColor}
           />
         </StyledArticleCard>
       </Link>

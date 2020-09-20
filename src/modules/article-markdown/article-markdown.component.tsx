@@ -98,10 +98,6 @@ const MarkdownContainer = styled.div(
       }
 
       div {
-        img {
-          width: 100%;
-        }
-
         @media only screen and (max-width: 848px) {
           border-radius: 0;
         }

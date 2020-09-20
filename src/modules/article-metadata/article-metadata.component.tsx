@@ -33,15 +33,13 @@ const StyledContainer = styled.div`
   }
 `;
 
-const AuthorThumbnail = styled.a`
+const AuthorThumbnailLink = styled.a`
   margin-right: 15px;
+`;
 
-  img {
-    width: 40px;
-    height: 40px;
-    border-radius: 40px;
-    display: block;
-  }
+const AuthorThumbnail = styled(Image)`
+  border-radius: 40px;
+  display: block;
 `;
 
 const AuthorName = styled(Heading)`
@@ -92,17 +90,19 @@ export const ArticleMetadata: FC<ArticleMetadataProps> = ({
     <StyledContainer>
       <div>
         <Link href="/author/[slug]" as={author.url} passHref>
-          <AuthorThumbnail rel="author">
-            <Image
+          <AuthorThumbnailLink rel="author">
+            <AuthorThumbnail
               alt={`A photo of ${author.name}`}
               src={author.thumbnailUrl}
+              width={40}
+              height={40}
             />
-          </AuthorThumbnail>
+          </AuthorThumbnailLink>
         </Link>
         <div>
           <AuthorName component="h3" variant="h5">
-            <Link href="/author/[slug]" as={author.url} passHref>
-              <AuthorThumbnail rel="author">{author.name}</AuthorThumbnail>
+            <Link href="/author/[slug]" as={author.url}>
+              <a rel="author">{author.name}</a>
             </Link>
           </AuthorName>
           <Metadata component="p" variant="h5">

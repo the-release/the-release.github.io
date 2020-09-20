@@ -10,6 +10,7 @@
 - [ ] Lint markdown with remark-preset-lint-recommended?
 - [ ] Strip HTML Comments
 - [ ] weird favicon iOS Safari
+- [ ] Fix trailing slash infinite redirect bug (https://therelease.news/article) 
 
 # Features
 

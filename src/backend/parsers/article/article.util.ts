@@ -14,13 +14,10 @@ import {
 import { resizeImage } from "../../../utils/resize-image/resize-image";
 import url from "url";
 import { Image } from "../../../entities/article.entity";
+import { convertRgbToRgba } from "../../../utils/rgb-to-rgba/rgb-to-rgba";
 
 export const isAbsoluteUrl = (url: string) => {
   return new RegExp(/^https?:\/\/|^\/\//i, "i").test(url);
-};
-
-export const convertRgbToRgba = (rgb: string, alpha: number) => {
-  return rgb.replace("rgb", "rgba").replace(")", `, ${alpha})`);
 };
 
 export const exportImages = async (html: string, slug: string) => {
