@@ -33,8 +33,9 @@ export const PageAuthor: FC<PageAuthorProps> = ({
       <Layout>
         <Heading component="h1">
           <Image
-            alt={`A photo of ${author.name}`}
-            src={author.thumbnailUrl}
+            alt={author.image.alt}
+            src={author.image.sizes.small.url}
+            dominantColor={author.image.dominantColor}
             width={100}
             height={100}
           />

@@ -65,9 +65,9 @@ export const ArticleCard: FC<ArticleCardProps> = ({
                 width: coverImage.sizes.large.width
               }
             ]}
+            dominantColor={coverImage.dominantColor}
             width={100}
             height={100}
-            dominantColor={coverImage.dominantColor}
           />
         </StyledArticleCard>
       </Link>

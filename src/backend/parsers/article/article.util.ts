@@ -1,19 +1,18 @@
 import cheerio from "cheerio";
 import path from "path";
 import sharp from "sharp";
-
 import { promises as fs } from "fs";
+import url from "url";
+
 import { sha256 } from "../../../utils/sha256/sha256";
-import { isFile } from "../../../utils/is-file/is-file";
 import {
   SMALL_IMAGE_WIDTH,
   MEDIUM_IMAGE_WIDTH,
   LARGE_IMAGE_WIDTH,
   ORIGIN
 } from "../../../config";
-import { resizeImage } from "../../../utils/resize-image/resize-image";
-import url from "url";
-import { Image } from "../../../entities/article.entity";
+import { optimizeImage } from "../../../utils/resize-image/resize-image";
+import { Image } from "../../../entities/image.entity";
 import { convertRgbToRgba } from "../../../utils/rgb-to-rgba/rgb-to-rgba";
 
 export const isAbsoluteUrl = (url: string) => {
@@ -146,37 +145,6 @@ export const externalLinks = (html: string) => {
   });
 
   return $.html();
-};
-
-const optimizeImage = async (src: string, dest: string, width: number) => {
-  const options = {
-    src,
-    dest,
-    quality: 50
-  };
-
-  // Skip optimisation if the file already exists
-  if (await isFile(dest)) {
-    const { info } = await sharp(dest).toBuffer({
-      resolveWithObject: true
-    });
-
-    return {
-      width: info.width,
-      height: info.height
-    };
-  }
-
-  const { info } = await sharp(src).toBuffer({ resolveWithObject: true });
-
-  if (info.width <= width) {
-    return await resizeImage(options);
-  }
-
-  return resizeImage({
-    ...options,
-    width
-  });
 };
 
 const exportImage = async (

@@ -1,31 +1,7 @@
 import { Entity, PrimaryColumn, Column, ManyToOne } from "typeorm";
 import { Author } from "./author.entity";
 import { Category } from "./category.entity";
-
-export interface Image {
-  alt: string;
-  dominantColor: string;
-  sizes: {
-    small: {
-      width: number;
-      height: number;
-      url: string;
-      absoluteUrl: string;
-    };
-    medium: {
-      width: number;
-      height: number;
-      url: string;
-      absoluteUrl: string;
-    };
-    large: {
-      width: number;
-      height: number;
-      url: string;
-      absoluteUrl: string;
-    };
-  };
-}
+import { Image } from "./image.entity";
 
 @Entity("article")
 export class Article {
