@@ -1,6 +1,6 @@
 # Markdown Demo
 
-**This is a lede**
+**This is a lede. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vel placerat dui.**
 
 ![A fingerprint](image.png)
 *this is an image caption*
