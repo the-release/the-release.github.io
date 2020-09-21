@@ -27,7 +27,7 @@ Headings will be automatically converted to Title Case.
 
 ## Text
 
-It's very easy to make some words **bold** and other words *italic* with Markdown. You can even add [links](http://google.com)! Links pointing to external website will automatically open in a new tab.
+It's very easy to make some words **bold** and other words *italic* or ***both*** with Markdown. You can even add [links](http://google.com)! Links pointing to external website will automatically open in a new tab.
 
 ## Quote
 

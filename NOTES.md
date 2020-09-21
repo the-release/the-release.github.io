@@ -12,7 +12,9 @@
 - [ ] weird favicon iOS Safari
 - [ ] Fix trailing slash infinite redirect bug (https://therelease.news/article) 
 - [ ] Test page images 
-- [ ] Use the same image exporter for both articles and pages 
+- [ ] Share the same markdown utils between articles and pages
+- [ ] Share the same image exporter between authors, articles and pages 
+- [ ] Support nested pages (/nested/page)
 
 # Features
 
