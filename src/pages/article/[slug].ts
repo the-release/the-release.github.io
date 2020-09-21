@@ -4,7 +4,7 @@ import { LessThan } from "typeorm";
 
 import {
   PageArticleProps,
-  PagePost
+  PageArticle
 } from "../../modules/page-article/page-article.component";
 import { getArticles } from "../../services/article.service";
 
@@ -68,4 +68,4 @@ export const getStaticProps: GetStaticProps<
   };
 };
 
-export default PagePost;
+export default PageArticle;

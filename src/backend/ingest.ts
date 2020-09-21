@@ -6,6 +6,8 @@ import { Category } from "../entities/category.entity";
 import { Author } from "../entities/author.entity";
 import { getCategories } from "./parsers/category/category.parser";
 import { getAuthors } from "./parsers/author/author.parser";
+import { getPages } from "./parsers/page/page.parser";
+import { Page } from "../entities/page.entity";
 
 process.on("uncaughtException", err => {
   console.error(err);
@@ -20,9 +22,12 @@ process.on("unhandledRejection", (err: any) => {
 createConnection(TYPEORM_CONFIG).then(async () => {
   const categoryRepository = getRepository(Category);
   const authorRepository = getRepository(Author);
+  const pageRepository = getRepository(Page);
   const articleRepository = getRepository(Article);
+
   const categories = await getCategories();
   const authors = await getAuthors();
+  const pages = await getPages();
   const articles = await getArticles();
 
   for (const category of categories) {
@@ -31,6 +36,10 @@ createConnection(TYPEORM_CONFIG).then(async () => {
 
   for (const author of authors) {
     await authorRepository.save(new Author(author));
+  }
+
+  for (const page of pages) {
+    await pageRepository.save(new Page(page));
   }
 
   for (const article of articles) {

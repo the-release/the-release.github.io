@@ -34,7 +34,7 @@ const ArticleContainer = styled.article`
   margin: 0 auto;
 `;
 
-export const PagePost: FC<PageArticleProps> = ({
+export const PageArticle: FC<PageArticleProps> = ({
   article: {
     title,
     lede,
