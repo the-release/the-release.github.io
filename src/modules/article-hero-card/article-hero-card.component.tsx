@@ -15,8 +15,7 @@ const StyledArticleLink = styled.a`
   grid-row-gap: 30px;
   grid-template-columns: 1fr 1fr 1fr;
   text-decoration: none;
-  max-width: 1230px;
-  margin: 0 auto 30px auto;
+  margin-bottom: 30px;
 
   @media only screen and (max-width: 768px) {
     grid-template-columns: 1fr;

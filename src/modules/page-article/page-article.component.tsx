@@ -75,8 +75,8 @@ export const PagePost: FC<PageArticleProps> = ({
           <ArticleMarkdown>{htmlContent}</ArticleMarkdown>
         </ArticleContainer>
         {!!nextArticles.length && (
-          <>
-            <Heading component="h3" variant="h2" gutterBottom>
+          <div>
+            <Heading component="h3" variant="h3" gutterBottom>
               More news about{" "}
               <Link href="/category/[slug]" as={category.url}>
                 <a>{category.name}</a>
@@ -87,7 +87,7 @@ export const PagePost: FC<PageArticleProps> = ({
                 <ArticleCard {...props} key={index} />
               ))}
             </ArticleList>
-          </>
+          </div>
         )}
       </Layout>
     </>
