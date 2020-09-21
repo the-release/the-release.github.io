@@ -10,7 +10,7 @@ export interface PageProps {
   page: Pick<Page, "htmlContent">;
 }
 
-export const PagePage: FC<PageProps> = ({ page: { htmlContent } }) => {
+export const PageComponent: FC<PageProps> = ({ page: { htmlContent } }) => {
   return (
     <>
       {/* TODO: extract page title from markdown */}

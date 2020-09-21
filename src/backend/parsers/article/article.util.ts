@@ -3,6 +3,7 @@ import path from "path";
 import sharp from "sharp";
 import { promises as fs } from "fs";
 import url from "url";
+import ColorThief from "colorthief";
 
 import { sha256 } from "../../../utils/sha256/sha256";
 import {
@@ -187,10 +188,8 @@ const exportImage = async (
     absoluteUrl: absoluteUrlLarge
   };
 
-  const {
-    dominant: { r, g, b }
-  } = await sharp(destSmall).stats();
-  const dominantColor = `rgb(${[r, g, b].join(",")})`;
+  const dominantColorArray = await ColorThief.getColor(destSmall);
+  const dominantColor = `rgb(${dominantColorArray.join(",")})`;
 
   return {
     alt,

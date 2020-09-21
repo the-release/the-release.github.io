@@ -1,7 +1,7 @@
 import { GetStaticPaths, GetStaticProps } from "next";
 import { ParsedUrlQuery } from "querystring";
 
-import { PageProps, PagePage } from "../modules/page/page.component";
+import { PageProps, PageComponent } from "../modules/page/page.component";
 import { getPages } from "../services/page.service";
 
 interface PageParams extends ParsedUrlQuery {
@@ -41,4 +41,4 @@ export const getStaticProps: GetStaticProps<PageProps, PageParams> = async ({
   };
 };
 
-export default PagePage;
+export default PageComponent;
