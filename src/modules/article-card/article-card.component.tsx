@@ -18,10 +18,11 @@ const StyledArticleLink = styled.a`
     display: grid;
     grid-column-gap: 30px;
     grid-row-gap: 30px;
-    grid-template-columns: 1fr 3fr;
+    grid-template-columns: 1fr 2fr;
 
     @media only screen and (max-width: 560px) {
       grid-column-gap: 20px;
+      grid-template-columns: 1fr 3fr;
     }
   }
 `;
@@ -39,7 +40,7 @@ const Thumbnail = styled(Image)`
 `;
 
 const ArticleInformation = styled.div`
-  padding-top: 30px;
+  padding-top: 20px;
 
   @media only screen and (max-width: 768px) {
     padding: 0;
