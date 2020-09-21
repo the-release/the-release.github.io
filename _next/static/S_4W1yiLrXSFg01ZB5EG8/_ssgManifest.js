@@ -1,1 +1,0 @@
-self.__SSG_MANIFEST=new Set(["\u002F_sitemap","\u002F","\u002Farticle\u002F[slug]","\u002Fauthor\u002F[slug]","\u002Fauthor\u002F[slug]\u002F[page]","\u002Fcategory\u002F[slug]","\u002Fcategory\u002F[slug]\u002F[page]"]);self.__SSG_MANIFEST_CB&&self.__SSG_MANIFEST_CB()
