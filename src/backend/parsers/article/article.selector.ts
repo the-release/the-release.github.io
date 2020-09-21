@@ -36,16 +36,6 @@ export const readingTimeSelector = (html: string) => {
   return readingTime(plainText).text;
 };
 
-export const coverImageAltSelector = (html: string) => {
-  const $ = cheerio.load(html);
-  const coverImage = $("body > h1:first-child + p + figure img");
-  const alt = coverImage.attr("alt");
-
-  if (!alt) throw new Error(`Missing alt text on cover image`);
-
-  return alt;
-};
-
 export const metadataSelector = async (
   articleDir: string
 ): Promise<{

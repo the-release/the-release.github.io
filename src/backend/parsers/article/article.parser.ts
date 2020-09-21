@@ -2,7 +2,6 @@ import path from "path";
 import { promises as fs } from "fs";
 
 import {
-  coverImageAltSelector,
   ledeSelector,
   metadataSelector,
   readingTimeSelector,
@@ -30,7 +29,6 @@ export const getArticleBySlug = async (slug: string) => {
     let htmlContent = await parseMarkDown(articleFilePath);
 
     const { html, images } = await exportImages(htmlContent, slug);
-    const [coverImage] = images;
 
     coverImageLinter(html);
 
@@ -52,9 +50,6 @@ export const getArticleBySlug = async (slug: string) => {
       lede: ledeSelector(htmlContent),
       images,
       readingTime: readingTimeSelector(htmlContent),
-      coverImageUrl: coverImage.sizes.large.absoluteUrl,
-      coverImageAlt: coverImageAltSelector(htmlContent),
-      thumbnailUrl: coverImage.sizes.small.url,
       category: metadata.category,
       author: metadata.author
     };
