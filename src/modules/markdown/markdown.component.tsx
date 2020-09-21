@@ -15,7 +15,7 @@ const MarkdownContainer = styled.div(
     ul,
     ol,
     p,
-    pre code,
+    pre,
     figure {
       margin: 1.8rem 0;
 
@@ -23,6 +23,10 @@ const MarkdownContainer = styled.div(
       ol {
         margin: 0;
       }
+    }
+
+    && > *:last-child {
+      margin-bottom: 0;
     }
 
     h1 {
