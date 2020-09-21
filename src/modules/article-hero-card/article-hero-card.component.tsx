@@ -15,12 +15,8 @@ const StyledArticleLink = styled.a`
   grid-row-gap: 30px;
   grid-template-columns: 1fr 1fr 1fr;
   text-decoration: none;
-  max-width: 1200px;
+  max-width: 1230px;
   margin: 0 auto 30px auto;
-
-  @media only screen and (max-width: 1400px) {
-    grid-template-columns: 1fr 1fr;
-  }
 
   @media only screen and (max-width: 768px) {
     grid-template-columns: 1fr;
@@ -33,8 +29,8 @@ const Thumbnail = styled(Image)`
   display: block;
   grid-area: 1 / span 2;
 
-  @media only screen and (max-width: 1400px) {
-    grid-area: 1 / span 1;
+  @media only screen and (max-width: 768px) {
+    grid-area: auto;
   }
 `;
 
@@ -44,6 +40,10 @@ const ArticleInformation = styled.div`
   flex-direction: column;
   justify-content: center;
 
+  @media only screen and (max-width: 1080px) {
+    padding: 30px 0;
+  }
+
   @media only screen and (max-width: 768px) {
     padding: 0;
     max-width: 560px;
@@ -51,7 +51,13 @@ const ArticleInformation = styled.div`
 `;
 
 const Title = styled(Heading)`
-  @media only screen and (max-width: 960px) {
+  margin-bottom: 0.5em;
+
+  @media only screen and (max-width: 1600px) {
+    font-size: 2.86vw;
+  }
+
+  @media only screen and (max-width: 1080px) {
     font-size: 32px;
   }
 `;
@@ -62,6 +68,10 @@ const Lede = styled(Text)(
     font-family: ${theme.fonts.serif};
     color: ${theme.colors.textSecondary};
     font-weight: normal;
+
+    @media only screen and (max-width: 1080px) {
+      font-size: 18px;
+    }
   `
 );
 

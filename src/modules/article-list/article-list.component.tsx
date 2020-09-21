@@ -6,10 +6,10 @@ const StyledArticleList = styled.div`
   grid-column-gap: 30px;
   grid-row-gap: 30px;
   grid-template-columns: 1fr 1fr 1fr;
-  max-width: 1200px;
+  max-width: 1230px;
   margin: 0 auto;
 
-  @media only screen and (max-width: 1080px) {
+  @media only screen and (max-width: 768px) {
     grid-template-columns: 1fr 1fr;
   }
 

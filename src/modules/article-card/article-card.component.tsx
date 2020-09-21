@@ -18,7 +18,7 @@ const StyledArticleLink = styled.a`
     display: grid;
     grid-column-gap: 30px;
     grid-row-gap: 30px;
-    grid-template-columns: 1fr 2fr;
+    grid-template-columns: 1fr 3fr;
   }
 `;
 
@@ -35,7 +35,7 @@ const Thumbnail = styled(Image)`
 `;
 
 const ArticleInformation = styled.div`
-  padding: 30px 0;
+  padding-top: 30px;
 
   @media only screen and (max-width: 768px) {
     padding: 0;
@@ -78,27 +78,29 @@ export const ArticleCard: FC<ArticleCardProps> = ({
     <article>
       <Link href="/article/[slug]" as={url} passHref>
         <StyledArticleLink>
-          <Thumbnail
-            alt={coverImage.alt}
-            src={coverImage.sizes.medium.url}
-            srcSet={[
-              {
-                src: coverImage.sizes.small.url,
-                width: coverImage.sizes.small.width
-              },
-              {
-                src: coverImage.sizes.medium.url,
-                width: coverImage.sizes.medium.width
-              },
-              {
-                src: coverImage.sizes.large.url,
-                width: coverImage.sizes.large.width
-              }
-            ]}
-            dominantColor={coverImage.dominantColor}
-            width={16}
-            height={9}
-          />
+          <div>
+            <Thumbnail
+              alt={coverImage.alt}
+              src={coverImage.sizes.medium.url}
+              srcSet={[
+                {
+                  src: coverImage.sizes.small.url,
+                  width: coverImage.sizes.small.width
+                },
+                {
+                  src: coverImage.sizes.medium.url,
+                  width: coverImage.sizes.medium.width
+                },
+                {
+                  src: coverImage.sizes.large.url,
+                  width: coverImage.sizes.large.width
+                }
+              ]}
+              dominantColor={coverImage.dominantColor}
+              width={16}
+              height={9}
+            />
+          </div>
           <ArticleInformation>
             <Heading component="h3" variant="h5" gutterBottom>
               Silicon Valley
