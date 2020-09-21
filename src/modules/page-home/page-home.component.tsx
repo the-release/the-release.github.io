@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import Link from "next/link";
+// import Link from "next/link";
 
 import { Layout } from "../layout/layout.component";
 import { Heading } from "../../catalog/heading/heading.component";
@@ -35,9 +35,9 @@ const Title = styled(Heading)(
 );
 
 export const PageHome: FC<PageHomeProps> = ({
-  articles,
-  categories,
-  authors
+  articles
+  // categories,
+  // authors
 }) => {
   const [mostRecentArticle, ...otherArticles] = articles;
 
@@ -51,6 +51,7 @@ export const PageHome: FC<PageHomeProps> = ({
             <ArticleCard {...props} key={index} />
           ))}
         </ArticleList>
+        {/*
         <Heading>Categories</Heading>
         {categories.map(({ name, url }, index) => (
           <React.Fragment key={index}>
@@ -69,6 +70,7 @@ export const PageHome: FC<PageHomeProps> = ({
             <br />
           </React.Fragment>
         ))}
+        */}
         <Title component="h1" align="center">
           {SLOGAN}
         </Title>

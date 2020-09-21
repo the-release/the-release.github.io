@@ -19,6 +19,10 @@ const StyledArticleLink = styled.a`
     grid-column-gap: 30px;
     grid-row-gap: 30px;
     grid-template-columns: 1fr 3fr;
+
+    @media only screen and (max-width: 560px) {
+      grid-column-gap: 20px;
+    }
   }
 `;
 
