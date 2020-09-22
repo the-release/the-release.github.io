@@ -68,6 +68,10 @@ const Lede = styled(Text)(
     color: ${theme.colors.textSecondary};
     font-weight: normal;
     font-size: 18px;
+
+    @media only screen and (max-width: 560px) {
+      font-size: 16px;
+    }
   `
 );
 

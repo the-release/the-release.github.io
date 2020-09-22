@@ -59,6 +59,10 @@ const Title = styled(Heading)`
   @media only screen and (max-width: 1080px) {
     font-size: 32px;
   }
+
+  @media only screen and (max-width: 560px) {
+    font-size: 24px;
+  }
 `;
 
 const Lede = styled(Text)(
@@ -67,6 +71,10 @@ const Lede = styled(Text)(
     color: ${theme.colors.textSecondary};
     font-weight: normal;
     font-size: 18px;
+
+    @media only screen and (max-width: 560px) {
+      font-size: 16px;
+    }
   `
 );
 
