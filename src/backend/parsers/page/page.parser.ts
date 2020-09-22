@@ -8,6 +8,7 @@ import { addImageCaptions } from "../../utils/image-caption";
 import { lazyLoadImages } from "../../utils/image-lazy-load";
 import { externalLinks } from "../../utils/external-links";
 import { makeImageResponsive } from "../../utils/image-responsive";
+import { titleSelector } from "./page.selector";
 
 const pagesDir = path.join(process.cwd(), "data", "pages");
 
@@ -28,7 +29,8 @@ const parsePage = async (slug: string) => {
       url: `/${slug}`,
       absoluteUrl: `${ORIGIN}/${slug}`,
       slug,
-      htmlContent
+      htmlContent,
+      title: titleSelector(htmlContent)
     };
   } catch (err) {
     console.error(

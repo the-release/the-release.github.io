@@ -7,14 +7,15 @@ import { SITE_NAME } from "../../config";
 import { Markdown } from "../markdown/markdown.component";
 
 export interface PageProps {
-  page: Pick<Page, "htmlContent">;
+  page: Pick<Page, "htmlContent" | "title">;
 }
 
-export const PageComponent: FC<PageProps> = ({ page: { htmlContent } }) => {
+export const PageComponent: FC<PageProps> = ({
+  page: { htmlContent, title }
+}) => {
   return (
     <>
-      {/* TODO: extract page title from markdown */}
-      <MetaTags title={`About – ${SITE_NAME}`} />
+      <MetaTags title={`${title} – ${SITE_NAME}`} />
       <Layout>
         <Markdown>{htmlContent}</Markdown>
       </Layout>

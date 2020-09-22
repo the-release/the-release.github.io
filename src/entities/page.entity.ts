@@ -14,10 +14,14 @@ export class Page {
   @Column({ type: "text" })
   htmlContent: string;
 
+  @Column({ type: "text" })
+  title: string;
+
   constructor(props: Page = {} as any) {
     this.url = props.url;
     this.absoluteUrl = props.absoluteUrl;
     this.slug = props.slug;
     this.htmlContent = props.htmlContent;
+    this.title = props.title;
   }
 }

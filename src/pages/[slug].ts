@@ -28,7 +28,7 @@ export const getStaticProps: GetStaticProps<PageProps, PageParams> = async ({
   params
 }) => {
   const [page] = await getPages({
-    props: ["htmlContent"],
+    props: ["htmlContent", "title"],
     where: {
       slug: params!.slug
     }
