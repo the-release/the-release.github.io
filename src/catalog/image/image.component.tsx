@@ -112,6 +112,8 @@ export const Image: FC<ImageProps> = ({
         hasLoaded={hasLoaded}
         srcSet={srcset}
         className={`fadeInOnLoad`}
+        width={width}
+        height={height}
       />
     </ImageContainer>
   );

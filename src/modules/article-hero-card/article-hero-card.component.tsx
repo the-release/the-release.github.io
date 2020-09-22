@@ -94,6 +94,7 @@ export const ArticleHeroCard: FC<ArticleCardProps> = ({
             srcSet={coverImage.sizes}
             sizes="(max-width: 768px) 100vw, 66vw"
             dominantColor={coverImage.dominantColor}
+            loading="eager"
             width={16}
             height={9}
           />

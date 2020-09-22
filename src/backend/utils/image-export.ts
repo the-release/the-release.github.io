@@ -9,6 +9,7 @@ import { ORIGIN, IMAGE_SIZES } from "../../config";
 import { optimizeImage } from "./image-optimization";
 import { Image, ImageSizes } from "../../entities/image.entity";
 import { isAbsoluteUrl } from "./absolute-url";
+import { slugify } from "./slugify";
 
 export const exportImages = async (html: string, basePath: string) => {
   const $ = cheerio.load(html);
@@ -67,7 +68,7 @@ export const exportImage = async (src: string, alt: string): Promise<Image> => {
   for (const imageSize of IMAGE_SIZES) {
     const relativeUrl = path.join(
       "/images",
-      `${name}-${hash}-${imageSize}.jpg`
+      `${slugify(`${name}-${hash}-${imageSize}`)}.jpg`
     );
     const absoluteUrl = url.resolve(ORIGIN, relativeUrl);
     const dest = path.join(publicDir, relativeUrl);

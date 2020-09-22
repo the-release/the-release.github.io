@@ -34,7 +34,9 @@ export const PageAuthor: FC<PageAuthorProps> = ({
         <Heading component="h1">
           <Image
             alt={author.image.alt}
-            src={author.image.sizes["200"].url}
+            src={author.image.sizes["100"].url}
+            srcSet={author.image.sizes}
+            sizes="100px"
             dominantColor={author.image.dominantColor}
             width={100}
             height={100}

@@ -32,8 +32,11 @@ const Drawer = styled.nav`
   overflow: auto;
   overscroll-behavior-y: contain;
   width: 100%;
-  max-width: 560px;
   color: #fff;
+
+  @media only screen and (min-width: 600px) {
+    max-width: 560px;
+  }
 `;
 
 /**
