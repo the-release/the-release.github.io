@@ -8,7 +8,7 @@ import React, {
 import styled, { css } from "styled-components";
 
 import { easeInOutQuart } from "../../styles/easing";
-import { convertRgbToRgba } from "../../utils/rgb-to-rgba/rgb-to-rgba";
+import { convertRgbToRgba } from "../../utils/rgb-to-rgba";
 
 interface ImageProps
   extends Omit<ImgHTMLAttributes<HTMLImageElement>, "srcSet"> {

@@ -5,7 +5,7 @@ import {
   PageAuthor,
   PageAuthorProps
 } from "../../modules/page-author/page-author.component";
-import { paginate } from "../../utils/paginate/paginate";
+import { paginate } from "../../utils/paginate";
 import { ITEMS_PER_PAGE } from "../../config";
 import { getArticles } from "../../services/article.service";
 import { getAuthors } from "../../services/author.service";

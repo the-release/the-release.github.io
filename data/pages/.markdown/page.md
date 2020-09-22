@@ -57,7 +57,6 @@ Alternatively,
 # Images
 
 ![A fingerprint](image.png)
-*this is an image caption*
 
 ![A cat looking up](cat.jpg)  
 *Copyright or caption*

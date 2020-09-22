@@ -1,5 +1,5 @@
 import { FindOneOptions, getRepository } from "typeorm";
-import { pick } from "../utils/pick/pick";
+import { pick } from "../utils/pick";
 import { dbConnection } from "../backend/db";
 import { Page } from "../entities/page.entity";
 

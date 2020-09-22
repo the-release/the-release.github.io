@@ -5,7 +5,7 @@ import {
   PageCategory,
   PageCategoryProps
 } from "../../modules/page-category/page-category.component";
-import { paginate } from "../../utils/paginate/paginate";
+import { paginate } from "../../utils/paginate";
 import { ITEMS_PER_PAGE } from "../../config";
 import { getArticles } from "../../services/article.service";
 import { getCategories } from "../../services/category.service";

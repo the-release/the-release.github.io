@@ -1,15 +1,13 @@
 import path from "path";
 import { promises as fs } from "fs";
 
-import {
-  exportImages,
-  externalLinks,
-  addImageCaptions,
-  lazyLoadImages,
-  makeImageResponsive
-} from "./page.util";
 import { ORIGIN } from "../../../config";
-import { parseMarkDown } from "../markdown/markdown.parser";
+import { parseMarkDown } from "../../utils/markdown";
+import { exportImages } from "../../utils/image-export";
+import { addImageCaptions } from "../../utils/image-caption";
+import { lazyLoadImages } from "../../utils/image-lazy-load";
+import { externalLinks } from "../../utils/external-links";
+import { makeImageResponsive } from "../../utils/image-responsive";
 
 const pagesDir = path.join(process.cwd(), "data", "pages");
 

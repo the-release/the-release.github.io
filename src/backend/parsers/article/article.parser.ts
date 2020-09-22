@@ -7,16 +7,14 @@ import {
   readingTimeSelector,
   titleSelector
 } from "./article.selector";
-import {
-  exportImages,
-  externalLinks,
-  addImageCaptions,
-  lazyLoadImages,
-  makeImageResponsive
-} from "./article.util";
 import { ORIGIN } from "../../../config";
-import { parseMarkDown } from "../markdown/markdown.parser";
-import { coverImageLinter } from "./article.linter";
+import { parseMarkDown } from "../../utils/markdown";
+import { coverImageLinter, enforceImageCaptions } from "./article.linter";
+import { exportImages } from "../../utils/image-export";
+import { addImageCaptions } from "../../utils/image-caption";
+import { lazyLoadImages } from "../../utils/image-lazy-load";
+import { externalLinks } from "../../utils/external-links";
+import { makeImageResponsive } from "../../utils/image-responsive";
 
 const articlesDir = path.join(process.cwd(), "data", "articles");
 
@@ -31,6 +29,7 @@ const parseArticle = async (slug: string) => {
     const { html, images } = await exportImages(htmlContent, articleDir);
 
     coverImageLinter(html);
+    enforceImageCaptions(html);
 
     htmlContent = addImageCaptions(html);
     htmlContent = lazyLoadImages(htmlContent);

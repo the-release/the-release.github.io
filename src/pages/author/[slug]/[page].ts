@@ -1,7 +1,7 @@
 import { GetStaticPaths, GetStaticProps } from "next";
 import { ParsedUrlQuery } from "querystring";
 
-import { paginate } from "../../../utils/paginate/paginate";
+import { paginate } from "../../../utils/paginate";
 import {
   PageAuthor,
   PageAuthorProps

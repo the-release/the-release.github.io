@@ -2,7 +2,7 @@ import sharp from "sharp";
 import path from "path";
 import { promises as fs } from "fs";
 
-import { isFile } from "../is-file/is-file";
+import { isFile } from "./is-file";
 
 export const optimizeImage = async (
   src: string,

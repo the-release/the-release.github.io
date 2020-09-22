@@ -2,10 +2,10 @@ import path from "path";
 import { promises as fs } from "fs";
 
 import { Author } from "../../../entities/author.entity";
-import { slugify } from "../../../utils/slugify/slugify";
+import { slugify } from "../../utils/slugify";
 import { ORIGIN } from "../../../config";
 import { authorImageLinter } from "./author.linter";
-import { exportImage } from "../../../utils/export-image/export-image";
+import { exportImage } from "../../utils/image-export";
 
 export const parseAuthors = async (): Promise<Author[]> => {
   const authorsDir = path.join(process.cwd(), "data", "authors");
