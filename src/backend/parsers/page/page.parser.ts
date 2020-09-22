@@ -13,7 +13,7 @@ import { parseMarkDown } from "../markdown/markdown.parser";
 
 const pagesDir = path.join(process.cwd(), "data", "pages");
 
-export const getPageBySlug = async (slug: string) => {
+const parsePage = async (slug: string) => {
   try {
     const pageDir = path.join(pagesDir, slug);
     const pageFilePath = path.join(pageDir, "/page.md");
@@ -42,7 +42,7 @@ export const getPageBySlug = async (slug: string) => {
   }
 };
 
-export const getPages = async () => {
+export const parsePages = async () => {
   const items = await fs.readdir(pagesDir, { withFileTypes: true });
   const folders = items.filter(item => item.isDirectory());
 
@@ -50,7 +50,7 @@ export const getPages = async () => {
     folders.map(async ({ name }) => {
       const slug = path.parse(name).name;
 
-      return await getPageBySlug(slug);
+      return await parsePage(slug);
     })
   );
 };

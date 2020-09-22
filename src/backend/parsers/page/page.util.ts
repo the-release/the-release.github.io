@@ -5,10 +5,7 @@ import { ORIGIN } from "../../../config";
 import { Image } from "../../../entities/image.entity";
 import { convertRgbToRgba } from "../../../utils/rgb-to-rgba/rgb-to-rgba";
 import { exportImage } from "../../../utils/export-image/export-image";
-
-export const isAbsoluteUrl = (url: string) => {
-  return new RegExp(/^https?:\/\/|^\/\//i, "i").test(url);
-};
+import { isAbsoluteUrl } from "../../../utils/absolute-url/absolute-url";
 
 export const exportImages = async (html: string, basePath: string) => {
   const $ = cheerio.load(html);

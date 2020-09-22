@@ -1,13 +1,13 @@
 import { createConnection, getRepository } from "typeorm";
 import { TYPEORM_CONFIG } from "../typeorm.config";
-import { getArticles } from "./parsers/article/article.parser";
-import { Article } from "../entities/article.entity";
 import { Category } from "../entities/category.entity";
 import { Author } from "../entities/author.entity";
-import { getCategories } from "./parsers/category/category.parser";
-import { getAuthors } from "./parsers/author/author.parser";
-import { getPages } from "./parsers/page/page.parser";
 import { Page } from "../entities/page.entity";
+import { Article } from "../entities/article.entity";
+import { parseCategories } from "./parsers/category/category.parser";
+import { parseAuthors } from "./parsers/author/author.parser";
+import { parsePages } from "./parsers/page/page.parser";
+import { parseArticles } from "./parsers/article/article.parser";
 
 process.on("uncaughtException", err => {
   console.error(err);
@@ -25,10 +25,10 @@ createConnection(TYPEORM_CONFIG).then(async () => {
   const pageRepository = getRepository(Page);
   const articleRepository = getRepository(Article);
 
-  const categories = await getCategories();
-  const authors = await getAuthors();
-  const pages = await getPages();
-  const articles = await getArticles();
+  const categories = await parseCategories();
+  const authors = await parseAuthors();
+  const pages = await parsePages();
+  const articles = await parseArticles();
 
   for (const category of categories) {
     await categoryRepository.save(new Category(category));

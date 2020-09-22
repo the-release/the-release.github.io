@@ -20,7 +20,7 @@ import { coverImageLinter } from "./article.linter";
 
 const articlesDir = path.join(process.cwd(), "data", "articles");
 
-export const getArticleBySlug = async (slug: string) => {
+const parseArticle = async (slug: string) => {
   try {
     const isDraft = slug.startsWith(".") ? 1 : 0;
     const articleDir = path.join(articlesDir, slug);
@@ -63,7 +63,7 @@ export const getArticleBySlug = async (slug: string) => {
   }
 };
 
-export const getArticles = async () => {
+export const parseArticles = async () => {
   const items = await fs.readdir(articlesDir, { withFileTypes: true });
   const folders = items.filter(item => item.isDirectory());
 
@@ -71,7 +71,7 @@ export const getArticles = async () => {
     folders.map(async ({ name }) => {
       const slug = path.parse(name).name;
 
-      return await getArticleBySlug(slug);
+      return await parseArticle(slug);
     })
   );
 };

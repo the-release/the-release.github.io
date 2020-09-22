@@ -7,7 +7,7 @@ import { ORIGIN } from "../../../config";
 import { authorImageLinter } from "./author.linter";
 import { exportImage } from "../../../utils/export-image/export-image";
 
-export const getAuthors = async (): Promise<Author[]> => {
+export const parseAuthors = async (): Promise<Author[]> => {
   const authorsDir = path.join(process.cwd(), "data", "authors");
   const items = await fs.readdir(authorsDir, { withFileTypes: true });
   const files = items.filter(item => item.isFile());
