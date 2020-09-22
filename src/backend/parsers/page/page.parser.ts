@@ -19,7 +19,7 @@ export const getPageBySlug = async (slug: string) => {
     const pageFilePath = path.join(pageDir, "/page.md");
     let htmlContent = await parseMarkDown(pageFilePath);
 
-    const { html } = await exportImages(htmlContent, slug);
+    const { html } = await exportImages(htmlContent, pageDir);
 
     htmlContent = addImageCaptions(html);
     htmlContent = lazyLoadImages(htmlContent);

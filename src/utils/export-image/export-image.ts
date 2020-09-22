@@ -1,31 +1,26 @@
 import path from "path";
 import { promises as fs } from "fs";
 import url from "url";
-import sharp from "sharp";
+import ColorThief from "colorthief";
 
-import { sha256 } from "../../../utils/sha256/sha256";
-import { optimizeImage } from "../../../utils/resize-image/resize-image";
-import { Image } from "../../../entities/image.entity";
+import { sha256 } from "../sha256/sha256";
 import {
-  LARGE_IMAGE_WIDTH,
+  SMALL_IMAGE_WIDTH,
   MEDIUM_IMAGE_WIDTH,
-  ORIGIN,
-  SMALL_IMAGE_WIDTH
-} from "../../../config";
+  LARGE_IMAGE_WIDTH,
+  ORIGIN
+} from "../../config";
+import { optimizeImage } from "../resize-image/resize-image";
+import { Image } from "../../entities/image.entity";
 
-export const exportImage = async (
-  filename: string,
-  slug: string,
-  alt: string
-): Promise<Image> => {
-  const authorsDir = path.join(process.cwd(), "data", "authors");
+export const exportImage = async (src: string, alt: string): Promise<Image> => {
   const publicDir = path.join(process.cwd(), "public");
-  const src = path.join(authorsDir, filename);
   const hash = sha256(await fs.readFile(src));
+  const { name } = path.parse(src);
 
-  const exportPathSmall = path.join("/author", `${slug}-${hash}-small.jpg`);
-  const exportPathMedium = path.join("/author", `${slug}-${hash}-medium.jpg`);
-  const exportPathLarge = path.join("/author", `${slug}-${hash}-large.jpg`);
+  const exportPathSmall = path.join("/images", `${name}-${hash}-small.jpg`);
+  const exportPathMedium = path.join("/images", `${name}-${hash}-medium.jpg`);
+  const exportPathLarge = path.join("/images", `${name}-${hash}-large.jpg`);
 
   const destSmall = path.join(publicDir, exportPathSmall);
   const destMedium = path.join(publicDir, exportPathMedium);
@@ -53,10 +48,8 @@ export const exportImage = async (
     absoluteUrl: absoluteUrlLarge
   };
 
-  const {
-    dominant: { r, g, b }
-  } = await sharp(destSmall).stats();
-  const dominantColor = `rgb(${[r, g, b].join(",")})`;
+  const dominantColorArray = await ColorThief.getColor(destSmall);
+  const dominantColor = `rgb(${dominantColorArray.join(",")})`;
 
   return {
     alt,

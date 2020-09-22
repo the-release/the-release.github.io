@@ -1,10 +1,5 @@
 # Markdown Demo
 
-**This is a lede. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vel placerat dui.**
-
-![A fingerprint](image.png)
-*this is an image caption*
-
 ## Headings
 
 Sometimes it's useful to have different levels of headings to structure your documents. Start lines with a `#` to create headings. Multiple `##` in a row denote smaller heading sizes.
@@ -60,6 +55,9 @@ Alternatively,
   - And thiss
   
 # Images
+
+![A fingerprint](image.png)
+*this is an image caption*
 
 ![A cat looking up](cat.jpg)  
 *Copyright or caption*

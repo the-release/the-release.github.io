@@ -28,7 +28,7 @@ export const getArticleBySlug = async (slug: string) => {
     const metadata = await metadataSelector(articleDir);
     let htmlContent = await parseMarkDown(articleFilePath);
 
-    const { html, images } = await exportImages(htmlContent, slug);
+    const { html, images } = await exportImages(htmlContent, articleDir);
 
     coverImageLinter(html);
 

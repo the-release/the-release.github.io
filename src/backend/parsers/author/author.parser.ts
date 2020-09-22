@@ -2,14 +2,13 @@ import path from "path";
 import { promises as fs } from "fs";
 
 import { Author } from "../../../entities/author.entity";
-import { exportImage } from "./author.util";
 import { slugify } from "../../../utils/slugify/slugify";
 import { ORIGIN } from "../../../config";
 import { authorImageLinter } from "./author.linter";
-
-const authorsDir = path.join(process.cwd(), "data", "authors");
+import { exportImage } from "../../../utils/export-image/export-image";
 
 export const getAuthors = async (): Promise<Author[]> => {
+  const authorsDir = path.join(process.cwd(), "data", "authors");
   const items = await fs.readdir(authorsDir, { withFileTypes: true });
   const files = items.filter(item => item.isFile());
 
@@ -17,9 +16,11 @@ export const getAuthors = async (): Promise<Author[]> => {
     files.map(async ({ name: filename }) => {
       const name = path.parse(filename).name;
       const slug = slugify(name);
+      const authorFilePath = path.join(authorsDir, filename);
+      const alt = `A portrait photo of ${slug}`;
 
       try {
-        const image = await exportImage(filename, slug, name);
+        const image = await exportImage(authorFilePath, alt);
 
         authorImageLinter(image);
 

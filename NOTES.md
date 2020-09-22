@@ -11,10 +11,11 @@
 - [ ] Strip HTML Comments
 - [ ] weird favicon iOS Safari
 - [ ] Fix trailing slash infinite redirect bug (https://therelease.news/article) 
-- [ ] Test page images 
+- [x] Test page images 
 - [ ] Share the same markdown utils between articles and pages
-- [ ] Share the same image exporter between authors, articles and pages 
+- [x] Share the same image exporter between authors, articles and pages 
 - [ ] Support nested pages (/nested/page)
+- [ ] Support draft pages
 
 # Features
 
