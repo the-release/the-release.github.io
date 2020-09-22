@@ -21,23 +21,20 @@ const Overlay = styled.label`
   transition: opacity 0.35s;
 `;
 
-const Drawer = styled.nav(
-  ({ theme }) => css`
-    position: fixed;
-    top: 0;
-    right: 0;
-    height: 100vh;
-    height: -webkit-fill-available;
-    background: #000;
-    transition: transform 0.35s;
-    overflow: auto;
-    overscroll-behavior-y: contain;
-    width: 100%;
-    max-width: 560px;
-    color: #fff;
-    font-family: ${theme.fonts.sans};
-  `
-);
+const Drawer = styled.nav`
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  height: -webkit-fill-available;
+  background: #000;
+  transition: transform 0.35s;
+  overflow: auto;
+  overscroll-behavior-y: contain;
+  width: 100%;
+  max-width: 560px;
+  color: #fff;
+`;
 
 /**
  * We're using a separate element for the Drawer's background
@@ -91,7 +88,7 @@ const Categories = styled.ul(
 
 const Misc = styled.ul(
   ({ theme }) => css`
-    ${theme.typography.h4};
+    ${theme.typography.h5};
     list-style: none;
     margin: 20px 40px;
     font-weight: normal;

@@ -64,13 +64,9 @@ const Title = styled(Heading)`
 const Lede = styled(Text)(
   ({ theme }) => css`
     border-radius: 5px;
-    font-family: ${theme.fonts.serif};
     color: ${theme.colors.textSecondary};
     font-weight: normal;
-
-    @media only screen and (max-width: 1080px) {
-      font-size: 18px;
-    }
+    font-size: 18px;
   `
 );
 

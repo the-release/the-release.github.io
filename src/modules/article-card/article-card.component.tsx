@@ -65,9 +65,9 @@ const Title = styled(Heading)`
 const Lede = styled(Text)(
   ({ theme }) => css`
     border-radius: 5px;
-    font-family: ${theme.fonts.serif};
     color: ${theme.colors.textSecondary};
     font-weight: normal;
+    font-size: 18px;
   `
 );
 
@@ -113,9 +113,7 @@ export const ArticleCard: FC<ArticleCardProps> = ({
             <Title component="h2" gutterBottom>
               {title}
             </Title>
-            <Lede component="p" variant="h3">
-              {lede}
-            </Lede>
+            <Lede component="p">{lede}</Lede>
           </ArticleInformation>
         </StyledArticleLink>
       </Link>
