@@ -93,7 +93,7 @@ export const ArticleMetadata: FC<ArticleMetadataProps> = ({
           <AuthorThumbnailLink rel="author">
             <AuthorThumbnail
               alt={author.image.alt}
-              src={author.image.sizes.small.url}
+              src={author.image.sizes["100"].url}
               dominantColor={author.image.dominantColor}
               width={40}
               height={40}

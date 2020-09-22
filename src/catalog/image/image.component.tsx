@@ -9,6 +9,7 @@ import styled, { css } from "styled-components";
 
 import { easeInOutQuart } from "../../styles/easing";
 import { convertRgbToRgba } from "../../utils/rgb-to-rgba";
+import { ImageSizes } from "../../entities/image.entity";
 
 interface ImageProps
   extends Omit<ImgHTMLAttributes<HTMLImageElement>, "srcSet"> {
@@ -17,10 +18,7 @@ interface ImageProps
   width: number;
   height: number;
   dominantColor?: string;
-  srcSet?: {
-    src: string;
-    width: number;
-  }[];
+  srcSet?: ImageSizes;
 }
 
 const ImageContainer = styled.figure<{
@@ -80,7 +78,11 @@ export const Image: FC<ImageProps> = ({
 }) => {
   const imageRef = useRef<HTMLImageElement>(null);
   const [hasLoaded, setHasLoaded] = useState(false);
-  const srcset = srcSet?.map(({ src, width }) => `${src} ${width}w`).join(", ");
+  const srcset = srcSet
+    ? Object.values(srcSet)
+        .map(({ url, width }) => `${url} ${width}w`)
+        .join(", ")
+    : undefined;
   const imageRatio = (height / width) * 100;
   const dominantColorRgba = dominantColor
     ? convertRgbToRgba(dominantColor, 0.5)

@@ -1,10 +1,12 @@
 import { Image } from "../../../entities/image.entity";
-import { LARGE_IMAGE_WIDTH, SMALL_IMAGE_WIDTH } from "../../../config";
+import { AUTHOR_IMAGE_MIN_WIDTH } from "../../../config";
 
 export const authorImageLinter = (image: Image) => {
-  if (image.sizes.large.width < SMALL_IMAGE_WIDTH) {
+  const biggestImage = Object.values(image.sizes).slice(-1)[0];
+
+  if (biggestImage.width < AUTHOR_IMAGE_MIN_WIDTH) {
     throw new Error(
-      `Author images must be at least ${LARGE_IMAGE_WIDTH}px wide`
+      `Author images must be at least ${AUTHOR_IMAGE_MIN_WIDTH}px wide`
     );
   }
 };

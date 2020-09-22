@@ -90,21 +90,9 @@ export const ArticleCard: FC<ArticleCardProps> = ({
           <div>
             <Thumbnail
               alt={coverImage.alt}
-              src={coverImage.sizes.medium.url}
-              srcSet={[
-                {
-                  src: coverImage.sizes.small.url,
-                  width: coverImage.sizes.small.width
-                },
-                {
-                  src: coverImage.sizes.medium.url,
-                  width: coverImage.sizes.medium.width
-                },
-                {
-                  src: coverImage.sizes.large.url,
-                  width: coverImage.sizes.large.width
-                }
-              ]}
+              src={coverImage.sizes["600"].url}
+              srcSet={coverImage.sizes}
+              sizes="(max-width: 560px) 25vw, 33vw"
               dominantColor={coverImage.dominantColor}
               width={16}
               height={9}

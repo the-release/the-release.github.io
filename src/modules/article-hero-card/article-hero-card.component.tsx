@@ -92,21 +92,9 @@ export const ArticleHeroCard: FC<ArticleCardProps> = ({
         <StyledArticleLink>
           <Thumbnail
             alt={coverImage.alt}
-            src={coverImage.sizes.medium.url}
-            srcSet={[
-              {
-                src: coverImage.sizes.small.url,
-                width: coverImage.sizes.small.width
-              },
-              {
-                src: coverImage.sizes.medium.url,
-                width: coverImage.sizes.medium.width
-              },
-              {
-                src: coverImage.sizes.large.url,
-                width: coverImage.sizes.large.width
-              }
-            ]}
+            src={coverImage.sizes["800"].url}
+            srcSet={coverImage.sizes}
+            sizes="(max-width: 768px) 100vw, 66vw"
             dominantColor={coverImage.dominantColor}
             width={16}
             height={9}

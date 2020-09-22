@@ -4,14 +4,9 @@ import url from "url";
 import ColorThief from "colorthief";
 
 import { sha256 } from "./sha256";
-import {
-  SMALL_IMAGE_WIDTH,
-  MEDIUM_IMAGE_WIDTH,
-  LARGE_IMAGE_WIDTH,
-  ORIGIN
-} from "../../config";
+import { ORIGIN, IMAGE_SIZES } from "../../config";
 import { optimizeImage } from "./resize-image";
-import { Image } from "../../entities/image.entity";
+import { Image, ImageSizes } from "../../entities/image.entity";
 import cheerio from "cheerio";
 import { isAbsoluteUrl } from "./absolute-url";
 
@@ -38,18 +33,18 @@ export const exportImages = async (html: string, basePath: string) => {
     const filePath = path.join(basePath, src);
     const exportedImage = await exportImage(filePath, alt);
     const { sizes, dominantColor } = exportedImage;
-    const { medium, large } = sizes;
+    const biggestImage = Object.values(sizes).slice(-1)[0];
+    const srcSet = Object.values(sizes)
+      .map(size => `${size.url} ${size.width}w`)
+      .join(", ");
 
     images.push(exportedImage);
 
     $(imageElement)
-      .attr("src", medium.url)
-      .attr(
-        "srcset",
-        `${medium.url} ${medium.width}w, ${large.url} ${large.width}w`
-      )
-      .attr("width", `${large.width}`)
-      .attr("height", `${large.height}`)
+      .attr("src", sizes["800"].url)
+      .attr("srcset", srcSet)
+      .attr("width", `${biggestImage.width}`)
+      .attr("height", `${biggestImage.height}`)
       .css("background-color", dominantColor)
       .addClass("fadeInOnLoad");
   }
@@ -64,47 +59,29 @@ export const exportImage = async (src: string, alt: string): Promise<Image> => {
   const publicDir = path.join(process.cwd(), "public");
   const hash = sha256(await fs.readFile(src));
   const { name } = path.parse(src);
-
-  const exportPathSmall = path.join("/images", `${name}-${hash}-small.jpg`);
-  const exportPathMedium = path.join("/images", `${name}-${hash}-medium.jpg`);
-  const exportPathLarge = path.join("/images", `${name}-${hash}-large.jpg`);
-
-  const destSmall = path.join(publicDir, exportPathSmall);
-  const destMedium = path.join(publicDir, exportPathMedium);
-  const destLarge = path.join(publicDir, exportPathLarge);
-
-  const absoluteUrlSmall = url.resolve(ORIGIN, exportPathSmall);
-  const absoluteUrlMedium = url.resolve(ORIGIN, exportPathMedium);
-  const absoluteUrlLarge = url.resolve(ORIGIN, exportPathLarge);
-
-  const imageSizeSmall = {
-    ...(await optimizeImage(src, destSmall, SMALL_IMAGE_WIDTH)),
-    url: exportPathSmall,
-    absoluteUrl: absoluteUrlSmall
-  };
-
-  const imageSizeMedium = {
-    ...(await optimizeImage(src, destMedium, MEDIUM_IMAGE_WIDTH)),
-    url: exportPathMedium,
-    absoluteUrl: absoluteUrlMedium
-  };
-
-  const imageSizeLarge = {
-    ...(await optimizeImage(src, destLarge, LARGE_IMAGE_WIDTH)),
-    url: exportPathLarge,
-    absoluteUrl: absoluteUrlLarge
-  };
-
-  const dominantColorArray = await ColorThief.getColor(destSmall);
+  const dominantColorArray = await ColorThief.getColor(src);
+  // TODO: speed up dominant color check
   const dominantColor = `rgb(${dominantColorArray.join(",")})`;
+  const imageSizes: Partial<ImageSizes> = {};
+
+  for (const imageSize of IMAGE_SIZES) {
+    const relativeUrl = path.join(
+      "/images",
+      `${name}-${hash}-${imageSize}.jpg`
+    );
+    const absoluteUrl = url.resolve(ORIGIN, relativeUrl);
+    const dest = path.join(publicDir, relativeUrl);
+
+    imageSizes[imageSize] = {
+      ...(await optimizeImage(src, dest, imageSize)),
+      url: relativeUrl,
+      absoluteUrl
+    };
+  }
 
   return {
     alt,
     dominantColor,
-    sizes: {
-      small: imageSizeSmall,
-      medium: imageSizeMedium,
-      large: imageSizeLarge
-    }
+    sizes: imageSizes as ImageSizes
   };
 };

@@ -1,6 +1,6 @@
 import cheerio from "cheerio";
 
-import { LARGE_IMAGE_WIDTH } from "../../../config";
+import { COVER_IMAGE_MIN_WIDTH } from "../../../config";
 
 export const coverImageLinter = (html: string) => {
   const $ = cheerio.load(html);
@@ -9,8 +9,10 @@ export const coverImageLinter = (html: string) => {
   const width = parseInt(coverImage.attr("width") || "0", 10);
 
   if (!src) throw new Error(`Missing cover image`);
-  if (width < LARGE_IMAGE_WIDTH) {
-    throw new Error(`Cover image must be at least ${LARGE_IMAGE_WIDTH}px wide`);
+  if (width < COVER_IMAGE_MIN_WIDTH) {
+    throw new Error(
+      `Cover image must be at least ${COVER_IMAGE_MIN_WIDTH}px wide`
+    );
   }
 };
 
