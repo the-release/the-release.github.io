@@ -12,7 +12,7 @@ type ArticleCardProps = Pick<Article, "title" | "lede" | "url" | "images">;
 const StyledArticleLink = styled.a`
   display: grid;
   grid-column-gap: 30px;
-  grid-row-gap: 30px;
+  grid-row-gap: 20px;
   grid-template-columns: 1fr 1fr 1fr;
   text-decoration: none;
   margin-bottom: 30px;
