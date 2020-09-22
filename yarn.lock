@@ -7305,14 +7305,6 @@ regjsparser@^0.6.4:
   dependencies:
     jsesc "~0.5.0"
 
-remark-capitalize@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/remark-capitalize/-/remark-capitalize-1.1.0.tgz#cddc7760e683194f3406c8b09907fa837a3bc7f0"
-  integrity sha512-53OMspdGD5XLSvB2lwuoGZ+YQZm+n1xRmWoqFdMgXgdVmbTWSd4O5zBJxp47BCWdshVh17Xb0MCIxR0Oib7DCA==
-  dependencies:
-    title "3.3.1"
-    unist-util-visit "1.3.1"
-
 remark-html@^12.0.0:
   version "12.0.0"
   resolved "https://registry.yarnpkg.com/remark-html/-/remark-html-12.0.0.tgz#f39d2a5e173cce777981cb4171b4ea860313d72a"
@@ -8472,16 +8464,6 @@ timsort@^0.3.0:
   resolved "https://registry.yarnpkg.com/timsort/-/timsort-0.3.0.tgz#405411a8e7e6339fe64db9a234de11dc31e02bd4"
   integrity sha1-QFQRqOfmM5/mTbmiNN4R3DHgK9Q=
 
-title@3.3.1:
-  version "3.3.1"
-  resolved "https://registry.yarnpkg.com/title/-/title-3.3.1.tgz#b3e2a8795a231ac6e5fc49aaf8190c8a5160ec52"
-  integrity sha512-lwwnQfxQOxUSR4bdkjbv49hlYEs9Nxu7DfgILhvknkdlFw2gdUP/QpFEqjyA4ZTjeFU4A/eqM2Tgi6XS+1gjqA==
-  dependencies:
-    arg "1.0.0"
-    chalk "2.3.0"
-    clipboardy "1.2.2"
-    titleize "1.0.0"
-
 title@^3.4.2:
   version "3.4.2"
   resolved "https://registry.yarnpkg.com/title/-/title-3.4.2.tgz#1c0acd159c6437296cc73ec743a4b9f7510c6a6f"
@@ -8809,11 +8791,6 @@ unist-util-generated@^1.0.0:
   resolved "https://registry.yarnpkg.com/unist-util-generated/-/unist-util-generated-1.1.5.tgz#1e903e68467931ebfaea386dae9ea253628acd42"
   integrity sha512-1TC+NxQa4N9pNdayCYA1EGUOCAO0Le3fVp7Jzns6lnua/mYgwHo0tz5WUAfrdpNch1RZLHc61VZ1SDgrtNXLSw==
 
-unist-util-is@^2.1.1:
-  version "2.1.3"
-  resolved "https://registry.yarnpkg.com/unist-util-is/-/unist-util-is-2.1.3.tgz#459182db31f4742fceaea88d429693cbf0043d20"
-  integrity sha512-4WbQX2iwfr/+PfM4U3zd2VNXY+dWtZsN1fLnWEi2QQXA4qyDYAZcDMfXUX0Cu6XZUHHAO9q4nyxxLT4Awk1qUA==
-
 unist-util-is@^4.0.0:
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/unist-util-is/-/unist-util-is-4.0.2.tgz#c7d1341188aa9ce5b3cff538958de9895f14a5de"
@@ -8845,13 +8822,6 @@ unist-util-visit-parents@^3.0.0:
   dependencies:
     "@types/unist" "^2.0.0"
     unist-util-is "^4.0.0"
-
-unist-util-visit@1.3.1:
-  version "1.3.1"
-  resolved "https://registry.yarnpkg.com/unist-util-visit/-/unist-util-visit-1.3.1.tgz#c019ac9337a62486be58531bc27e7499ae7d55c7"
-  integrity sha512-0fdB9EQJU0tho5tK0VzOJzAQpPv2LyLZ030b10GxuzAWEfvd54mpY7BMjQ1L69k2YNvL+SvxRzH0yUIehOO8aA==
-  dependencies:
-    unist-util-is "^2.1.1"
 
 unist-util-visit@^2.0.0, unist-util-visit@^2.0.1:
   version "2.0.3"

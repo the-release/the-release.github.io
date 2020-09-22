@@ -2,6 +2,7 @@ import React, { FC } from "react";
 import styled from "styled-components";
 import { Text } from "../../catalog/text/text.component";
 import Link from "next/link";
+import { SITE_NAME } from "../../config";
 
 const StyledFooter = styled.footer`
   background: #000;
@@ -20,7 +21,7 @@ const StyledFooter = styled.footer`
 export const Footer: FC = ({ ...otherProps }) => {
   return (
     <StyledFooter {...otherProps}>
-      <Text component="p">This is a footer</Text>
+      <Text component="p">Readers must be 18+</Text>
       <Link href="/[slug]" as="/about">
         <a>About</a>
       </Link>
@@ -30,6 +31,7 @@ export const Footer: FC = ({ ...otherProps }) => {
       <Link href="/[slug]" as="/privacy">
         <a>Privacy</a>
       </Link>
+      <Text component="p">© 2020 {SITE_NAME}</Text>
     </StyledFooter>
   );
 };

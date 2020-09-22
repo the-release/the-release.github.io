@@ -1,6 +1,6 @@
 import path from "path";
 import { promises as fs } from "fs";
-import titleCase from "title";
+import { titleCase } from "../../utils/title-case";
 
 export const metadataSelector = async (
   categoryDir: string

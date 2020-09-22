@@ -13,7 +13,6 @@ import { coverImageLinter, enforceImageCaptions } from "./article.linter";
 import { exportImages } from "../../utils/image-export";
 import { addImageCaptions } from "../../utils/image-caption";
 import { lazyLoadImages } from "../../utils/image-lazy-load";
-import { externalLinks } from "../../utils/external-links";
 import { makeImageResponsive } from "../../utils/image-responsive";
 
 const articlesDir = path.join(process.cwd(), "data", "articles");
@@ -33,7 +32,6 @@ const parseArticle = async (slug: string) => {
 
     htmlContent = addImageCaptions(html);
     htmlContent = lazyLoadImages(htmlContent);
-    htmlContent = externalLinks(htmlContent);
     htmlContent = makeImageResponsive(htmlContent);
 
     return {

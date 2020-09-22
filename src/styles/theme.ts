@@ -52,6 +52,17 @@ const h2: any = css`
 
 const h3: any = css`
   font-family: ${fonts.sans};
+  font-size: 24px;
+  font-weight: bold;
+  color: ${colors.textPrimary};
+
+  @media only screen and (max-width: 560px) {
+    font-size: 18px;
+  }
+`;
+
+const h4: any = css`
+  font-family: ${fonts.sans};
   font-size: 18px;
   font-weight: bold;
   color: ${colors.textPrimary};
@@ -61,7 +72,7 @@ const h3: any = css`
   }
 `;
 
-const h4: any = css`
+const h5: any = css`
   font-family: ${fonts.sans};
   font-size: 16px;
   font-weight: bold;
@@ -72,7 +83,7 @@ const h4: any = css`
   }
 `;
 
-const h5: any = css`
+const h6: any = css`
   font-family: ${fonts.sans};
   font-size: 14px;
   font-weight: bold;
@@ -80,17 +91,6 @@ const h5: any = css`
 
   @media only screen and (max-width: 560px) {
     font-size: 12px;
-  }
-`;
-
-const h6: any = css`
-  font-family: ${fonts.sans};
-  font-size: 12px;
-  font-weight: bold;
-  color: ${colors.textPrimary};
-
-  @media only screen and (max-width: 560px) {
-    font-size: 10px;
   }
 `;
 

@@ -47,7 +47,6 @@
     "prettier": "1.19.1",
     "reading-time": "^1.2.0",
     "remark": "^12.0.1",
-    "remark-capitalize": "^1.1.0",
     "remark-html": "^12.0.0",
     "remark-slug": "^6.0.0",
     "serve": "^11.0.0",

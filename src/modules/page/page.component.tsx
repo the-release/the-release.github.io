@@ -5,10 +5,17 @@ import { Page } from "../../entities/page.entity";
 import { MetaTags } from "../../catalog/meta-tags.component";
 import { SITE_NAME } from "../../config";
 import { Markdown } from "../markdown/markdown.component";
+import styled from "styled-components";
 
 export interface PageProps {
   page: Pick<Page, "htmlContent" | "title">;
 }
+
+const PageContainer = styled.div`
+  max-width: 768px;
+  margin: 0 auto;
+  padding: 30px 0;
+`;
 
 export const PageComponent: FC<PageProps> = ({
   page: { htmlContent, title }
@@ -17,7 +24,9 @@ export const PageComponent: FC<PageProps> = ({
     <>
       <MetaTags title={`${title} – ${SITE_NAME}`} />
       <Layout>
-        <Markdown>{htmlContent}</Markdown>
+        <PageContainer>
+          <Markdown>{htmlContent}</Markdown>
+        </PageContainer>
       </Layout>
     </>
   );
