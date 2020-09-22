@@ -44,6 +44,7 @@ export const exportImages = async (html: string, basePath: string) => {
     $(imageElement)
       .attr("src", sizes["800"].url)
       .attr("srcset", srcSet)
+      .attr("sizes", "(max-width: 848px) 100vw, 768px")
       .attr("width", `${biggestImage.width}`)
       .attr("height", `${biggestImage.height}`)
       .css("background-color", dominantColor)
@@ -72,6 +73,7 @@ export const exportImage = async (src: string, alt: string): Promise<Image> => {
     );
     const absoluteUrl = url.resolve(ORIGIN, relativeUrl);
     const dest = path.join(publicDir, relativeUrl);
+    // TODO: remove duplicate images when it is smaller than the target size
     const { width, height } = await optimizeImage(src, dest, imageSize);
 
     imageSizes[imageSize] = {
