@@ -2,12 +2,12 @@ import path from "path";
 import { promises as fs } from "fs";
 import url from "url";
 import ColorThief from "colorthief";
+import cheerio from "cheerio";
 
 import { sha256 } from "./sha256";
 import { ORIGIN, IMAGE_SIZES } from "../../config";
-import { optimizeImage } from "./resize-image";
+import { optimizeImage } from "./image-optimization";
 import { Image, ImageSizes } from "../../entities/image.entity";
-import cheerio from "cheerio";
 import { isAbsoluteUrl } from "./absolute-url";
 
 export const exportImages = async (html: string, basePath: string) => {
@@ -71,9 +71,11 @@ export const exportImage = async (src: string, alt: string): Promise<Image> => {
     );
     const absoluteUrl = url.resolve(ORIGIN, relativeUrl);
     const dest = path.join(publicDir, relativeUrl);
+    const { width, height } = await optimizeImage(src, dest, imageSize);
 
     imageSizes[imageSize] = {
-      ...(await optimizeImage(src, dest, imageSize)),
+      width,
+      height,
       url: relativeUrl,
       absoluteUrl
     };

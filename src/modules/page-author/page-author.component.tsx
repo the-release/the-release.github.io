@@ -12,7 +12,7 @@ import { MetaTags } from "../../catalog/meta-tags.component";
 import { SITE_NAME } from "../../config";
 
 export interface PageAuthorProps {
-  articles: Pick<Article, "title" | "lede" | "url" | "images">[];
+  articles: Pick<Article, "title" | "lede" | "url" | "coverImage">[];
   author: Author;
   previousPageIndex: number | null;
   nextPageIndex: number | null;
@@ -34,7 +34,7 @@ export const PageAuthor: FC<PageAuthorProps> = ({
         <Heading component="h1">
           <Image
             alt={author.image.alt}
-            src={author.image.sizes["300"].url}
+            src={author.image.sizes["200"].url}
             dominantColor={author.image.dominantColor}
             width={100}
             height={100}

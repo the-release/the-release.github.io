@@ -7,7 +7,7 @@ import { Heading } from "../../catalog/heading/heading.component";
 import { Article } from "../../entities/article.entity";
 import { Text } from "../../catalog/text/text.component";
 
-type ArticleCardProps = Pick<Article, "title" | "lede" | "url" | "images">;
+type ArticleCardProps = Pick<Article, "title" | "lede" | "url" | "coverImage">;
 
 const StyledArticleLink = styled.a`
   display: grid;
@@ -82,10 +82,8 @@ export const ArticleHeroCard: FC<ArticleCardProps> = ({
   title,
   lede,
   url,
-  images
+  coverImage
 }) => {
-  const [coverImage] = images;
-
   return (
     <article>
       <Link href="/article/[slug]" as={url} passHref>

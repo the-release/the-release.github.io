@@ -25,7 +25,10 @@ const parseArticle = async (slug: string) => {
     const metadata = await metadataSelector(articleDir);
     let htmlContent = await parseMarkDown(articleFilePath);
 
-    const { html, images } = await exportImages(htmlContent, articleDir);
+    const {
+      html,
+      images: [coverImage]
+    } = await exportImages(htmlContent, articleDir);
 
     coverImageLinter(html);
     enforceImageCaptions(html);
@@ -45,7 +48,7 @@ const parseArticle = async (slug: string) => {
       keywords: metadata.keywords,
       title: titleSelector(htmlContent),
       lede: ledeSelector(htmlContent),
-      images,
+      coverImage,
       readingTime: readingTimeSelector(htmlContent),
       category: metadata.category,
       author: metadata.author

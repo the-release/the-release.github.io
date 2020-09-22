@@ -24,7 +24,7 @@ export class Article {
   lede: string;
 
   @Column({ type: "simple-json" })
-  images: Image[];
+  coverImage: Image;
 
   @Column({ type: "text" })
   publishedAt: string;
@@ -60,7 +60,7 @@ export class Article {
     this.htmlContent = props.htmlContent;
     this.title = props.title;
     this.lede = props.lede;
-    this.images = props.images;
+    this.coverImage = props.coverImage;
     this.publishedAt = props.publishedAt;
     this.keywords = props.keywords;
     this.timestamp = props.timestamp;

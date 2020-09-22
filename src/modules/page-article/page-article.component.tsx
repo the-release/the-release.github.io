@@ -17,7 +17,7 @@ export interface PageArticleProps {
     Article,
     | "title"
     | "lede"
-    | "images"
+    | "coverImage"
     | "publishedAt"
     | "category"
     | "author"
@@ -26,7 +26,7 @@ export interface PageArticleProps {
     | "absoluteUrl"
     | "keywords"
   >;
-  nextArticles: Pick<Article, "title" | "lede" | "url" | "images">[];
+  nextArticles: Pick<Article, "title" | "lede" | "url" | "coverImage">[];
 }
 
 const ArticleContainer = styled.article`
@@ -38,7 +38,7 @@ export const PageArticle: FC<PageArticleProps> = ({
   article: {
     title,
     lede,
-    images,
+    coverImage,
     publishedAt,
     category,
     author,
@@ -49,8 +49,6 @@ export const PageArticle: FC<PageArticleProps> = ({
   },
   nextArticles
 }) => {
-  const [coverImage] = images;
-
   return (
     <>
       <MetaTags
