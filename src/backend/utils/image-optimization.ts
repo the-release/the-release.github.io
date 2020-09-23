@@ -9,12 +9,6 @@ export const optimizeImage = async (
   dest: string,
   maxWidth: number
 ) => {
-  const options = {
-    src,
-    dest,
-    quality: 80
-  };
-
   // Skip optimisation if the file already exists
   if (await isFile(dest)) {
     const { info } = await sharp(dest).toBuffer({
@@ -27,15 +21,10 @@ export const optimizeImage = async (
     };
   }
 
-  const { info } = await sharp(src).toBuffer({ resolveWithObject: true });
-
-  // Skip resize if the file is narrower than the target width
-  if (info.width <= maxWidth) {
-    return await resizeImage(options);
-  }
-
   return resizeImage({
-    ...options,
+    src,
+    dest,
+    quality: 80,
     width: maxWidth
   });
 };
@@ -55,7 +44,9 @@ const resizeImage = async ({
 }) => {
   await fs.mkdir(path.parse(dest).dir, { recursive: true });
   const { info, data } = await sharp(src)
-    .resize(width, height)
+    .resize(width, height, {
+      withoutEnlargement: true
+    })
     .sharpen()
     .flatten({ background: { r: 255, g: 255, b: 255 } })
     .jpeg({ quality })
