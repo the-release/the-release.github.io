@@ -8,7 +8,7 @@ Anyone with a keyboard and just enough repressed anger about the tech industry c
 
 #### Voice & Tone
 
-At The Release, we profoundly believe in freedom of speech and transparency. That is why we have taken the role of the tech industry's truth-seeker. Through slightly satirical writing, we uncover tech's dirtiest secrets and make the industry publicly say what's actually going on behind the curtains. We reveal the hidden intentions, we highlight the excess, and trigger readers's critical thinking.
+At The Release, we profoundly believe in freedom of speech and transparency. That is why we have taken the role of the tech industry's truth-seeker. Through slightly [satirical writing](https://en.wikipedia.org/wiki/Satire), we uncover tech's dirtiest secrets and make the industry publicly say what's actually going on behind the curtains. We reveal the hidden intentions, we highlight the excess, and trigger readers's critical thinking.
 
 #### Do Your Research
 
