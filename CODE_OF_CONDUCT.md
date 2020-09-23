@@ -1,6 +1,4 @@
-Code of Conduct
-
-[check React](https://github.com/facebook/react/blob/master/CODE_OF_CONDUCT.md)
+# Code of Conduct
 
 ## Our Pledge
 - Freedom of speech
