@@ -16,11 +16,9 @@ At The Release, we profoundly believe in freedom of speech and transparency. Tha
 
 Are you venturing in a political story? Make sure you use the accurate technical terms, or fictitiously quote the right person. Are you tackling a breaking topic? Do some reading; what are other news outlets saying about it? what has Twitter already surfaced? what seems to be the public's general opinion? BAM. You've just sharpened your angle. 
 
-### Do Not Add Yourself as an Author
+### Proposing a Fictitious Author
 
 Authors on The Release are fictitious. We believe that the focus should be around the issues highlighted in the articles rather than who wrote them. That's why we decided to go with punny names and AI-generated portraits. But don't worry if you're looking for that street cred, you will appear as a [Contributor](https://github.com/the-release/the-release.github.io/graphs/contributors) after landing a PR.
-
-### Proposing a Fictitious Author
 
 You think you've coined Twitter's top trending tech pun? Well you might have what it takes to create a new The Release author.
 
