@@ -31,18 +31,22 @@ jobs:
             ${{ runner.os }}-yarn-
 
       - name: Cache node_modules
-        id: node-modules-cache
         uses: actions/cache@v2
         with:
-          path: node_modules
+          path: ${{ github.workspace }}/node_modules
           key: ${{ runner.os }}-node-modules-${{ hashFiles('**/yarn.lock') }}
 
-      - name: Cache Images
-        id: image-cache
+      - name: Cache images
         uses: actions/cache@v2
         with:
-          path: public/images
+          path: ${{ github.workspace }}/public/images
           key: ${{ runner.os }}-image-cache
+
+      - name: Next.js cache
+      - uses: actions/cache@v2
+        with:
+          path: ${{ github.workspace }}/dist/.next/cache
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/yarn.lock') }}
 
       - run: yarn install --frozen-lockfile --audit
 

@@ -6,10 +6,9 @@
     "preingest": "rm -rf /tmp/the-release/db.sqlite",
     "ingest": "TS_NODE_FILES=true ts-node --project ./tsconfig.ts-node.json src/backend/ingest.ts",
     "dev": "nodemon",
-    "predev": "yarn cleanup && yarn",
-    "prebuild": "yarn cleanup && yarn ingest",
+    "predev": "yarn",
+    "prebuild": "yarn ingest",
     "build": "next build && next export -o ./dist/out",
-    "cleanup": "rm -rf dist/",
     "serve": "serve -p 3000 ./dist/out"
   },
   "dependencies": {
