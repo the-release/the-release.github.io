@@ -29,7 +29,7 @@ You think you've coined Twitter's top trending tech pun? Well you might have wha
 - Don't underestimate the power of a good middlename initialism
 - Intend your puns
 
-### Other
+### Anything else?
 
 We're really open to any other creative ideas to infuse funny and self-deprecating commentary about the tech industry into new formats. Don't hesitate to share your ideas!
 
