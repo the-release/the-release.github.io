@@ -25,6 +25,7 @@ You think you've coined Twitter's top trending tech pun? Well you might have wha
 - Make sure you're not adding another white male
 - Get creative with nationalities and different pronounciations
 - Don't underestimate the power of a good middlename initialism
+- Intend your puns
 
 ### Proposing a Catchphrase
 
