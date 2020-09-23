@@ -6,7 +6,7 @@ Contributions to The Release are made in the form of pull requests.
 
 ### Proposing an Article
 
-Anyone with a keyboard and just enough repressed anger about the tech industry can propose an article. Make sure you follow The Release's general [Voice & Tone guidelines](#voice--tone) and have some fun! If you just want to propose an idea without writing an article, you can [open an issue](https://github.com/the-release/the-release.github.io/issues) with the <kbd>[Article Idea](https://github.com/the-release/the-release.github.io/labels/Article%20Idea)</kbd> label attached to it.
+Anyone with a keyboard and just enough repressed anger about the tech industry can propose an article. Make sure you follow The Release's general [Voice & Tone guidelines](#voice--tone) and have some fun! If you just want to propose an idea without writing an article, you can [open an issue](https://github.com/the-release/the-release.github.io/issues).
 
 #### Voice & Tone
 
