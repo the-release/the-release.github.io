@@ -16,6 +16,7 @@
 - [x] Share the same image exporter between authors, articles and pages 
 - [ ] Support nested pages (/nested/page)
 - [ ] Support draft pages
+- [ ] Submit the site to be showcased on https://nextjs.org/showcase
 
 # Features
 
