@@ -2,9 +2,9 @@ name: deployment
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   build:
@@ -30,14 +30,21 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
 
-      - run: yarn install --frozen-lockfile --audit
+      - name: Cache node_modules
+        id: node-modules-cache
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-modules-${{ hashFiles('**/yarn.lock') }}
 
       - name: Cache Images
         id: image-cache
         uses: actions/cache@v2
         with:
           path: public/images
-          key: ${{ runner.os }}-images
+          key: ${{ runner.os }}-image-cache
+
+      - run: yarn install --frozen-lockfile --audit
 
       - name: Build
         run: yarn build
