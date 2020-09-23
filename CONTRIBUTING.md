@@ -16,7 +16,7 @@ Are you venturing in a political story? Make sure you use the accurate technical
 
 ### Do Not Add Yourself as an Author
 
-Authors on The Release are fictitious. We believe that the focus should be around the issues highlighted in the articles rather than who wrote them. That's why we decided to go with punny names and AI-generated portraits. But don't worry if you're looking for that street cred, you will appear as a [Contributor](https://github.com/the-release/the-release.github.io/graphs/contributors) after merging a PR.
+Authors on The Release are fictitious. We believe that the focus should be around the issues highlighted in the articles rather than who wrote them. That's why we decided to go with punny names and AI-generated portraits. But don't worry if you're looking for that street cred, you will appear as a [Contributor](https://github.com/the-release/the-release.github.io/graphs/contributors) after landing a PR.
 
 ### Proposing a Fictitious Author
 
