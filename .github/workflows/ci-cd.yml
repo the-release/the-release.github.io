@@ -32,6 +32,13 @@ jobs:
 
       - run: yarn install --frozen-lockfile --audit
 
+      - name: Cache Images
+        id: image-cache
+        uses: actions/cache@v2
+        with:
+          path: public/images
+          key: ${{ runner.os }}-images
+
       - name: Build
         run: yarn build
         env:
