@@ -2,9 +2,9 @@
 
 ## Proposing a Change
 
-### Proposing an article
+### Proposing an Article
 
-Anyone with a keyboard and just enough repressed anger about the tech industry can propose an article. Make sure you follow The Release's general Voice & Tone guidelines and have some fun!
+Anyone with a keyboard and just enough repressed anger about the tech industry can propose an article. Make sure you follow The Release's general Voice & Tone guidelines and have some fun! If you want to submit an idea for a new article, you can [Open an Issue](https://github.com/the-release/the-release.github.io/issues) on GitHub.
 
 #### Voice & Tone
 
@@ -14,16 +14,19 @@ At The Release, we profoundly believe in freedom of speech and transparency. Tha
 
 Are you venturing in a political story? Make sure you use the accurate technical terms, or fictitiously quote the right person. Are you tackling a breaking topic? Do some reading; what are other news outlets saying about it? what has Twitter already surfaced? what seems to be the public's general opinion? BAM. You've just sharpened your angle. 
 
-<!-- do we let them sign their own name? or they absolutely have to pick a deepfake or create one? -->
+### Do Not Add Yourself as an Author
 
-### Proposing a deepfake author
+Authors on The Release are fictitious. We believe that the focus should be around the issues highlighted in the articles rather than who wrote them. That's why we decided to go with punny names and AI-generated portraits. But don't worry if you're looking for that street cred, you will appear as a [Contributor](https://github.com/the-release/the-release.github.io/graphs/contributors) after merging a PR.
 
-You think you've coined Twitter's top trending tech pun? Well you might have what it takes to create a new The Release author. 
+### Proposing a Deepfake Author
+
+You think you've coined Twitter's top trending tech pun? Well you might have what it takes to create a new The Release author.
+
 - Make sure you're not adding another white male
 - Get creative with nationalities and different pronounciations
 - Don't underestimate the power of a good middlename initialism
 
-### Proposing a catchphrase
+### Proposing a Catchphrase
 
 At The Release, we want to give our contributors a voice. That voice can even be portrayed in our sacred catchphrase. If you have a better idea for "Tech's single source of *truth*", send us your tagline and it'll be a nice little Easter Egg for the  `cmd-R` rage-clicker.
 
@@ -48,39 +51,7 @@ We're really open to any other creative ideas to infuse funny and self-deprecati
 ### Sending a Pull Request
 
 Before submitting a pull request, please make sure the following is done:
+
 1. Fork the repository and create your branch from `main`
 2. Checklist
 3. Checklist
-
-### Contribution Prerequisites
-
-- Have *x* installed
-- Have *y* version of *z* or later
-
-### Style Guide
-
-- How we write code
-- Linter and stuff
-
-# Codebase Overview
-
-## Top-Level Folders
-
-- `data`
-	- `articles`
-		- `markdown`
-		- Article folders
-	- `authors`
-		- Image files with author names as filenames
-	- `categories.txt`
-- `public`
-- `src`
-	- `catalog`
-	- `modules`
-	- `pages`
-	- `services`
-	- `styles`
-	- `utils`
-	- `config.ts`
-
-
