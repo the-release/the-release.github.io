@@ -2,26 +2,22 @@ import path from "path";
 import { promises as fs } from "fs";
 
 import {
-  coverImageAltSelector,
   ledeSelector,
   metadataSelector,
   readingTimeSelector,
   titleSelector
 } from "./article.selector";
-import {
-  exportImages,
-  externalLinks,
-  addImageCaptions,
-  lazyLoadImages,
-  makeImageResponsive
-} from "./article.util";
 import { ORIGIN } from "../../../config";
-import { parseMarkDown } from "../markdown/markdown.parser";
-import { coverImageLinter, imageAltLinter } from "./article.linter";
+import { parseMarkDown } from "../../utils/markdown";
+import { coverImageLinter, enforceImageCaptions } from "./article.linter";
+import { exportImages } from "../../utils/image-export";
+import { addImageCaptions } from "../../utils/image-caption";
+import { lazyLoadImages } from "../../utils/image-lazy-load";
+import { makeImageResponsive } from "../../utils/image-responsive";
 
 const articlesDir = path.join(process.cwd(), "data", "articles");
 
-export const getArticleBySlug = async (slug: string) => {
+const parseArticle = async (slug: string) => {
   try {
     const isDraft = slug.startsWith(".") ? 1 : 0;
     const articleDir = path.join(articlesDir, slug);
@@ -29,18 +25,16 @@ export const getArticleBySlug = async (slug: string) => {
     const metadata = await metadataSelector(articleDir);
     let htmlContent = await parseMarkDown(articleFilePath);
 
-    imageAltLinter(htmlContent);
-
     const {
       html,
       images: [coverImage]
-    } = await exportImages(htmlContent, slug);
+    } = await exportImages(htmlContent, articleDir);
 
     coverImageLinter(html);
+    enforceImageCaptions(html);
 
     htmlContent = addImageCaptions(html);
     htmlContent = lazyLoadImages(htmlContent);
-    htmlContent = externalLinks(htmlContent);
     htmlContent = makeImageResponsive(htmlContent);
 
     return {
@@ -54,10 +48,8 @@ export const getArticleBySlug = async (slug: string) => {
       keywords: metadata.keywords,
       title: titleSelector(htmlContent),
       lede: ledeSelector(htmlContent),
+      coverImage,
       readingTime: readingTimeSelector(htmlContent),
-      coverImageUrl: coverImage.large.absoluteUrl,
-      coverImageAlt: coverImageAltSelector(htmlContent),
-      thumbnailUrl: coverImage.small.url,
       category: metadata.category,
       author: metadata.author
     };
@@ -71,7 +63,7 @@ export const getArticleBySlug = async (slug: string) => {
   }
 };
 
-export const getArticles = async () => {
+export const parseArticles = async () => {
   const items = await fs.readdir(articlesDir, { withFileTypes: true });
   const folders = items.filter(item => item.isDirectory());
 
@@ -79,7 +71,7 @@ export const getArticles = async () => {
     folders.map(async ({ name }) => {
       const slug = path.parse(name).name;
 
-      return await getArticleBySlug(slug);
+      return await parseArticle(slug);
     })
   );
 };

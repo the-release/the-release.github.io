@@ -17,8 +17,7 @@ export interface PageArticleProps {
     Article,
     | "title"
     | "lede"
-    | "coverImageUrl"
-    | "coverImageAlt"
+    | "coverImage"
     | "publishedAt"
     | "category"
     | "author"
@@ -27,10 +26,7 @@ export interface PageArticleProps {
     | "absoluteUrl"
     | "keywords"
   >;
-  nextArticles: Pick<
-    Article,
-    "title" | "lede" | "url" | "thumbnailUrl" | "coverImageAlt"
-  >[];
+  nextArticles: Pick<Article, "title" | "lede" | "url" | "coverImage">[];
 }
 
 const ArticleContainer = styled.article`
@@ -38,12 +34,11 @@ const ArticleContainer = styled.article`
   margin: 0 auto;
 `;
 
-export const PagePost: FC<PageArticleProps> = ({
+export const PageArticle: FC<PageArticleProps> = ({
   article: {
     title,
     lede,
-    coverImageUrl,
-    coverImageAlt,
+    coverImage,
     publishedAt,
     category,
     author,
@@ -60,8 +55,8 @@ export const PagePost: FC<PageArticleProps> = ({
         title={`${title} – ${SITE_NAME}`}
         description={lede}
         author={author.name}
-        image={coverImageUrl}
-        imageAlt={coverImageAlt}
+        image={coverImage.sizes["1600"].absoluteUrl}
+        imageAlt={coverImage.alt}
         url={absoluteUrl}
         contentType="article"
         ogType="article"
@@ -78,8 +73,8 @@ export const PagePost: FC<PageArticleProps> = ({
           <ArticleMarkdown>{htmlContent}</ArticleMarkdown>
         </ArticleContainer>
         {!!nextArticles.length && (
-          <>
-            <Heading component="h3" variant="h2" gutterBottom>
+          <div>
+            <Heading component="h3" variant="h3" gutterBottom>
               More news about{" "}
               <Link href="/category/[slug]" as={category.url}>
                 <a>{category.name}</a>
@@ -90,7 +85,7 @@ export const PagePost: FC<PageArticleProps> = ({
                 <ArticleCard {...props} key={index} />
               ))}
             </ArticleList>
-          </>
+          </div>
         )}
       </Layout>
     </>

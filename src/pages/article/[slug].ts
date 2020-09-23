@@ -4,7 +4,7 @@ import { LessThan } from "typeorm";
 
 import {
   PageArticleProps,
-  PagePost
+  PageArticle
 } from "../../modules/page-article/page-article.component";
 import { getArticles } from "../../services/article.service";
 
@@ -36,8 +36,7 @@ export const getStaticProps: GetStaticProps<
     props: [
       "title",
       "lede",
-      "coverImageUrl",
-      "coverImageAlt",
+      "coverImage",
       "publishedAt",
       "category",
       "author",
@@ -53,7 +52,7 @@ export const getStaticProps: GetStaticProps<
   });
 
   const nextArticles = await getArticles({
-    props: ["title", "lede", "url", "thumbnailUrl", "coverImageAlt"],
+    props: ["title", "lede", "url", "coverImage"],
     limit: 3,
     where: {
       category: article.category,
@@ -69,4 +68,4 @@ export const getStaticProps: GetStaticProps<
   };
 };
 
-export default PagePost;
+export default PageArticle;

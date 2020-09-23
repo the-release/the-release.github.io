@@ -1,6 +1,7 @@
 - [x] Serve multiple image sizes based on the viewport `srcset`
 - [x] Extract and set image dimensions
 - [x] Support drafts with hidden folders
+- [ ] Retrieve categories programmatically (main menu)
 - [ ] Support dat protocol with `.well-known/dat`
 - [ ] Embed fake tweets
 - [ ] hover effect article-card
@@ -8,6 +9,14 @@
 - [ ] Short date in category, full date in article
 - [ ] Lint markdown with remark-preset-lint-recommended?
 - [ ] Strip HTML Comments
+- [ ] weird favicon iOS Safari
+- [ ] Fix trailing slash infinite redirect bug (https://therelease.news/article) 
+- [x] Test page images 
+- [ ] Share the same markdown utils between articles and pages
+- [x] Share the same image exporter between authors, articles and pages 
+- [ ] Support nested pages (/nested/page)
+- [ ] Support draft pages
+- [ ] Submit the site to be showcased on https://nextjs.org/showcase
 
 # Features
 
@@ -29,7 +38,9 @@ srcset
 
 #### External links open in new tabs
 
-#### Accessible emojis
+#### Accessibility
+
+emojis, contrast, tabbing
 
 #### Works even if JavaScript is disabled
 

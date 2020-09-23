@@ -1,6 +1,6 @@
 import { FindOneOptions, getRepository } from "typeorm";
 import { Article } from "../entities/article.entity";
-import { pick } from "../utils/pick/pick";
+import { pick } from "../utils/pick";
 import { dbConnection } from "../backend/db";
 import { NODE_ENV } from "../config";
 

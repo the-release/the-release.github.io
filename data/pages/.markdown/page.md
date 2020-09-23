@@ -1,10 +1,5 @@
 # Markdown Demo
 
-**This is a lede**
-
-![A fingerprint](image.png)
-*this is an image caption*
-
 ## Headings
 
 Sometimes it's useful to have different levels of headings to structure your documents. Start lines with a `#` to create headings. Multiple `##` in a row denote smaller heading sizes.
@@ -27,7 +22,7 @@ Headings will be automatically converted to Title Case.
 
 ## Text
 
-It's very easy to make some words **bold** and other words *italic* with Markdown. You can even add [links](http://google.com)! Links pointing to external website will automatically open in a new tab.
+It's very easy to make some words **bold** and other words *italic* or ***both*** with Markdown. You can even add [links](http://google.com)! Links pointing to external website will automatically open in a new tab.
 
 ## Quote
 
@@ -60,6 +55,8 @@ Alternatively,
   - And thiss
   
 # Images
+
+![A fingerprint](image.png)
 
 ![A cat looking up](cat.jpg)  
 *Copyright or caption*

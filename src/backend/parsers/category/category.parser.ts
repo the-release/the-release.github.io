@@ -5,9 +5,8 @@ import { Category } from "../../../entities/category.entity";
 import { ORIGIN } from "../../../config";
 import { metadataSelector } from "./category.selector";
 
-const categoriesDir = path.join(process.cwd(), "data", "categories");
-
-export const getCategories = async (): Promise<Category[]> => {
+export const parseCategories = async (): Promise<Category[]> => {
+  const categoriesDir = path.join(process.cwd(), "data", "categories");
   const items = await fs.readdir(categoriesDir, { withFileTypes: true });
   const folders = items.filter(item => item.isDirectory());
 

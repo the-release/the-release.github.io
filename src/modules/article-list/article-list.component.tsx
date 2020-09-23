@@ -11,7 +11,7 @@ const StyledArticleList = styled.div`
     grid-template-columns: 1fr 1fr;
   }
 
-  @media only screen and (max-width: 550px) {
+  @media only screen and (max-width: 768px) {
     grid-template-columns: 1fr;
   }
 `;

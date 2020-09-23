@@ -5,7 +5,7 @@ import {
   PageCategory,
   PageCategoryProps
 } from "../../../modules/page-category/page-category.component";
-import { paginate } from "../../../utils/paginate/paginate";
+import { paginate } from "../../../utils/paginate";
 import { ITEMS_PER_PAGE } from "../../../config";
 import { getArticles } from "../../../services/article.service";
 import { getCategories } from "../../../services/category.service";
@@ -59,7 +59,7 @@ export const getStaticProps: GetStaticProps<
 
   const { pageItems: articles, previousPageIndex, nextPageIndex } = paginate(
     await getArticles({
-      props: ["title", "lede", "url", "thumbnailUrl", "coverImageAlt"],
+      props: ["title", "lede", "url", "coverImage"],
       where: {
         category: slug
       }

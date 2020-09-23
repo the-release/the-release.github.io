@@ -1,6 +1,7 @@
-import React, { FC } from "react";
+import React, { FC, useEffect, useRef } from "react";
 import styled, { css } from "styled-components";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 import { GITHUB_URL, TWITTER_URL } from "../../config";
 import { CloseMenuIcon } from "./close-menu-icon/close-menu-icon.component";
@@ -20,23 +21,23 @@ const Overlay = styled.label`
   transition: opacity 0.35s;
 `;
 
-const Drawer = styled.nav(
-  ({ theme }) => css`
-    position: fixed;
-    top: 0;
-    right: 0;
-    height: 100vh;
-    height: -webkit-fill-available;
-    background: #000;
-    transition: transform 0.35s;
-    overflow: auto;
-    overscroll-behavior-y: contain;
-    width: 100%;
+const Drawer = styled.nav`
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  height: -webkit-fill-available;
+  background: #000;
+  transition: transform 0.35s;
+  overflow: auto;
+  overscroll-behavior-y: contain;
+  width: 100%;
+  color: #fff;
+
+  @media only screen and (min-width: 600px) {
     max-width: 560px;
-    color: #fff;
-    font-family: ${theme.fonts.sans};
-  `
-);
+  }
+`;
 
 /**
  * We're using a separate element for the Drawer's background
@@ -90,7 +91,7 @@ const Categories = styled.ul(
 
 const Misc = styled.ul(
   ({ theme }) => css`
-    ${theme.typography.h4};
+    ${theme.typography.h5};
     list-style: none;
     margin: 20px 40px;
     font-weight: normal;
@@ -258,6 +259,21 @@ const Category: FC<{
 };
 
 export const MainMenu = () => {
+  const checkboxRef = useRef<HTMLInputElement>(null);
+  const router = useRouter();
+
+  useEffect(() => {
+    const handleRouteChange = () => {
+      checkboxRef.current!.checked = false;
+    };
+
+    router.events.on("routeChangeStart", handleRouteChange);
+
+    return () => {
+      router.events.off("routeChangeStart", handleRouteChange);
+    };
+  }, []);
+
   return {
     toggleButton: (
       <OpenMenuButton htmlFor="main-menu-checkbox">
@@ -266,7 +282,7 @@ export const MainMenu = () => {
     ),
     drawer: (
       <form>
-        <Checkbox id="main-menu-checkbox" type="checkbox" />
+        <Checkbox ref={checkboxRef} id="main-menu-checkbox" type="checkbox" />
         <Overlay htmlFor="main-menu-checkbox" />
         <Pane />
         <Drawer>
@@ -286,7 +302,7 @@ export const MainMenu = () => {
           </Categories>
           <Misc>
             <li>
-              <Link href="/about">
+              <Link href="/[slug]" as="/about">
                 <a>About</a>
               </Link>
             </li>

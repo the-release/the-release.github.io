@@ -3,6 +3,5 @@ node_modules
 coverage
 yarn-error.log
 dist
-public/article
-public/author
+public/images
 sitemap.xml

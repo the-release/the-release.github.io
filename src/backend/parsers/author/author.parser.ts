@@ -2,13 +2,13 @@ import path from "path";
 import { promises as fs } from "fs";
 
 import { Author } from "../../../entities/author.entity";
-import { exportImage } from "./author.util";
-import { slugify } from "../../../utils/slugify/slugify";
+import { slugify } from "../../utils/slugify";
 import { ORIGIN } from "../../../config";
+import { authorImageLinter } from "./author.linter";
+import { exportImage } from "../../utils/image-export";
 
-const authorsDir = path.join(process.cwd(), "data", "authors");
-
-export const getAuthors = async (): Promise<Author[]> => {
+export const parseAuthors = async (): Promise<Author[]> => {
+  const authorsDir = path.join(process.cwd(), "data", "authors");
   const items = await fs.readdir(authorsDir, { withFileTypes: true });
   const files = items.filter(item => item.isFile());
 
@@ -16,15 +16,30 @@ export const getAuthors = async (): Promise<Author[]> => {
     files.map(async ({ name: filename }) => {
       const name = path.parse(filename).name;
       const slug = slugify(name);
-      const thumbnailUrl = await exportImage(filename);
+      const authorFilePath = path.join(authorsDir, filename);
+      const alt = `A portrait photo of ${slug}`;
 
-      return {
-        url: `/author/${slug}`,
-        absoluteUrl: `${ORIGIN}/author/${slug}`,
-        slug,
-        name,
-        thumbnailUrl
-      };
+      try {
+        const image = await exportImage(authorFilePath, alt);
+
+        authorImageLinter(image);
+
+        return {
+          url: `/author/${slug}`,
+          absoluteUrl: `${ORIGIN}/author/${slug}`,
+          slug,
+          name,
+          image
+        };
+      } catch (err) {
+        console.error(
+          "Error:",
+          err?.message ||
+            "An unexpected error occurred while parsing the author"
+        );
+        console.error(`Author: ${slug}`);
+        process.exit(1);
+      }
     })
   );
 };
