@@ -61,7 +61,7 @@ const Title = styled(Heading)`
   }
 
   @media only screen and (max-width: 560px) {
-    font-size: 24px;
+    font-size: 28px;
   }
 `;
 
