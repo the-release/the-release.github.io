@@ -18,7 +18,7 @@ Are you venturing in a political story? Make sure you use the accurate technical
 
 Authors on The Release are fictitious. We believe that the focus should be around the issues highlighted in the articles rather than who wrote them. That's why we decided to go with punny names and AI-generated portraits. But don't worry if you're looking for that street cred, you will appear as a [Contributor](https://github.com/the-release/the-release.github.io/graphs/contributors) after merging a PR.
 
-### Proposing a Deepfake Author
+### Proposing a Fictitious Author
 
 You think you've coined Twitter's top trending tech pun? Well you might have what it takes to create a new The Release author.
 
