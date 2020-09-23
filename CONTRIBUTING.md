@@ -2,7 +2,7 @@
 
 ## Proposing a Change
 
-Contributions on The Release are made in the form of pull requests.
+Contributions to The Release are made in the form of pull requests.
 
 ### Proposing an Article
 
