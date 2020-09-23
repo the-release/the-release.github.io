@@ -1,6 +1,6 @@
 # Google’s Home Assistant will soon be getting a sense of smell
 
-**Your smart assistant will soon be even smarter as Google unveil a new and improved version of their Google Home assistant.**
+**Your smart assistant will soon be even smarter as Google unveils a new and improved version of their Google Home assistant.**
 
 ![Google Home in kitchen](google-home-sense-of-smell.jpg)
 *Photograph: Jonas Leupe [@jonasleupe](https://unsplash.com/@jonasleupe)*

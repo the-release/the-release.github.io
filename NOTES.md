@@ -17,6 +17,7 @@
 - [ ] Support nested pages (/nested/page)
 - [ ] Support draft pages
 - [ ] Submit the site to be showcased on https://nextjs.org/showcase
+- [ ] Add a console.log message inviting people to contribute
 
 # Features
 
