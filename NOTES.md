@@ -8,11 +8,11 @@
 - [x] Cache exported images between CI runs 
 - [x] Support draft pages
 - [ ] Retrieve categories programmatically (main menu)
-- [ ] Support dat protocol with `.well-known/dat`
+- [ ] Support dat protocol with `.well-known/dat`?
 - [ ] Embed fake tweets
 - [ ] hover effect article-card
 - [ ] relative time (8 hours ago) on home page and plain date in category
-- [ ] Short date in category, full date in article
+- [ ] Short date in card, full date in article
 - [ ] Lint markdown with remark-preset-lint-recommended?
 - [ ] Strip HTML Comments
 - [ ] weird favicon iOS Safari
