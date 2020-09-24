@@ -6,6 +6,7 @@
 - [x] Share the same image exporter between authors, articles and pages 
 - [x] Support nested pages (/nested/page)
 - [x] Cache exported images between CI runs 
+- [x] Support draft pages
 - [ ] Retrieve categories programmatically (main menu)
 - [ ] Support dat protocol with `.well-known/dat`
 - [ ] Embed fake tweets
@@ -16,7 +17,6 @@
 - [ ] Strip HTML Comments
 - [ ] weird favicon iOS Safari
 - [ ] Fix trailing slash infinite redirect bug (https://therelease.news/article)
-- [ ] Support draft pages
 - [ ] Submit the site to be showcased on https://nextjs.org/showcase
 - [ ] Add a console.log message inviting people to contribute
 - [ ] Add a lighthouse check in the CI

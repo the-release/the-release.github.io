@@ -35,8 +35,8 @@ export class Article {
   @Column({ type: "int" })
   timestamp: number;
 
-  @Column({ type: "int" })
-  isDraft: number;
+  @Column({ type: "simple-json" })
+  isDraft: boolean;
 
   @ManyToOne(
     () => Category,

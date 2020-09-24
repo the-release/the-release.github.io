@@ -21,9 +21,9 @@ const parseArticle = async (filePath: string) => {
   const { dir: slug } = path.parse(filePath);
   const fullPath = path.join(articlesDir, filePath);
   const basePath = path.join(articlesDir, slug);
+  const isDraft = slug.startsWith(".");
 
   try {
-    const isDraft = slug.startsWith(".") ? 1 : 0;
     const metadata = await metadataSelector(basePath);
     let htmlContent = await parseMarkDown(fullPath);
 

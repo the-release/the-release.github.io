@@ -17,11 +17,15 @@ export class Page {
   @Column({ type: "text" })
   title: string;
 
+  @Column({ type: "simple-json" })
+  isDraft: boolean;
+
   constructor(props: Page = {} as any) {
     this.url = props.url;
     this.absoluteUrl = props.absoluteUrl;
     this.slug = props.slug;
     this.htmlContent = props.htmlContent;
     this.title = props.title;
+    this.isDraft = props.isDraft;
   }
 }
