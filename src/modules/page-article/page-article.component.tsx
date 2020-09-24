@@ -1,6 +1,5 @@
 import React, { FC } from "react";
 
-import { Layout } from "../layout/layout.component";
 import { ArticleMarkdown } from "../article-markdown/article-markdown.component";
 import { ArticleMetadata } from "../article-metadata/article-metadata.component";
 import { Article } from "../../entities/article.entity";
@@ -62,32 +61,30 @@ export const PageArticle: FC<PageArticleProps> = ({
         ogType="article"
         keywords={keywords}
       />
-      <Layout>
-        <ArticleContainer>
-          <ArticleMetadata
-            publishedAt={publishedAt}
-            category={category}
-            author={author}
-            readingTime={readingTime}
-          />
-          <ArticleMarkdown>{htmlContent}</ArticleMarkdown>
-        </ArticleContainer>
-        {!!nextArticles.length && (
-          <div>
-            <Heading component="h3" variant="h3" gutterBottom>
-              More news about{" "}
-              <Link href="/category/[slug]" as={category.url}>
-                <a>{category.name}</a>
-              </Link>
-            </Heading>
-            <ArticleList>
-              {nextArticles.map((props, index) => (
-                <ArticleCard {...props} key={index} />
-              ))}
-            </ArticleList>
-          </div>
-        )}
-      </Layout>
+      <ArticleContainer>
+        <ArticleMetadata
+          publishedAt={publishedAt}
+          category={category}
+          author={author}
+          readingTime={readingTime}
+        />
+        <ArticleMarkdown>{htmlContent}</ArticleMarkdown>
+      </ArticleContainer>
+      {!!nextArticles.length && (
+        <div>
+          <Heading component="h3" variant="h3" gutterBottom>
+            More news about{" "}
+            <Link href="/category/[slug]" as={category.url}>
+              <a>{category.name}</a>
+            </Link>
+          </Heading>
+          <ArticleList>
+            {nextArticles.map((props, index) => (
+              <ArticleCard {...props} key={index} />
+            ))}
+          </ArticleList>
+        </div>
+      )}
     </>
   );
 };

@@ -2,6 +2,7 @@ import App from "next/app";
 import React from "react";
 import { ThemeProvider } from "styled-components";
 import { theme, GlobalStyle } from "../styles/theme";
+import { Layout } from "../modules/layout/layout.component";
 
 export default class MyApp extends App {
   render() {
@@ -10,7 +11,9 @@ export default class MyApp extends App {
     return (
       <ThemeProvider theme={theme}>
         <GlobalStyle />
-        <Component {...pageProps} />
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
       </ThemeProvider>
     );
   }

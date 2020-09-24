@@ -1,6 +1,5 @@
 import React, { FC } from "react";
 
-import { Layout } from "../layout/layout.component";
 import { Page } from "../../entities/page.entity";
 import { MetaTags } from "../../catalog/meta-tags.component";
 import { SITE_NAME } from "../../config";
@@ -23,11 +22,9 @@ export const PageComponent: FC<PageProps> = ({
   return (
     <>
       <MetaTags title={`${title} – ${SITE_NAME}`} />
-      <Layout>
-        <PageContainer>
-          <Markdown>{htmlContent}</Markdown>
-        </PageContainer>
-      </Layout>
+      <PageContainer>
+        <Markdown>{htmlContent}</Markdown>
+      </PageContainer>
     </>
   );
 };

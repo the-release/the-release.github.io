@@ -1,7 +1,6 @@
 import React, { FC } from "react";
 import Link from "next/link";
 
-import { Layout } from "../layout/layout.component";
 import { Heading } from "../../catalog/heading/heading.component";
 import { Article } from "../../entities/article.entity";
 import { Author } from "../../entities/author.entity";
@@ -30,41 +29,39 @@ export const PageAuthor: FC<PageAuthorProps> = ({
         title={`${author.name} – ${SITE_NAME}`}
         contentType="contributor"
       />
-      <Layout>
-        <Heading component="h1">
-          <Image
-            alt={author.image.alt}
-            src={author.image.sizes["100"].url}
-            srcSet={author.image.sizes}
-            sizes="100px"
-            dominantColor={author.image.dominantColor}
-            width={100}
-            height={100}
-          />
-          {author.name}
-        </Heading>
-        <ArticleList>
-          {articles.map((props, index) => (
-            <ArticleCard {...props} key={index} />
-          ))}
-        </ArticleList>
-        {previousPageIndex !== null && (
-          <Link
-            href="/author/[slug]/[page]"
-            as={`${author.url}/${previousPageIndex}`}
-          >
-            <a rel="prev">Previous page</a>
-          </Link>
-        )}
-        {nextPageIndex !== null && (
-          <Link
-            href="/author/[slug]/[page]"
-            as={`${author.url}/${nextPageIndex}`}
-          >
-            <a rel="next">Next page</a>
-          </Link>
-        )}
-      </Layout>
+      <Heading component="h1">
+        <Image
+          alt={author.image.alt}
+          src={author.image.sizes["100"].url}
+          srcSet={author.image.sizes}
+          sizes="100px"
+          dominantColor={author.image.dominantColor}
+          width={100}
+          height={100}
+        />
+        {author.name}
+      </Heading>
+      <ArticleList>
+        {articles.map((props, index) => (
+          <ArticleCard {...props} key={index} />
+        ))}
+      </ArticleList>
+      {previousPageIndex !== null && (
+        <Link
+          href="/author/[slug]/[page]"
+          as={`${author.url}/${previousPageIndex}`}
+        >
+          <a rel="prev">Previous page</a>
+        </Link>
+      )}
+      {nextPageIndex !== null && (
+        <Link
+          href="/author/[slug]/[page]"
+          as={`${author.url}/${nextPageIndex}`}
+        >
+          <a rel="next">Next page</a>
+        </Link>
+      )}
     </>
   );
 };

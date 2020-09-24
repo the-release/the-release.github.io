@@ -1,7 +1,6 @@
 import React, { FC } from "react";
 // import Link from "next/link";
 
-import { Layout } from "../layout/layout.component";
 import { Heading } from "../../catalog/heading/heading.component";
 import { Article } from "../../entities/article.entity";
 import { Category } from "../../entities/category.entity";
@@ -44,14 +43,13 @@ export const PageHome: FC<PageHomeProps> = ({
   return (
     <>
       <MetaTags contentType="homepage" />
-      <Layout>
-        <ArticleHeroCard {...mostRecentArticle} />
-        <ArticleList>
-          {otherArticles.map((props, index) => (
-            <ArticleCard {...props} key={index} />
-          ))}
-        </ArticleList>
-        {/*
+      <ArticleHeroCard {...mostRecentArticle} />
+      <ArticleList>
+        {otherArticles.map((props, index) => (
+          <ArticleCard {...props} key={index} />
+        ))}
+      </ArticleList>
+      {/*
         <Heading>Categories</Heading>
         {categories.map(({ name, url }, index) => (
           <React.Fragment key={index}>
@@ -71,10 +69,9 @@ export const PageHome: FC<PageHomeProps> = ({
           </React.Fragment>
         ))}
         */}
-        <Title component="h1" align="center">
-          {SLOGAN}
-        </Title>
-      </Layout>
+      <Title component="h1" align="center">
+        {SLOGAN}
+      </Title>
     </>
   );
 };
