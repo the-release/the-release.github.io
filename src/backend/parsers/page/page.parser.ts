@@ -8,6 +8,7 @@ import { lazyLoadImages } from "../../utils/image-lazy-load";
 import { makeImageResponsive } from "../../utils/image-responsive";
 import { titleSelector } from "./page.selector";
 import { glob } from "../../utils/glob";
+import { isDraft } from "../../utils/draft";
 
 const pagesDir = path.join(process.cwd(), "data", "pages");
 
@@ -15,7 +16,6 @@ const parsePage = async (filePath: string) => {
   const { dir: slug } = path.parse(filePath);
   const fullPath = path.join(pagesDir, filePath);
   const basePath = path.join(pagesDir, slug);
-  const isDraft = slug.startsWith(".") ? 1 : 0;
 
   try {
     let htmlContent = await parseMarkDown(fullPath);
@@ -31,7 +31,7 @@ const parsePage = async (filePath: string) => {
       slug,
       htmlContent,
       title: titleSelector(htmlContent),
-      isDraft
+      isDraft: isDraft(slug)
     };
   } catch (err) {
     console.error(

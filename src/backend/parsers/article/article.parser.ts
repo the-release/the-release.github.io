@@ -14,6 +14,7 @@ import { addImageCaptions } from "../../utils/image-caption";
 import { lazyLoadImages } from "../../utils/image-lazy-load";
 import { makeImageResponsive } from "../../utils/image-responsive";
 import { glob } from "../../utils/glob";
+import { isDraft } from "../../utils/draft";
 
 const articlesDir = path.join(process.cwd(), "data", "articles");
 
@@ -21,7 +22,6 @@ const parseArticle = async (filePath: string) => {
   const { dir: slug } = path.parse(filePath);
   const fullPath = path.join(articlesDir, filePath);
   const basePath = path.join(articlesDir, slug);
-  const isDraft = slug.startsWith(".") ? 1 : 0;
 
   try {
     const metadata = await metadataSelector(basePath);
@@ -46,7 +46,7 @@ const parseArticle = async (filePath: string) => {
       htmlContent,
       publishedAt: metadata.publishedAt,
       timestamp: metadata.timestamp,
-      isDraft,
+      isDraft: isDraft(slug),
       keywords: metadata.keywords,
       title: titleSelector(htmlContent),
       lede: ledeSelector(htmlContent),
