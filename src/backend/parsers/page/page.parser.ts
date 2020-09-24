@@ -15,7 +15,7 @@ const parsePage = async (filePath: string) => {
   const { dir: slug } = path.parse(filePath);
   const fullPath = path.join(pagesDir, filePath);
   const basePath = path.join(pagesDir, slug);
-  const isDraft = slug.startsWith(".");
+  const isDraft = slug.startsWith(".") ? 1 : 0;
 
   try {
     let htmlContent = await parseMarkDown(fullPath);

@@ -17,8 +17,8 @@ export class Page {
   @Column({ type: "text" })
   title: string;
 
-  @Column({ type: "simple-json" })
-  isDraft: boolean;
+  @Column({ type: "int" })
+  isDraft: number;
 
   constructor(props: Page = {} as any) {
     this.url = props.url;
