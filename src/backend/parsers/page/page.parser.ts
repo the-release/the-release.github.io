@@ -47,7 +47,8 @@ const parsePage = async (filePath: string) => {
 
 export const parsePages = async () => {
   const files = await glob(`**/page.md`, {
-    cwd: pagesDir
+    cwd: pagesDir,
+    dot: true
   });
 
   return await Promise.all(

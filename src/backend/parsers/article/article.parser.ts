@@ -69,7 +69,8 @@ const parseArticle = async (filePath: string) => {
 
 export const parseArticles = async () => {
   const files = await glob(`**/article.md`, {
-    cwd: articlesDir
+    cwd: articlesDir,
+    dot: true
   });
 
   return await Promise.all(
