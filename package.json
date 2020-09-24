@@ -9,11 +9,7 @@
     "predev": "yarn",
     "prebuild": "yarn ingest",
     "build": "next build && next export -o ./dist/out",
-    "serve": "serve -p 3000 ./dist/out",
-    "dat:create": "cd dist/out/ && ~/.dat/releases/dat-14.0.2-macos-x64/dat create --title 'The Release' --description \"Tech's Single Source of Truth.\"",
-    "dat:share": "cd dist/out/ && ~/.dat/releases/dat-14.0.2-macos-x64/dat share",
-    "dat:sync": "cd dist/out/ && ~/.dat/releases/dat-14.0.2-macos-x64/dat sync",
-    "dat:intall": "wget -qO- https://raw.githubusercontent.com/datproject/dat/master/download.sh | bash"
+    "serve": "serve -p 3000 ./dist/out"
   },
   "dependencies": {
     "lodash": "^4.17.20",
