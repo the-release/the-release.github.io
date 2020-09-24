@@ -21,6 +21,7 @@
 - [ ] Add a console.log message inviting people to contribute
 - [ ] Add a lighthouse check in the CI
 - [ ] Add a HTML checker in the CI
+- [ ] Make prod a protected branch
 
 # Features
 

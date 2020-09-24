@@ -302,7 +302,7 @@ export const MainMenu = () => {
           </Categories>
           <Misc>
             <li>
-              <Link href="/[slug]" as="/about">
+              <Link href="/[...slug]" as="/about">
                 <a>About</a>
               </Link>
             </li>

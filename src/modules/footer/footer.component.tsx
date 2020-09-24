@@ -22,13 +22,13 @@ export const Footer: FC = ({ ...otherProps }) => {
   return (
     <StyledFooter {...otherProps}>
       <Text component="p">Readers must be 18+</Text>
-      <Link href="/[slug]" as="/about">
+      <Link href="/[...slug]" as="/about">
         <a>About</a>
       </Link>
-      <Link href="/[slug]" as="/terms">
+      <Link href="/[...slug]" as="/terms">
         <a>Terms</a>
       </Link>
-      <Link href="/[slug]" as="/privacy">
+      <Link href="/[...slug]" as="/privacy">
         <a>Privacy</a>
       </Link>
       <Text component="p">© 2020 {SITE_NAME}</Text>

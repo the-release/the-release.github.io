@@ -14,4 +14,4 @@ To report a technical issue regarding the website, please open an issue on [GitH
 
 ### Can I contribute articles to The Release?
 
-Anyone can contribute, that's the beauty of Open Source. But first make sure you follow our [contribution guide](https://github.com/the-release/the-release.github.io) and [Code of Conduct](https://github.com/the-release/the-release.github.io) before submitting a contribution.
+Anyone can contribute, that's the beauty of Open Source. But first make sure you follow our [contribution guide](https://github.com/the-release/the-release.github.io/blob/main/CONTRIBUTING.md) and [Code of Conduct](https://github.com/the-release/the-release.github.io/blob/main/CODE_OF_CONDUCT.md) before submitting a contribution.
