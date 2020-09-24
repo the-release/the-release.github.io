@@ -5,16 +5,17 @@ import { PageProps, PageComponent } from "../modules/page/page.component";
 import { getPages } from "../services/page.service";
 
 interface PageParams extends ParsedUrlQuery {
-  slug: string;
+  slug: string[];
 }
 
 export const getStaticPaths: GetStaticPaths<PageParams> = async () => {
   const pages = await getPages({
     props: ["slug"]
   });
+
   const paths = pages.map(({ slug }) => {
     return {
-      params: { slug }
+      params: { slug: slug.split("/") }
     };
   });
 
@@ -27,10 +28,12 @@ export const getStaticPaths: GetStaticPaths<PageParams> = async () => {
 export const getStaticProps: GetStaticProps<PageProps, PageParams> = async ({
   params
 }) => {
+  const slug = params!.slug.join("/");
+
   const [page] = await getPages({
     props: ["htmlContent", "title"],
     where: {
-      slug: params!.slug
+      slug
     }
   });
 

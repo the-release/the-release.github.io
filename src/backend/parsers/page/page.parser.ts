@@ -1,5 +1,4 @@
 import path from "path";
-import { promises as fs } from "fs";
 
 import { ORIGIN } from "../../../config";
 import { parseMarkDown } from "../../utils/markdown";
@@ -8,14 +7,17 @@ import { addImageCaptions } from "../../utils/image-caption";
 import { lazyLoadImages } from "../../utils/image-lazy-load";
 import { makeImageResponsive } from "../../utils/image-responsive";
 import { titleSelector } from "./page.selector";
+import { glob } from "../../utils/glob";
 
 const pagesDir = path.join(process.cwd(), "data", "pages");
 
-const parsePage = async (slug: string) => {
+const parsePage = async (filePath: string) => {
+  const { dir: slug } = path.parse(filePath);
+  const fullPath = path.join(pagesDir, filePath);
+  const pageDir = path.join(pagesDir, slug);
+
   try {
-    const pageDir = path.join(pagesDir, slug);
-    const pageFilePath = path.join(pageDir, "/page.md");
-    let htmlContent = await parseMarkDown(pageFilePath);
+    let htmlContent = await parseMarkDown(fullPath);
 
     const { html } = await exportImages(htmlContent, pageDir);
 
@@ -41,14 +43,11 @@ const parsePage = async (slug: string) => {
 };
 
 export const parsePages = async () => {
-  const items = await fs.readdir(pagesDir, { withFileTypes: true });
-  const folders = items.filter(item => item.isDirectory());
+  const files = await glob(`**/*.md`, {
+    cwd: pagesDir
+  });
 
   return await Promise.all(
-    folders.map(async ({ name }) => {
-      const slug = path.parse(name).name;
-
-      return await parsePage(slug);
-    })
+    files.map(async filePath => await parsePage(filePath))
   );
 };

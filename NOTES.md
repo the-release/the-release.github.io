@@ -19,7 +19,7 @@
 - [ ] Submit the site to be showcased on https://nextjs.org/showcase
 - [ ] Add a console.log message inviting people to contribute
 - [ ] Add a lighthouse check in the CI
-- [ ] Cache exported images between CI runs 
+- [x] Cache exported images between CI runs 
 
 # Features
 
