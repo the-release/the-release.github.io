@@ -20,6 +20,7 @@
 - [ ] Submit the site to be showcased on https://nextjs.org/showcase
 - [ ] Add a console.log message inviting people to contribute
 - [ ] Add a lighthouse check in the CI
+- [ ] Add a html checker in the CI
 
 # Features
 
