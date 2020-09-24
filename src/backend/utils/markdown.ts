@@ -8,6 +8,7 @@ import remarkSlug from "remark-slug";
 import remarkHtml from "remark-html";
 import { toTitleCase } from "./title-case";
 import { externalLinks } from "./external-links";
+import { removeHtmlComments } from "./html-comments";
 
 export const parseMarkDown = async (filePath: string) => {
   const markdown = (await fs.readFile(filePath, "utf8")).trim();
@@ -20,5 +21,5 @@ export const parseMarkDown = async (filePath: string) => {
 
   const html = contents.toString();
 
-  return externalLinks(toTitleCase(html));
+  return removeHtmlComments(externalLinks(toTitleCase(html)));
 };
