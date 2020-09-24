@@ -9,8 +9,7 @@
 - [x] Support draft pages
 - [x] Strip HTML Comments
 - [x] Support relative image paths and directory traversal notation
-- [ ] Retrieve categories programmatically (main menu)
-- [ ] Support dat protocol with `.well-known/dat`?
+- [x] Retrieve categories programmatically (main menu)
 - [ ] Embed fake tweets
 - [ ] relative time (8 hours ago) on home page and plain date in category
 - [ ] Short date in card, full date in article
@@ -22,8 +21,13 @@
 - [ ] Add a lighthouse check in the CI
 - [ ] Add a HTML checker in the CI
 - [ ] Make prod a protected branch
+- [ ] Support dat protocol with `.well-known/dat`?
 
 # Features
+
+#### 100% statically rendered
+
+#### Edge cache on global CDN
 
 #### Pure Markdown
 

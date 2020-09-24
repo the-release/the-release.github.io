@@ -8,6 +8,7 @@ import { CloseMenuIcon } from "./close-menu-icon/close-menu-icon.component";
 import { HamburgerIcon } from "./hamburger-icon/hamburger-icon.component";
 import { TwitterIcon } from "./twitter-icon/twitter-icon.component";
 import { GithubIcon } from "./github-icon/github-icon.component";
+import Categories from "../../../.static-props/categories.json";
 
 const Overlay = styled.label`
   position: fixed;
@@ -54,7 +55,7 @@ const Pane = styled.div`
   max-width: 560px;
 `;
 
-const Categories = styled.ul(
+const StyledCategories = styled.ul(
   ({ theme }) => css`
     ${theme.typography.h2};
     list-style: none;
@@ -292,14 +293,13 @@ export const MainMenu = () => {
               Close Menu
             </CloseMenuButton>
           </NavHead>
-          <Categories>
-            <Category href="/category/artificial-intelligence">AI</Category>
-            <Category href="/category/politics">Politics</Category>
-            <Category href="/category/privacy">Privacy</Category>
-            <Category href="/category/security">Security</Category>
-            <Category href="/category/startups">Startups</Category>
-            <Category href="/category/silicon-valley">The Valley</Category>
-          </Categories>
+          <StyledCategories>
+            {Categories.map(({ slug, url, name }) => (
+              <Category key={slug} href={url}>
+                {name}
+              </Category>
+            ))}
+          </StyledCategories>
           <Misc>
             <li>
               <Link href="/[...slug]" as="/about">

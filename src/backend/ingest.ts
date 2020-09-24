@@ -1,4 +1,6 @@
+import { promises as fs } from "fs";
 import { createConnection, getRepository } from "typeorm";
+
 import { TYPEORM_CONFIG } from "../typeorm.config";
 import { Category } from "../entities/category.entity";
 import { Author } from "../entities/author.entity";
@@ -67,6 +69,16 @@ createConnection(TYPEORM_CONFIG).then(async () => {
       })
     );
   }
+
+  await fs.mkdir("./.static-props", { recursive: true });
+  await fs.writeFile(
+    "./.static-props/categories.json",
+    JSON.stringify(
+      categories.sort((a, b) => (a.name > b.name ? 1 : -1)),
+      null,
+      2
+    )
+  );
 
   console.log("✨ Ingested data successfully");
 });

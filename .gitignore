@@ -5,3 +5,4 @@ yarn-error.log
 dist
 public/images
 sitemap.xml
+.static-props
