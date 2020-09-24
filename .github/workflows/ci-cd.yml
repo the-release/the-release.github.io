@@ -18,10 +18,12 @@ jobs:
         with:
           node-version: 12.x
 
-      - name: Cache node_modules
+      - name: Cache next.js and node_modules
         uses: actions/cache@v2
         with:
-          path: ${{ github.workspace }}/node_modules
+          path: |
+            ${{ github.workspace }}/node_modules
+            ${{ github.workspace }}/dist/.next/cache
           key: ${{ runner.os }}-node-modules-${{ hashFiles('**/yarn.lock') }}
 
       - name: Cache images
@@ -29,12 +31,6 @@ jobs:
         with:
           path: ${{ github.workspace }}/public/images
           key: ${{ runner.os }}-image-cache
-
-      - name: Next.js cache
-        uses: actions/cache@v2
-        with:
-          path: ${{ github.workspace }}/dist/.next/cache
-          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/yarn.lock') }}
 
       - run: yarn install --frozen-lockfile
 
