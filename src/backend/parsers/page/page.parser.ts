@@ -14,12 +14,11 @@ const pagesDir = path.join(process.cwd(), "data", "pages");
 const parsePage = async (filePath: string) => {
   const { dir: slug } = path.parse(filePath);
   const fullPath = path.join(pagesDir, filePath);
-  const pageDir = path.join(pagesDir, slug);
+  const basePath = path.join(pagesDir, slug);
 
   try {
     let htmlContent = await parseMarkDown(fullPath);
-
-    const { html } = await exportImages(htmlContent, pageDir);
+    const { html } = await exportImages(htmlContent, basePath);
 
     htmlContent = addImageCaptions(html);
     htmlContent = lazyLoadImages(htmlContent);
@@ -43,7 +42,7 @@ const parsePage = async (filePath: string) => {
 };
 
 export const parsePages = async () => {
-  const files = await glob(`**/*.md`, {
+  const files = await glob(`**/page.md`, {
     cwd: pagesDir
   });
 

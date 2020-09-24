@@ -1,5 +1,4 @@
 import path from "path";
-import { promises as fs } from "fs";
 
 import {
   ledeSelector,
@@ -14,21 +13,24 @@ import { exportImages } from "../../utils/image-export";
 import { addImageCaptions } from "../../utils/image-caption";
 import { lazyLoadImages } from "../../utils/image-lazy-load";
 import { makeImageResponsive } from "../../utils/image-responsive";
+import { glob } from "../../utils/glob";
 
 const articlesDir = path.join(process.cwd(), "data", "articles");
 
-const parseArticle = async (slug: string) => {
+const parseArticle = async (filePath: string) => {
+  const { dir: slug } = path.parse(filePath);
+  const fullPath = path.join(articlesDir, filePath);
+  const basePath = path.join(articlesDir, slug);
+
   try {
     const isDraft = slug.startsWith(".") ? 1 : 0;
-    const articleDir = path.join(articlesDir, slug);
-    const articleFilePath = path.join(articleDir, "/article.md");
-    const metadata = await metadataSelector(articleDir);
-    let htmlContent = await parseMarkDown(articleFilePath);
+    const metadata = await metadataSelector(basePath);
+    let htmlContent = await parseMarkDown(fullPath);
 
     const {
       html,
       images: [coverImage]
-    } = await exportImages(htmlContent, articleDir);
+    } = await exportImages(htmlContent, basePath);
 
     coverImageLinter(html);
     enforceImageCaptions(html);
@@ -64,14 +66,11 @@ const parseArticle = async (slug: string) => {
 };
 
 export const parseArticles = async () => {
-  const items = await fs.readdir(articlesDir, { withFileTypes: true });
-  const folders = items.filter(item => item.isDirectory());
+  const files = await glob(`**/article.md`, {
+    cwd: articlesDir
+  });
 
   return await Promise.all(
-    folders.map(async ({ name }) => {
-      const slug = path.parse(name).name;
-
-      return await parseArticle(slug);
-    })
+    files.map(async filePath => await parseArticle(filePath))
   );
 };

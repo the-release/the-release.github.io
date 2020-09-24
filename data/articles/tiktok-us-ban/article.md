@@ -1,4 +1,4 @@
-# US Wields Ban Hammer At China Over Who Gets To Spy On TikTok Users
+# U.S. Wields Ban Hammer At China Over Who Gets To Spy On TikTok Users
 
 **WeWork explores a nostalgic niche to leave their recent IPO disaster behind.**
 

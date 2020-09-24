@@ -37,7 +37,7 @@ export const readingTimeSelector = (html: string) => {
 };
 
 export const metadataSelector = async (
-  articleDir: string
+  basePath: string
 ): Promise<{
   category: string;
   author: string;
@@ -45,7 +45,7 @@ export const metadataSelector = async (
   timestamp: number;
   keywords: string;
 }> => {
-  const metadataFilePath = path.join(articleDir, "/metadata.json");
+  const metadataFilePath = path.join(basePath, "/metadata.json");
   const metadata = JSON.parse(await fs.readFile(metadataFilePath, "utf8"));
 
   if (!metadata.category?.trim()) throw new Error(`Missing category metadata`);
