@@ -15,6 +15,7 @@ import { lazyLoadImages } from "../../utils/image-lazy-load";
 import { makeImageResponsive } from "../../utils/image-responsive";
 import { glob } from "../../utils/glob";
 import { isDraft } from "../../utils/draft";
+import { stripBody } from "../../utils/strip-body";
 
 const articlesDir = path.join(process.cwd(), "data", "articles");
 
@@ -38,6 +39,7 @@ const parseArticle = async (filePath: string) => {
     htmlContent = addImageCaptions(html);
     htmlContent = lazyLoadImages(htmlContent);
     htmlContent = makeImageResponsive(htmlContent);
+    htmlContent = stripBody(htmlContent);
 
     return {
       url: `/article/${slug}`,

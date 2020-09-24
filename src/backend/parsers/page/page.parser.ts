@@ -9,6 +9,7 @@ import { makeImageResponsive } from "../../utils/image-responsive";
 import { titleSelector } from "./page.selector";
 import { glob } from "../../utils/glob";
 import { isDraft } from "../../utils/draft";
+import { stripBody } from "../../utils/strip-body";
 
 const pagesDir = path.join(process.cwd(), "data", "pages");
 
@@ -24,6 +25,7 @@ const parsePage = async (filePath: string) => {
     htmlContent = addImageCaptions(html);
     htmlContent = lazyLoadImages(htmlContent);
     htmlContent = makeImageResponsive(htmlContent);
+    htmlContent = stripBody(htmlContent);
 
     return {
       url: `/${slug}`,
