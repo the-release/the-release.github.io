@@ -23,16 +23,18 @@ interface ImageProps
 
 const ImageContainer = styled.figure<{
   imageRatio: number;
-  width: number;
-  height: number;
+  dimensions: {
+    width: number;
+    height: number;
+  };
   dominantColor?: string;
 }>(
-  ({ imageRatio, width, height, dominantColor }) => css`
+  ({ imageRatio, dimensions, dominantColor }) => css`
     background: ${dominantColor || "#eee"};
     display: inline-block;
     position: relative;
-    width: ${width}px;
-    height: ${height}px;
+    width: ${dimensions.width}px;
+    height: ${dimensions.height}px;
     overflow: hidden;
 
     /**
@@ -98,8 +100,7 @@ export const Image: FC<ImageProps> = ({
     <ImageContainer
       className={className}
       imageRatio={imageRatio}
-      width={width}
-      height={height}
+      dimensions={{ width, height }}
       dominantColor={dominantColorRgba}
     >
       <StyledImage
