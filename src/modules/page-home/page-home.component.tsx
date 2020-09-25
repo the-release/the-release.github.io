@@ -13,7 +13,10 @@ import { ArticleList } from "../article-list/article-list.component";
 import { ArticleHeroCard } from "../article-hero-card/article-hero-card.component";
 
 export interface PageHomeProps {
-  articles: Pick<Article, "title" | "lede" | "url" | "coverImage">[];
+  articles: Pick<
+    Article,
+    "title" | "lede" | "url" | "coverImage" | "category"
+  >[];
   categories: Category[];
   authors: Author[];
 }

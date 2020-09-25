@@ -7,7 +7,10 @@ import { Heading } from "../../catalog/heading/heading.component";
 import { Article } from "../../entities/article.entity";
 import { Text } from "../../catalog/text/text.component";
 
-type ArticleCardProps = Pick<Article, "title" | "lede" | "url" | "coverImage">;
+type ArticleCardProps = Pick<
+  Article,
+  "title" | "lede" | "url" | "coverImage" | "category"
+>;
 
 const StyledArticleLink = styled.a`
   display: grid;
@@ -82,7 +85,8 @@ export const ArticleHeroCard: FC<ArticleCardProps> = ({
   title,
   lede,
   url,
-  coverImage
+  coverImage,
+  category
 }) => {
   return (
     <article>
@@ -100,7 +104,7 @@ export const ArticleHeroCard: FC<ArticleCardProps> = ({
           />
           <ArticleInformation>
             <Heading component="h3" variant="h5" gutterBottom>
-              Silicon Valley
+              {category.name}
             </Heading>
             <Title component="h2" variant="h1" gutterBottom>
               {title}
