@@ -22,6 +22,7 @@
 - [ ] Add a HTML checker in the CI
 - [ ] Make prod a protected branch
 - [ ] Support dat protocol with `.well-known/dat`?
+- [ ] Markdown variables, i.e. SITE_NAME
 
 # Features
 
