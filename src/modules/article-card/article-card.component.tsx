@@ -6,11 +6,12 @@ import { Image } from "../../catalog/image/image.component";
 import { Heading } from "../../catalog/heading/heading.component";
 import { Article } from "../../entities/article.entity";
 import { Text } from "../../catalog/text/text.component";
+import { Category } from "../../entities/category.entity";
 
-type ArticleCardProps = Pick<
-  Article,
-  "title" | "lede" | "url" | "coverImage" | "category"
->;
+interface ArticleCardProps
+  extends Pick<Article, "title" | "lede" | "url" | "coverImage"> {
+  category?: Category;
+}
 
 const StyledArticleLink = styled.a`
   text-decoration: none;
@@ -101,9 +102,11 @@ export const ArticleCard: FC<ArticleCardProps> = ({
             />
           </div>
           <ArticleInformation>
-            <Heading component="h3" variant="h5" gutterBottom>
-              {category.name}
-            </Heading>
+            {category && (
+              <Heading component="h3" variant="h5" gutterBottom>
+                {category.name}
+              </Heading>
+            )}
             <Title component="h2" gutterBottom>
               {title}
             </Title>
